@@ -1,0 +1,64 @@
+/*! ************************************************************************
+ *
+ * Copyright (C) 2020 netforklabs All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *! ************************************************************************/
+
+/*! ===> Creates on 2021/9/4. <=== */
+
+/*!
+ * @author 范特西
+ */
+#include "kernel/table.h"
+
+#define COLUMN_ARRAY_SIZE 16
+
+#define COLUMN_ARRAY_RESIZE(table)                              \
+{                                                               \
+        table->arrsize += COLUMN_ARRAY_SIZE;                    \
+        table->columns = krealloc(table->columns,               \
+                (sizeof(struct column) * table->arrsize));      \
+}
+
+void table_init(struct table *table, char* name)
+{
+        table->name = name;
+        table->colnum = 0;
+        table->arrsize = COLUMN_ARRAY_SIZE;
+        table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
+}
+
+void table_add_column(struct table *table, struct column *column)
+{
+        if(table->colnum == (table->arrsize - 1))
+                COLUMN_ARRAY_RESIZE(table)
+
+        table->columns[table->colnum] = (*column);
+        ++table->colnum;
+}
+
+struct column *table_get_column(struct table *table, const char *name)
+{
+        struct column *col;
+
+        size_t i;
+        for(i = 0; i < table->colnum; i++) {
+                col = (table->columns + i);
+                if(strcmp(col->name, name) == 0)
+                        return col;
+        }
+
+        return NULL;
+}
