@@ -1,0 +1,6 @@
+mod(include/kernel&kernel):
+    (kernel)
+    (auth)
+    (init)
+    (sqlop)
+    (lock)
