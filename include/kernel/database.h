@@ -21,14 +21,25 @@
 /*!
  * @author 范特西
  */
-#pragma once
+#ifndef _DATABASE_H
+#define _DATABASE_H
 
 #include "table.h"
 
-class Database
-{
-public:
-private:
-        std::string name;
-        std::map<std::string, Table *> tables;
+struct database {
+        char* name;
+        size_t tabnum;
+        size_t arrsize;
+        struct table* tables;
 };
+
+/** 初始化数据库 */
+inline void database_init(struct database *database, char *name);
+
+/** 添加一张表到数据库 */
+void database_add_table(struct database *database, struct table *table);
+
+/** 获取一张表 */
+struct table* database_get_table(struct database *database, const char *name);
+
+#endif // _DATABASE_H

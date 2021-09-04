@@ -20,17 +20,19 @@
 ### ===> Creates on 2021/07/20. <=== ###
 ### author 范特西
 CMAKE_MINIMUM_REQUIRED(VERSION 3.13...3.19)
-PROJECT(taichu)
+PROJECT(taichu C)
 
-SET(CMAKE_CXX_STANDARD 20)
+SET(CMAKE_C_STANDARD 11)
 
 ADD_DEFINITIONS(-D__DEBUG__)
+ADD_DEFINITIONS(-fgnu89-inline)
 
 INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/include)
 
 ADD_EXECUTABLE(
         ${PROJECT_NAME}
-        main/main.cpp
-        kernel/column.cpp
-        kernel/table.cpp
+        main/main.c
+        kernel/column.c
+        kernel/table.c
+        kernel/database.c
 )

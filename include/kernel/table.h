@@ -21,35 +21,24 @@
 /*!
  * @author 范特西
  */
-#pragma once
+#ifndef _TABLE_H
+#define _TABLE_H
 
 #include "column.h"
-#include <map>
 
-class Table
-{
-public:
-        inline Table(const char* name, const char* remark)
-        {
-                this->name = name;
-                if(remark != NULL)
-                        this->remark = remark;
-        }
-
-        inline void add_column(Column *col)
-        {
-                columns.insert(std::pair<std::string, Column *>(col->name, col));
-        }
-
-        inline Column *get_column(std::string name)
-        {
-                return columns.at(name);
-        }
-
-public:
-        std::string name;
-        std::string remark;
-
-private:
-        std::map<std::string, Column *> columns;
+struct table {
+        char* name;
+        size_t colnum;                  /* 字段个数 */
+        size_t arrsize;                 /* 存放字段结构体的数组大小 */
+        struct column *columns;         /* 结构体数组 */
 };
+
+inline void table_init(struct table *table, char* name);
+
+/** 添加字段 */
+void table_add_column(struct table *table, struct column *column);
+
+/** 根据名称获取表中的字段指针 */
+struct column *table_get_column(struct table *table, const char *name);
+
+#endif // _TABLE_H

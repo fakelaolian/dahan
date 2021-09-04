@@ -23,7 +23,14 @@
  *
  * @author 范特西
  */
-#pragma once
+#ifndef _GLIBC_H
+#define _GLIBC_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define ENUM enum
 
 #define log_info(va, ...)  printf(va, __VA_ARGS__)
 #define log_error(va, ...) printf(va, __VA_ARGS__)
@@ -36,10 +43,12 @@
 #else
 #   define __api_export__
 #   define __api_import__
-#endif /* defined(WIN) || defined(WIN32) */
+#endif /* WIN32 */
 
-#ifdef TAICHU_BUILD_DLL
+#ifdef __BUILD_DLL__
 #   define __glibc_api__ __api_export__
 #else
 #   define __glibc_api__ __api_import__
-#endif /* TAICHU_BUILD_DLL */
+#endif /* __BUILD_DLL__ */
+
+#endif /* _GLIBC_H */

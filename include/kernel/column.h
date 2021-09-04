@@ -21,41 +21,42 @@
 /*!
  * @author 范特西
  */
-#pragma once
+#ifndef _COLUMN_H
+#define _COLUMN_H
 
 #include <glibc.h>
-#include <string>
+#include <gmemp.h>
 
 /**
  * 字段类型枚举
  */
-enum COLTYPE
-{
+ENUM COLTYPE {
         _INT,
-        _CHAR,
+        _VARCHAR,
         _FLOAT,
         _DECIMAL,
         _TEXT,
 };
 
-/**
- * 字段类
- */
-class Column
-{
-public:
-        inline Column(const char* name, COLTYPE coltype, size_t len)
-        {
-                this->name = std::move(name);
-                this->type = coltype;
-                this->len = len;
-        }
-
-public:
-        size_t len;
-        std::string name;
-        std::string remark;
-        std::string vdef; // 默认值
-        bool allow_null; // 是否允许为空
-        COLTYPE type;
+struct column {
+        char *name;
+        unsigned int type;      /* 字段类型 */
+        unsigned int len;       /* 字段长度（仅限于可变长度的字段） */
+        char *remark;           /* 备注 */
+        char *vdef;             /* 默认值 */
 };
+
+/**
+ * 初始化字段信息
+ *
+ * @param column    指针
+ * @param name      字段名
+ * @param type      字段类型， 参考<ENUM COLTYPE>
+ * @param len       字段长度
+ */
+inline void column_init(struct column *column,
+                        char *name,
+                        unsigned int type,
+                        unsigned len);
+
+#endif // _COLUMN_H
