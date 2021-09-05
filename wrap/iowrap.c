@@ -21,12 +21,46 @@
 /*!
  * @author 范特西
  */
-#ifndef _GUTIL_H
-#define _GUTIL_H
+#include "gio.h"
+#include <sys/stat.h>
 
-#include "glibc.h"
+bool is_dot_or_dotdot(const char *name)
+{
+        return name[0] == '.' &&
+               (name[1] == '\0' || (name[1] == '.' && name[2] == '\0'));
+}
 
-__attribute__((format (printf, 3, 4)))
-int xsprintf(char *dest, size_t max, const char *fmt, ...);
+struct dirent *readdir_skip_dot_and_dotdot(DIR *dirp)
+{
+        struct dirent *e;
 
-#endif /* _GUTIL_H */
+        while ((e = readdir(dirp)) != NULL) {
+                if (!is_dot_or_dotdot(e->d_name))
+                        break;
+        }
+
+        return e;
+}
+
+bool file_exist(const char *path)
+{
+        struct stat sb;
+        return lstat(path, &sb) == 0;
+}
+
+bool is_empty_dir(const char *path)
+{
+        DIR *dir = opendir(path);
+        struct dirent *e;
+        bool ret = true;
+
+        if(!dir)
+                return true;
+
+        e = readdir_skip_dot_and_dotdot(dir);
+        if(e)
+                ret = false;
+
+        closedir(dir);
+        return ret;
+}

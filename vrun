@@ -1,2 +1,2 @@
 cd cmake-build-debug
-./taichu
+valgrind ./taichu

@@ -37,4 +37,5 @@ ADD_EXECUTABLE(
         kernel/database.c
         kernel/kconfig.c
         wrap/strwrap.c
+        wrap/iowrap.c
 )

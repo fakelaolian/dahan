@@ -25,6 +25,7 @@
 #include <stdalign.h>
 #include "kernel/database.h"
 #include "gutil.h"
+#include "gio.h"
 
 void init_config();
 void build_table(struct database *base);

@@ -50,7 +50,6 @@ inline static void destroy_table(struct table *table)
 
 /** 添加字段 */
 void table_add_column(struct table *table, struct column *column);
-
 /** 根据名称获取表中的字段指针 */
 struct column *table_get_column(struct table *table, const char *name);
 

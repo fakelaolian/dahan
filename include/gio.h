@@ -21,12 +21,19 @@
 /*!
  * @author 范特西
  */
-#ifndef _GUTIL_H
-#define _GUTIL_H
+#ifndef _GIO_H
+#define _GIO_H
 
-#include "glibc.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <dirent.h>
 
-__attribute__((format (printf, 3, 4)))
-int xsprintf(char *dest, size_t max, const char *fmt, ...);
+bool is_dot_or_dotdot(const char *name);
+struct dirent *readdir_skip_dot_and_dotdot(DIR *dirp);
 
-#endif /* _GUTIL_H */
+/** 判断文件是否存在 */
+bool file_exist(const char *path);
+/** 判断文件夹是否是空 */
+bool is_empty_dir(const char *path);
+
+#endif /* _GIO_H */
