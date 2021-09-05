@@ -25,7 +25,8 @@
 #define _COLUMN_H
 
 #include <glibc.h>
-#include <gmemp.h>
+#include <gutil.h>
+#include "kconfig.h"
 
 /**
  * 字段类型枚举

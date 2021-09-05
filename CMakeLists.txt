@@ -35,4 +35,6 @@ ADD_EXECUTABLE(
         kernel/column.c
         kernel/table.c
         kernel/database.c
+        kernel/kconfig.c
+        wrap/strwrap.c
 )

@@ -16,20 +16,27 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/5. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#include "gutil.h"
+#include <stdarg.h>
 
-#include <malloc.h>
+int xsprintf(char *dest, size_t max, const char *fmt, ...)
+{
+        int len;
+        va_list ap;
 
-#define kmalloc(size) malloc(size)
+        va_start(ap, fmt);
+        len = vsnprintf(dest, max, fmt, ap);
+        va_end(ap);
 
-#define krealloc(ptr, size) realloc(ptr, size)
+        if(len < 0)
+                ERROR("【xsnprintf】错误调用。\n");
+        if(len >= max)
+                ERROR("【xsnprintf】缓冲区溢出。\n");
 
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+        return len;
+}

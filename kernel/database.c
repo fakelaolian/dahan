@@ -23,40 +23,39 @@
  */
 #include "kernel/database.h"
 
-#define TABLE_ARRAY_SIZE 1
-
-#define TABLE_ARRAY_RESIZE(database)                            \
-{                                                               \
-        database->arrsize += TABLE_ARRAY_SIZE;                  \
-        database->tables = krealloc(database->tables,           \
-                (sizeof(struct table) * database->arrsize));    \
+#define TABLE_ARRAY_RESIZE(base)                                    \
+{                                                                   \
+        base->arrsize += TABLE_ARRAY_SIZE;                          \
+        base->tables = krealloc(base->tables,                       \
+                (sizeof(struct table) * base->arrsize));            \
 }
 
-void database_init(struct database *database, char *name)
+void create_database(struct database *base, char *name)
 {
-        database->name = name;
-        database->tabnum = 0;
-        database->arrsize = TABLE_ARRAY_SIZE;
+        char *datadir;
 
-        database->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
+        priv_database_init(base, name);
+        datadir = kconf_data_dir();
+
+        xsprintf(base->path, PATH_MAX, "%s/%s", datadir, name);
 }
 
-void database_add_table(struct database *database, struct table *table)
+void database_add_table(struct database *base, struct table *table)
 {
-        if(database->tabnum == (database->arrsize - 1))
-                TABLE_ARRAY_RESIZE(database)
+        if(base->tabnum == (base->arrsize - 1))
+                TABLE_ARRAY_RESIZE(base)
 
-        database->tables[database->tabnum] = (*table);
-        ++database->tabnum;
+        base->tables[base->tabnum] = (*table);
+        ++base->tabnum;
 }
 
-struct table *database_get_table(struct database *database, const char *name)
+struct table *base_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 
         size_t i;
-        for(i = 0; i < database->tabnum; i++) {
-                tab = (database->tables + i);
+        for(i = 0; i < base->tabnum; i++) {
+                tab = (base->tables + i);
                 if(strcmp(tab->name, name) == 0)
                         return tab;
         }

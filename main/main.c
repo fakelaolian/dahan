@@ -24,10 +24,33 @@
 #include <stdbool.h>
 #include <stdalign.h>
 #include "kernel/database.h"
+#include "gutil.h"
+
+void init_config();
+void build_table(struct database *base);
 
 int main(void)
 {
+        init_config();
+
         struct database base;
+        create_database(&base, "mydb");
+
+        build_table(&base);
+
+        destroy_database(&base);
+        kconf_destroy();
+
+        return 0;
+}
+
+void init_config()
+{
+        kconf_init("/home/taichusql");
+}
+
+void build_table(struct database *base)
+{
         struct table table;
 
         struct column username;
@@ -35,8 +58,6 @@ int main(void)
         struct column admin;
         struct column user;
         struct column member;
-
-        struct column *getcol;
 
         table_init(&table, "user");
 
@@ -52,23 +73,5 @@ int main(void)
         table_add_column(&table, &user);
         table_add_column(&table, &member);
 
-        getcol = table_get_column(&table, "username");
-
-        printf("getcol: %s\n", getcol->name);
-
-        printf("%s\n", table.columns[0].name);
-        printf("%s\n", table.columns[1].name);
-        printf("%s\n", table.columns[2].name);
-        printf("%s\n", table.columns[3].name);
-        printf("%s\n", table.columns[4].name);
-
-        database_init(&base, "mydb");
-        database_add_table(&base, &table);
-
-        struct table *user_table;
-        user_table = database_get_table(&base, "user");
-
-        printf("table name: %s\n", user_table->name);
-
-        return 0;
+        database_add_table(base, &table);
 }

@@ -16,20 +16,9 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/5. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
-
-#include <malloc.h>
-
-#define kmalloc(size) malloc(size)
-
-#define krealloc(ptr, size) realloc(ptr, size)
-
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+#include "kernel/kconfig.h"

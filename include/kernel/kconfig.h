@@ -16,20 +16,45 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/5. <=== */
 
 /*!
+ * 全局配置
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#ifndef _CONFIG_H
+#define _CONFIG_H
 
-#include <malloc.h>
+#include <string.h>
+#include <gmemp.h>
 
-#define kmalloc(size) malloc(size)
+/**
+ * @argv [i] 数据库名
+ * @argv [i] 表名
+ */
+#define FMT_TABLE_PATH "%s/%s
 
-#define krealloc(ptr, size) realloc(ptr, size)
+/**
+ * @argv [i] 表所在的路径
+ */
+#define FMT_COLUMN_PATH "%s/fcols/"
 
-#define kfree(ptr) free(ptr)
+struct kconfig *privcnf;
 
-#endif /* _GMEMP_H */
+struct kconfig {
+        char datadir[255];          /* 数据存放路径 */
+};
+
+/** 获取数据文件存放的路径 */
+#define kconf_data_dir() privcnf->datadir
+
+/** 初始化全局配置结构体 */
+inline static void kconf_init(char *datadir)
+{
+        privcnf = kmalloc(sizeof(struct kconfig));
+        strcpy(privcnf->datadir, datadir);
+}
+
+#define kconf_destroy() kfree(privcnf)
+
+#endif /* _CONFIG_H */

@@ -16,20 +16,21 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/5. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#ifndef _GUTIL_H
+#define _GUTIL_H
 
-#include <malloc.h>
+#include "glibc.h"
 
-#define kmalloc(size) malloc(size)
+#ifndef PATH_MAX
+#       define PATH_MAX 255
+#endif
 
-#define krealloc(ptr, size) realloc(ptr, size)
+__attribute__((format (printf, 3, 4)))
+int xsprintf(char *dest, size_t max, const char *fmt, ...);
 
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+#endif /* _GUTIL_H */

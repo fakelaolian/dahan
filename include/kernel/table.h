@@ -26,6 +26,8 @@
 
 #include "column.h"
 
+#define COLUMN_ARRAY_SIZE 16
+
 struct table {
         char* name;
         size_t colnum;                  /* 字段个数 */
@@ -33,7 +35,18 @@ struct table {
         struct column *columns;         /* 结构体数组 */
 };
 
-inline void table_init(struct table *table, char* name);
+inline static void table_init(struct table *table, char* name)
+{
+        table->name = name;
+        table->colnum = 0;
+        table->arrsize = COLUMN_ARRAY_SIZE;
+        table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
+}
+
+inline static void destroy_table(struct table *table)
+{
+        kfree(table->columns);
+}
 
 /** 添加字段 */
 void table_add_column(struct table *table, struct column *column);

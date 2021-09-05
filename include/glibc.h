@@ -32,10 +32,10 @@
 
 #define ENUM enum
 
-#define log_info(va, ...)  printf(va, __VA_ARGS__)
-#define log_error(va, ...) printf(va, __VA_ARGS__)
-#define log_debug(va, ...) printf(va, __VA_ARGS__)
-#define log_warn(va, ...)  printf(va, __VA_ARGS__)
+#define INFO printf
+#define DEBUG printf
+#define ERROR printf
+#define WARN printf
 
 #ifdef WIN32
 #   define __api_import__ __declspec(dllimport)

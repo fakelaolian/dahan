@@ -23,21 +23,11 @@
  */
 #include "kernel/table.h"
 
-#define COLUMN_ARRAY_SIZE 16
-
 #define COLUMN_ARRAY_RESIZE(table)                              \
 {                                                               \
         table->arrsize += COLUMN_ARRAY_SIZE;                    \
         table->columns = krealloc(table->columns,               \
                 (sizeof(struct column) * table->arrsize));      \
-}
-
-void table_init(struct table *table, char* name)
-{
-        table->name = name;
-        table->colnum = 0;
-        table->arrsize = COLUMN_ARRAY_SIZE;
-        table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
 }
 
 void table_add_column(struct table *table, struct column *column)
