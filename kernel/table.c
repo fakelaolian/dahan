@@ -32,7 +32,7 @@
 
 void table_add_column(struct table *table, struct column *column)
 {
-        if(table->colnum == (table->arrsize - 1))
+        if (table->colnum == (table->arrsize - 1))
                 COLUMN_ARRAY_RESIZE(table)
 
         table->columns[table->colnum] = (*column);
@@ -46,7 +46,7 @@ struct column *table_get_column(struct table *table, const char *name)
         size_t i;
         for(i = 0; i < table->colnum; i++) {
                 col = (table->columns + i);
-                if(strcmp(col->name, name) == 0)
+                if (strcmp(col->name, name) == 0)
                         return col;
         }
 

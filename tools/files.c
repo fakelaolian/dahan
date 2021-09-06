@@ -53,27 +53,42 @@ bool is_empty_dir(const char *pathname)
         struct dirent *e;
         bool ret = true;
 
-        if(!dir)
+        if (!dir)
                 return true;
 
         e = readdir_skip_dot_and_dotdot(dir);
-        if(e)
+        if (e)
                 ret = false;
 
         closedir(dir);
         return ret;
 }
 
-void mkdirs(const char *cpy_pathname)
+void _cfs_if_not_exist_mkdir(const char *pathname)
+{
+        // 如果文件夹不存在则创建
+        if (!file_exist(pathname))
+                mkdir(pathname, S_IRWXU);
+}
+
+void cfs_mkdirs(const char *__cpy_pathname)
 {
         char pathname[255];
-        strncpy(pathname, cpy_pathname, 255);
+        strncpy(pathname, __cpy_pathname, 255);
 
+        char tmp;
+        size_t end;
         size_t len = strlen(pathname);
-        for (size_t i = 0; i < len; i++) {
-                if(pathname[i] == '/' || pathname[i] == '\\') {
+        for (size_t i = 0, end = len - 1; i < len; i++) {
+                tmp = pathname[i];
+                if (i == end) {
+                        _cfs_if_not_exist_mkdir(pathname);
+                        return;
+                }
+
+                if (tmp == '/' || tmp == '\\') {
                         pathname[i] = '\0';
-                        printf("%s", pathname);
+                        _cfs_if_not_exist_mkdir(pathname);
                         pathname[i] = '/';
                 }
         }

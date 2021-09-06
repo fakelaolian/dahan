@@ -31,8 +31,9 @@
                 (sizeof(struct table) * base->arrsize));            \
 }
 
-bool load(struct database *base, char *name)
+bool _cfs_load(struct database *base, char *name)
 {
+        ERROR("加载失败");
         return false;
 }
 
@@ -42,8 +43,8 @@ bool load_or_create_database(struct database *base, char *name)
         char *datadir = kconf_data_dir();
 
         xsnprintf(pathname, 255, "%s/%s", datadir, name);
-        if(file_exist(pathname))
-                return load(base, name);
+        if (file_exist(pathname))
+                return _cfs_load(base, name);
 
         base->name = name;
         base->tabnum = 0;
@@ -52,13 +53,13 @@ bool load_or_create_database(struct database *base, char *name)
         strncpy(base->pathname, pathname, 255);
 
         // 创建文件夹
-        mkdirs(base->pathname);
+        cfs_mkdirs(base->pathname);
         return true;
 }
 
 void cfs_add_table(struct database *base, struct table *table)
 {
-        if(base->tabnum == (base->arrsize - 1))
+        if (base->tabnum == (base->arrsize - 1))
                 TABLE_ARRAY_RESIZE(base)
 
         base->tables[base->tabnum] = (*table);
@@ -72,7 +73,7 @@ struct table *cfs_get_table(struct database *base, const char *name)
         size_t i;
         for(i = 0; i < base->tabnum; i++) {
                 tab = (base->tables + i);
-                if(strcmp(tab->name, name) == 0)
+                if (strcmp(tab->name, name) == 0)
                         return tab;
         }
 

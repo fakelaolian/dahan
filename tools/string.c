@@ -33,9 +33,9 @@ int xsnprintf(char *dest, size_t max, const char *fmt, ...)
         len = vsnprintf(dest, max, fmt, ap);
         va_end(ap);
 
-        if(len < 0)
+        if (len < 0)
                 ERROR("【xsnprintf】错误调用。\n");
-        if(len >= max)
+        if (len >= max)
                 ERROR("【xsnprintf】缓冲区溢出。\n");
 
         return len;
