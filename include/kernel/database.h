@@ -37,14 +37,12 @@ struct database {
 };
 
 /** 创建数据库, 并序列化到文件中 */
-bool create_database(struct database *base, char *name);
+bool load_or_create_database(struct database *base, char *name);
 /** 销毁数据库结构体所占用的内存 */
 void destroy_database(struct database *database);
 /** 添加一张表到数据库 */
 void database_add_table(struct database *base, struct table *table);
 /** 获取一张表 */
 struct table* database_get_table(struct database *base, const char *name);
-/** TODO 加载数据库 */
-void database_load(struct database *base, const char *name);
 
 #endif // _DATABASE_H

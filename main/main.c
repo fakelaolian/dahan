@@ -36,7 +36,7 @@ int main(void)
         init_config();
 
         struct database base;
-        if(!create_database(&base, "mydb"))
+        if(!load_or_create_database(&base, "mydb"))
                 return 1;
 
         build_table(&base);

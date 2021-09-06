@@ -31,23 +31,25 @@
                 (sizeof(struct table) * base->arrsize));            \
 }
 
-bool create_database(struct database *base, char *name)
+bool load(struct database *base, char *name)
 {
-        char *datadir;
+        return false;
+}
+
+bool load_or_create_database(struct database *base, char *name)
+{
+        char pathname[255];
+        char *datadir = kconf_data_dir();
+
+        xsprintf(pathname, 255, "%s/%s", datadir, name);
+        if(file_exist(pathname))
+                return load(base, name);
 
         base->name = name;
         base->tabnum = 0;
         base->arrsize = TABLE_ARRAY_SIZE;
         base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
-
-        datadir = kconf_data_dir();
-
-        xsprintf(base->pathname, 255, "%s/%s", datadir, name);
-        if(file_exist(base->pathname)) {
-                ERROR("[%s]数据库已存在\n", name);
-                destroy_database(base);
-                return false;
-        }
+        strncpy(base->pathname, pathname, 255);
 
         // 创建文件夹
         mkdirs(base->pathname);
