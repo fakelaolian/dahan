@@ -1,1 +1,1 @@
-cmake --build cmake-build-debug --target taichu -j 6
+cmake --build cmake-build-debug --target cfs -j 6

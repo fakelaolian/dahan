@@ -49,7 +49,7 @@ int main(void)
 
 void init_config()
 {
-        kconf_init("/home/shitbro/taichusql");
+        kconf_init("/home/shitbro/cfssql");
 }
 
 void build_table(struct database *base)
