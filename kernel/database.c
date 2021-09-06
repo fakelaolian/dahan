@@ -46,11 +46,12 @@ bool create_database(struct database *base, char *name)
         if(file_exist(base->pathname)) {
                 ERROR("[%s]数据库已存在\n", name);
                 destroy_database(base);
-                return;
+                return false;
         }
 
         // 创建文件夹
         mkdirs(base->pathname);
+        return true;
 }
 
 void database_add_table(struct database *base, struct table *table)

@@ -37,7 +37,7 @@ int main(void)
 
         struct database base;
         if(!create_database(&base, "mydb"))
-                return -1;
+                return 1;
 
         build_table(&base);
 
