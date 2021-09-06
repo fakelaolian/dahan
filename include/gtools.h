@@ -21,22 +21,12 @@
 /*!
  * @author 范特西
  */
-#include "gutil.h"
-#include <stdarg.h>
+#ifndef _GUTIL_H
+#define _GUTIL_H
 
-int xsprintf(char *dest, size_t max, const char *fmt, ...)
-{
-        int len;
-        va_list ap;
+#include "glibc.h"
 
-        va_start(ap, fmt);
-        len = vsnprintf(dest, max, fmt, ap);
-        va_end(ap);
+__attribute__((format (printf, 3, 4)))
+int xsnprintf(char *dest, size_t max, const char *fmt, ...);
 
-        if(len < 0)
-                ERROR("【xsnprintf】错误调用。\n");
-        if(len >= max)
-                ERROR("【xsnprintf】缓冲区溢出。\n");
-
-        return len;
-}
+#endif /* _GUTIL_H */

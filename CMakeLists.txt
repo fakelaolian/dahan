@@ -36,6 +36,6 @@ ADD_EXECUTABLE(
         kernel/table.c
         kernel/database.c
         kernel/kconfig.c
-        com/string.c
-        com/io.c
+        tools/string.c
+        tools/files.c
 )

@@ -24,8 +24,8 @@
 #include <stdbool.h>
 #include <stdalign.h>
 #include "kernel/database.h"
-#include "gutil.h"
-#include "gio.h"
+#include "gtools.h"
+#include "files.h"
 
 void init_config();
 

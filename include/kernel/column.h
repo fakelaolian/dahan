@@ -25,7 +25,7 @@
 #define _COLUMN_H
 
 #include <glibc.h>
-#include <gutil.h>
+#include <gtools.h>
 #include "kconfig.h"
 
 /**

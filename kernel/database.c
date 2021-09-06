@@ -21,7 +21,7 @@
 /*!
  * @author 范特西
  */
-#include <gio.h>
+#include <files.h>
 #include "kernel/database.h"
 
 #define TABLE_ARRAY_RESIZE(base)                                    \
@@ -41,7 +41,7 @@ bool load_or_create_database(struct database *base, char *name)
         char pathname[255];
         char *datadir = kconf_data_dir();
 
-        xsprintf(pathname, 255, "%s/%s", datadir, name);
+        xsnprintf(pathname, 255, "%s/%s", datadir, name);
         if(file_exist(pathname))
                 return load(base, name);
 
