@@ -28,6 +28,7 @@ ADD_DEFINITIONS(-D__DEBUG__)
 ADD_DEFINITIONS(-fgnu89-inline)
 
 INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/include)
+INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/sha256)
 
 ADD_EXECUTABLE(
         ${PROJECT_NAME}
@@ -38,4 +39,5 @@ ADD_EXECUTABLE(
         kernel/kconfig.c
         tools/string.c
         tools/files.c
+        sha256/sha256.c
 )

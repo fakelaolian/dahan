@@ -26,7 +26,6 @@
 #include "kernel/database.h"
 #include "gtools.h"
 #include "files.h"
-
 void init_config();
 
 void build_table(struct database *base);
