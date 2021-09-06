@@ -56,7 +56,7 @@ bool load_or_create_database(struct database *base, char *name)
         return true;
 }
 
-void database_add_table(struct database *base, struct table *table)
+void cfs_add_table(struct database *base, struct table *table)
 {
         if(base->tabnum == (base->arrsize - 1))
                 TABLE_ARRAY_RESIZE(base)
@@ -65,7 +65,7 @@ void database_add_table(struct database *base, struct table *table)
         ++base->tabnum;
 }
 
-struct table *database_get_table(struct database *base, const char *name)
+struct table *cfs_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 

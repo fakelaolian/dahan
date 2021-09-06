@@ -76,5 +76,5 @@ void build_table(struct database *base)
         table_add_column(&table, &user);
         table_add_column(&table, &member);
 
-        database_add_table(base, &table);
+        cfs_add_table(base, &table);
 }
