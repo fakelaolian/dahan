@@ -21,6 +21,7 @@
 /*!
  * @author 范特西
  */
+#include <gio.h>
 #include "kernel/database.h"
 
 #define TABLE_ARRAY_RESIZE(base)                                    \
@@ -30,14 +31,26 @@
                 (sizeof(struct table) * base->arrsize));            \
 }
 
-void create_database(struct database *base, char *name)
+bool create_database(struct database *base, char *name)
 {
         char *datadir;
 
-        priv_database_init(base, name);
+        base->name = name;
+        base->tabnum = 0;
+        base->arrsize = TABLE_ARRAY_SIZE;
+        base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
+
         datadir = kconf_data_dir();
 
-        xsprintf(base->path, PATH_MAX, "%s/%s", datadir, name);
+        xsprintf(base->pathname, 255, "%s/%s", datadir, name);
+        if(file_exist(base->pathname)) {
+                ERROR("[%s]数据库已存在\n", name);
+                destroy_database(base);
+                return;
+        }
+
+        // 创建文件夹
+        mkdirs(base->pathname);
 }
 
 void database_add_table(struct database *base, struct table *table)
@@ -49,7 +62,7 @@ void database_add_table(struct database *base, struct table *table)
         ++base->tabnum;
 }
 
-struct table *base_get_table(struct database *base, const char *name)
+struct table *database_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 
@@ -61,4 +74,12 @@ struct table *base_get_table(struct database *base, const char *name)
         }
 
         return NULL;
+}
+
+void destroy_database(struct database *database)
+{
+        size_t i;
+        for (i = 0; i < database->tabnum; i++)
+                destroy_table((database->tables + i));
+        kfree(database->tables);
 }

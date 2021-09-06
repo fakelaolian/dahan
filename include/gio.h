@@ -24,16 +24,18 @@
 #ifndef _GIO_H
 #define _GIO_H
 
-#include <stdio.h>
-#include <stdbool.h>
+#include <glibc.h>
+#include <sys/stat.h>
 #include <dirent.h>
 
 bool is_dot_or_dotdot(const char *name);
 struct dirent *readdir_skip_dot_and_dotdot(DIR *dirp);
 
 /** 判断文件是否存在 */
-bool file_exist(const char *path);
+bool file_exist(const char *pathname);
 /** 判断文件夹是否是空 */
-bool is_empty_dir(const char *path);
+bool is_empty_dir(const char *pathname);
+/** 创建多级目录，不存在则创建 */
+void mkdirs(const char *pathname);
 
 #endif /* _GIO_H */

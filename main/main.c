@@ -28,6 +28,7 @@
 #include "gio.h"
 
 void init_config();
+
 void build_table(struct database *base);
 
 int main(void)
@@ -35,7 +36,8 @@ int main(void)
         init_config();
 
         struct database base;
-        create_database(&base, "mydb");
+        if(!create_database(&base, "mydb"))
+                return -1;
 
         build_table(&base);
 
@@ -47,7 +49,7 @@ int main(void)
 
 void init_config()
 {
-        kconf_init("/home/taichusql");
+        kconf_init("/home/shitbro/taichusql");
 }
 
 void build_table(struct database *base)
@@ -68,8 +70,8 @@ void build_table(struct database *base)
         column_init(&user, "user", _VARCHAR, 255);
         column_init(&member, "member", _VARCHAR, 255);
 
-        table_add_column(&table, &username);
         table_add_column(&table, &password);
+        table_add_column(&table, &username);
         table_add_column(&table, &admin);
         table_add_column(&table, &user);
         table_add_column(&table, &member);

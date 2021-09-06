@@ -22,7 +22,6 @@
  * @author 范特西
  */
 #include "gio.h"
-#include <sys/stat.h>
 
 bool is_dot_or_dotdot(const char *name)
 {
@@ -42,15 +41,15 @@ struct dirent *readdir_skip_dot_and_dotdot(DIR *dirp)
         return e;
 }
 
-bool file_exist(const char *path)
+bool file_exist(const char *pathname)
 {
         struct stat sb;
-        return lstat(path, &sb) == 0;
+        return lstat(pathname, &sb) == 0;
 }
 
-bool is_empty_dir(const char *path)
+bool is_empty_dir(const char *pathname)
 {
-        DIR *dir = opendir(path);
+        DIR *dir = opendir(pathname);
         struct dirent *e;
         bool ret = true;
 
@@ -63,4 +62,19 @@ bool is_empty_dir(const char *path)
 
         closedir(dir);
         return ret;
+}
+
+void mkdirs(const char *cpy_pathname)
+{
+        char pathname[255];
+        strncpy(pathname, cpy_pathname, 255);
+
+        size_t len = strlen(pathname);
+        for (size_t i = 0; i < len; i++) {
+                if(pathname[i] == '/' || pathname[i] == '\\') {
+                        pathname[i] = '\0';
+                        printf("%s", pathname);
+                        pathname[i] = '/';
+                }
+        }
 }

@@ -32,29 +32,14 @@ struct database {
         char *name;
         size_t tabnum;
         size_t arrsize;
-        char path[PATH_MAX];
+        char pathname[255];
         struct table *tables;           /* 表结构体列表 */
 };
 
-/** 初始化数据库 */
-inline static void priv_database_init(struct database *base, char *name)
-{
-        base->name = name;
-        base->tabnum = 0;
-        base->arrsize = TABLE_ARRAY_SIZE;
-        base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
-}
-
 /** 创建数据库, 并序列化到文件中 */
-void create_database(struct database *base, char *name);
+bool create_database(struct database *base, char *name);
 /** 销毁数据库结构体所占用的内存 */
-inline static void destroy_database(struct database *database)
-{
-        size_t i;
-        for (i = 0; i < database->tabnum; i++)
-                destroy_table((database->tables + i));
-        kfree(database->tables);
-}
+void destroy_database(struct database *database);
 /** 添加一张表到数据库 */
 void database_add_table(struct database *base, struct table *table);
 /** 获取一张表 */

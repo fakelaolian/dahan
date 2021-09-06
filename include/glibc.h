@@ -26,12 +26,10 @@
 #ifndef _GLIBC_H
 #define _GLIBC_H
 
-#include <gio.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 #include <stdlib.h>
-
-#ifndef PATH_MAX
-#       define PATH_MAX 255
-#endif
 
 #define ENUM enum
 
