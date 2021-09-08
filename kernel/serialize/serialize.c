@@ -19,11 +19,11 @@
 /*! ===> Creates on 2021/9/7. <=== */
 
 /*!
+ * 序列化表结构信息
+ *
  * @author 范特西
  */
-#include "kernel/database.h"
-#include "mdef/_f_name.h"
-#include <files.h>
+#include "_serial.h"
 
 inline static void _write_table_remark(FILE *fp, char *remark)
 {
