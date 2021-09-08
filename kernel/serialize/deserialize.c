@@ -25,8 +25,93 @@
  */
 #include "_serial.h"
 
-extern struct database *
-load_database(const char *pathname, const char *name)
+/**
+ * 加载所有字段
+ *
+ * @param table         表结构体指针
+ * @param folcsdir      fcols目录
+ */
+void load_columns(struct table *table, const char *folcsdir)
 {
-        return NULL;
+
+}
+
+/**
+ * 反序列化表
+ *
+ * @param base      数据库结构体指针
+ * @param tabledir  表文件所在目录
+ * @param basedir   表名
+ */
+void deserialize_table(struct database *base, const char *tabledir, char *name)
+{
+        struct table table;
+        char remark[CFS_REMARK_MAX];
+
+        // boot文件路径
+        char bootpath[CFS_PATH_MAX];
+        xsnprintf(bootpath, CFS_PATH_MAX, "%s/%s", tabledir, CFS_TABLE_NAME);
+
+        FILE *fp = fopen(bootpath, "rb");
+        fread(remark, CFS_REMARK_MAX, 1, fp);
+        fclose(fp);
+
+        table_init(&table, name, remark);
+
+        char fcolsdir[CFS_PATH_MAX];
+        xsnprintf(fcolsdir, CFS_PATH_MAX, "%s/%s", tabledir, CFS_FCOLS_DIR_NAME);
+
+        // 加载字段列表
+        load_columns(&table, fcolsdir);
+}
+
+/**
+ * 加载所有表
+ *
+ * @param base      数据库结构体指针
+ * @param basedir   数据库目录
+ */
+void load_tables(struct database *base, const char *basedir)
+{
+        DIR* dirp = opendir(basedir);
+        struct dirent *e;
+
+        while ((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
+                char bootdir[PATH_MAX];
+                xsnprintf(bootdir, PATH_MAX, "%s/%s", basedir, e->d_name);
+                deserialize_table(base, bootdir, e->d_name);
+        }
+}
+
+/**
+ * 加载数据库
+ *
+ * @param base      数据库指针
+ * @param basedir   数据库所在目录
+ * @param name      数据库名称
+ */
+extern bool
+load_database(struct database *base, const char *basedir, const char *name)
+{
+        bool ret = false;
+        char target[CFS_PATH_MAX];
+        xsnprintf(target, CFS_PATH_MAX, "%s/%s", basedir, name);
+
+        if (!file_exist(target)) {
+                ERROR("没有找到“%s”数据库", name);
+                goto load_database_out;
+        }
+
+        // 初始化结构体
+        database_init(base, basedir, name);
+
+        // 如果文件夹为空的话不做任何加载
+        if(is_empty_dir(target))
+                goto load_database_out;
+
+        // 加载表文件
+        load_tables(base, target);
+
+load_database_out:
+        return ret;
 }

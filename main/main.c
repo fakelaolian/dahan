@@ -30,7 +30,8 @@ int main(void)
 {
         init_config();
 
-        load_database(kconf_data_dir(), "mydb");
+         struct database lbase;
+         load_database(&lbase, kconf_data_dir(), "mydb");
 
         struct database base;
         if (!create_database(&base, "mydb"))

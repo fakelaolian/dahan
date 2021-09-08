@@ -29,13 +29,15 @@
 #define TABLE_ARRAY_SIZE 16
 
 struct database {
-        char *name;
+        char name[CFS_NAME_MAX];
         size_t tabnum;
         size_t arrsize;
         char pathname[CFS_PATH_MAX];
         struct table *tables;           /* 表结构体列表 */
 };
 
+/** 初始化数据库 */
+inline void database_init(struct database *base, const char *pathname, const char *name);
 /** 创建数据库, 并序列化到文件中 */
 bool create_database(struct database *base, char *name);
 /** 销毁数据库结构体所占用的内存 */
@@ -45,6 +47,6 @@ void cfs_add_table(struct database *base, struct table *table);
 /** 获取一张表 */
 struct table* cfs_get_table(struct database *base, const char *name);
 /** 加载数据库 */
-extern struct database *load_database(const char *pathname, const char *name);
+extern bool load_database(struct database *base, const char *basedir, const char *name);
 
 #endif // _DATABASE_H

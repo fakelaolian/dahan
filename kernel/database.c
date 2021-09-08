@@ -23,10 +23,13 @@
  */
 #include "serialize/serialize.c"
 
-bool _cfs_load(struct database *base, char *name)
+void database_init(struct database *base, const char *pathname, const char *name)
 {
-        ERROR("加载失败");
-        return false;
+        base->tabnum = 0;
+        base->arrsize = TABLE_ARRAY_SIZE;
+        base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
+        strncpy(base->name, name, CFS_NAME_MAX);
+        strncpy(base->pathname, pathname, CFS_PATH_MAX);
 }
 
 bool create_database(struct database *base, char *name)
@@ -35,16 +38,14 @@ bool create_database(struct database *base, char *name)
         char *datadir = kconf_data_dir();
         xsnprintf(pathname, 255, "%s/%s", datadir, name);
 
+#ifndef __cfs_debug
         if (kcheck_database_name_dup(kconf_data_dir(), name)) {
                 puts("数据库已存在");
                 return false;
         }
+#endif /* __cfs_debug */
 
-        base->name = name;
-        base->tabnum = 0;
-        base->arrsize = TABLE_ARRAY_SIZE;
-        base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
-        strncpy(base->pathname, pathname, CFS_PATH_MAX);
+        database_init(base, pathname, name);
 
         // 创建文件夹
         cfs_mkdirs(base->pathname);

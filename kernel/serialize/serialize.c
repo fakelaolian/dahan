@@ -27,9 +27,7 @@
 
 inline static void _write_table_remark(FILE *fp, char *remark)
 {
-        size_t size = strlen(remark);
-        fwrite(&size, sizeof(size_t), 1, fp);
-        fwrite(remark, size, 1, fp);
+        fwrite(remark, CFS_REMARK_MAX, 1, fp);
 }
 
 inline static void _write_table(const char *pathname, struct table *table)
@@ -55,10 +53,10 @@ __always_inline static void _write_single_column(const char *coldir, struct colu
 
         FILE *fp = fopen(fcolpath, "wb");
         fwrite(col->name, CFS_NAME_MAX, 1, fp);
-        fwrite(&(col->type), sizeof(unsigned char), 1, fp);
-        fwrite(&(col->len), sizeof(unsigned int), 1, fp);
         fwrite(col->remark, CFS_REMARK_MAX, 1, fp);
         fwrite(col->vdef, CFS_VDEF_MAX, 1, fp);
+        fwrite(&(col->type), sizeof(unsigned char), 1, fp);
+        fwrite(&(col->len), sizeof(unsigned int), 1, fp);
         fclose(fp);
 }
 
