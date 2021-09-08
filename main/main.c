@@ -53,7 +53,10 @@ void init_config()
 
 void build_table(struct database *base)
 {
-        struct table table;
+        struct table table0;
+        struct table table1;
+        table_init(&table0, "user", "fuck you.");
+        table_init(&table1, "mytable", "去你妈的");
 
         struct column username;
         struct column password;
@@ -61,19 +64,21 @@ void build_table(struct database *base)
         struct column user;
         struct column member;
 
-        table_init(&table, "user", "fuck you.");
-
         column_init(&username, "username", _VARCHAR, 255);
         column_init(&password, "password", _VARCHAR, 255);
         column_init(&admin, "admin", _VARCHAR, 255);
         column_init(&user, "user", _VARCHAR, 255);
         column_init(&member, "member", _VARCHAR, 255);
 
-        table_add_column(&table, &password);
-        table_add_column(&table, &username);
-        table_add_column(&table, &admin);
-        table_add_column(&table, &user);
-        table_add_column(&table, &member);
+        table_add_column(&table0, &password);
+        table_add_column(&table0, &username);
+        table_add_column(&table0, &admin);
+        table_add_column(&table0, &user);
+        table_add_column(&table0, &member);
 
-        cfs_add_table(base, &table);
+        table_add_column(&table1, &user);
+        table_add_column(&table1, &member);
+
+        cfs_add_table(base, &table0);
+        cfs_add_table(base, &table1);
 }

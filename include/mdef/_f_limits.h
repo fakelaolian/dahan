@@ -26,8 +26,9 @@
 
 #include <limits.h>
 
-#define CFS_NAME_MAX          255     /* 表名或函数名最大长度 */
-#define CFS_REMARK_MAX        800     /* 备注最大长度 */
-#define CFS_PATH_MAX PATH_MAX         /* 路径最大长度 */
+#define CFS_NAME_MAX    NAME_MAX         /* 表名或函数名最大长度 */
+#define CFS_REMARK_MAX      4000         /* 备注最大长度 */
+#define CFS_VDEF_MAX        4000         /* 默认值最大长度 */
+#define CFS_PATH_MAX    PATH_MAX         /* 路径最大长度 */
 
 #endif /* CFS_F_LIMITS_H */

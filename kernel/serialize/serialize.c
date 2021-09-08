@@ -55,6 +55,10 @@ __always_inline static void _write_single_column(const char *coldir, struct colu
 
         FILE *fp = fopen(fcolpath, "wb");
         fwrite(col->name, CFS_NAME_MAX, 1, fp);
+        fwrite(&(col->type), sizeof(unsigned char), 1, fp);
+        fwrite(&(col->len), sizeof(unsigned int), 1, fp);
+        fwrite(col->remark, CFS_REMARK_MAX, 1, fp);
+        fwrite(col->vdef, CFS_VDEF_MAX, 1, fp);
         fclose(fp);
 }
 
@@ -83,5 +87,5 @@ inline static void _write_columns(const char *tablepath, struct column *cols, si
  * 序列化表结构
  */
 #define _serialize_table_struct(pathname, table)                      \
-_write_table(pathname, table);                                  \
+_write_table(pathname, table);                                        \
 _write_columns(pathname, table->columns, table->colnum);

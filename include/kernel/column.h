@@ -41,10 +41,10 @@ ENUM COLTYPE {
 
 struct column {
         char name[CFS_NAME_MAX];
-        unsigned int type;              /* 字段类型 */
+        unsigned char type;             /* 字段类型 */
         unsigned int len;               /* 字段长度（仅限于可变长度的字段） */
         char remark[CFS_REMARK_MAX];    /* 备注 */
-        char *vdef;                     /* 默认值 */
+        char vdef[CFS_VDEF_MAX];        /* 默认值 */
 };
 
 /**
