@@ -24,3 +24,9 @@
  * @author 范特西
  */
 #include "_serial.h"
+
+extern struct database *
+load_database(const char *pathname, const char *name)
+{
+        return NULL;
+}
