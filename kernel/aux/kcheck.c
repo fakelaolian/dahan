@@ -24,7 +24,7 @@
 #include "kernel/database.h"
 #include "kernel/aux/kcheck.h"
 
-bool kcheck_column_name_dup(void *sp, size_t size, char *name)
+bool kcheck_column_name_dup(const void *sp, size_t size, const char *name)
 {
         struct column *columns = (struct column *) sp;
         for (size_t i = 0; i < size; i++) {
@@ -34,7 +34,7 @@ bool kcheck_column_name_dup(void *sp, size_t size, char *name)
         return false;
 }
 
-bool kcheck_table_name_dup(void *sp, size_t size, char *name)
+bool kcheck_table_name_dup(const void *sp, size_t size, const char *name)
 {
         struct table *tables = (struct table *) sp;
         for (size_t i = 0; i < size; i++) {
@@ -42,4 +42,22 @@ bool kcheck_table_name_dup(void *sp, size_t size, char *name)
                         return true;
         }
         return false;
+}
+
+bool kcheck_database_name_dup(const char *pathname, const char *name)
+{
+        DIR *dirp = opendir(pathname);
+        struct dirent *e;
+
+        bool ret = false;
+        while((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
+                if (strcmp(e->d_name, name) == 0) {
+                        ret = true;
+                        goto kcheck_database_name_dup_out;
+                }
+        }
+
+kcheck_database_name_dup_out:
+        closedir(dirp);
+        return ret;
 }

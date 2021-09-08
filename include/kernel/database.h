@@ -37,7 +37,7 @@ struct database {
 };
 
 /** 创建数据库, 并序列化到文件中 */
-bool load_or_create_database(struct database *base, char *name);
+bool create_database(struct database *base, char *name);
 /** 销毁数据库结构体所占用的内存 */
 void destroy_database(struct database *database);
 /** 添加一张表到数据库 */

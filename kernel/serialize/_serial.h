@@ -26,6 +26,5 @@
 
 #include "kernel/database.h"
 #include "mdef/_f_name.h"
-#include <files.h>
 
 #endif /* CFS__SERIAL_H */

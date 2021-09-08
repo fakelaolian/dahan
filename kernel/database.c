@@ -29,14 +29,16 @@ bool _cfs_load(struct database *base, char *name)
         return false;
 }
 
-bool load_or_create_database(struct database *base, char *name)
+bool create_database(struct database *base, char *name)
 {
         char pathname[255];
         char *datadir = kconf_data_dir();
-
         xsnprintf(pathname, 255, "%s/%s", datadir, name);
-        // if (file_exist(pathname))
-        //         return _cfs_load(base, name);
+
+        if (kcheck_database_name_dup(kconf_data_dir(), name)) {
+                puts("数据库已存在");
+                return false;
+        }
 
         base->name = name;
         base->tabnum = 0;

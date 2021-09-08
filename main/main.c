@@ -25,7 +25,7 @@
 #include <stdalign.h>
 #include "kernel/database.h"
 #include "gtools.h"
-#include "files.h"
+#include "tools/files.h"
 void init_config();
 
 void build_table(struct database *base);
@@ -35,7 +35,7 @@ int main(void)
         init_config();
 
         struct database base;
-        if (!load_or_create_database(&base, "mydb"))
+        if (!create_database(&base, "mydb"))
                 return 1;
 
         build_table(&base);

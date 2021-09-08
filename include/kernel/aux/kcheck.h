@@ -27,6 +27,7 @@
 #define CFS_KCHECK_H
 
 #include <stdbool.h>
+#include <tools/files.h>
 
 /**
  * 校验字段名是否重复
@@ -36,7 +37,7 @@
  * @param name      新增的字段名
  */
 inline bool
-kcheck_column_name_dup(void *sp, size_t size, char *name);
+kcheck_column_name_dup(const void *sp, size_t size, const char *name);
 
 /**
  * 校验表名是否重复
@@ -46,6 +47,15 @@ kcheck_column_name_dup(void *sp, size_t size, char *name);
  * @param name      新增的表名
  */
 inline bool
-kcheck_table_name_dup(void *sp, size_t size, char *name);
+kcheck_table_name_dup(const void *sp, size_t size, const char *name);
+
+/**
+ * 检查数据库名是否重复
+ *
+ * @param pathname  数据库存放目录
+ * @param name      数据库名称
+ */
+inline bool
+kcheck_database_name_dup(const char *pathname, const char *name);
 
 #endif /* CFS_KCHECK_H */
