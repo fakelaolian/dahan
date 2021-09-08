@@ -28,6 +28,7 @@
 #include <gtools.h>
 #include "kconfig.h"
 #include "aux/kcheck.h"
+#include "aux/comm.h"
 
 /**
  * 字段类型枚举

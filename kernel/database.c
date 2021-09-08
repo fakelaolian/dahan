@@ -23,12 +23,6 @@
  */
 #include "serialize/serialize.c"
 
-#define TABLE_ARRAY_RESIZE(base)                                    \
-        base->arrsize += TABLE_ARRAY_SIZE;                          \
-        base->tables = krealloc(base->tables,                       \
-                (sizeof(struct table) * base->arrsize));            \
-
-
 bool _cfs_load(struct database *base, char *name)
 {
         ERROR("加载失败");
@@ -71,9 +65,9 @@ void _cfs_serialze_table(struct database *base, struct table *table)
 
 void cfs_add_table(struct database *bp, struct table *tp)
 {
-        if (bp->tabnum == (bp->arrsize - 1)) {
-                TABLE_ARRAY_RESIZE(bp);
-        }
+        if (bp->tabnum == (bp->arrsize - 1))
+                _ARRAY_RESIZE(bp, TABLE_ARRAY_SIZE, tables,
+                              sizeof(struct table));
 
         // 检测字段名是否重复
         if (kcheck_table_name_dup(bp->tables, bp->tabnum, tp->name)) {

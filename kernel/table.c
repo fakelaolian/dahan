@@ -23,17 +23,11 @@
  */
 #include "kernel/table.h"
 
-#define COLUMN_ARRAY_RESIZE(table)                              \
-{                                                               \
-        table->arrsize += COLUMN_ARRAY_SIZE;                    \
-        table->columns = krealloc(table->columns,               \
-                (sizeof(struct column) * table->arrsize));      \
-}
-
 void table_add_column(struct table *table, struct column *column)
 {
         if (table->colnum == (table->arrsize - 1))
-                COLUMN_ARRAY_RESIZE(table);
+                _ARRAY_RESIZE(table, COLUMN_ARRAY_SIZE,
+                              columns, sizeof(struct column));
 
         if(kcheck_column_name_dup(table->columns, table->colnum, column->name)) {
                 puts("字段名重复");
