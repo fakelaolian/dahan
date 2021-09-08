@@ -27,6 +27,7 @@
 #include <glibc.h>
 #include <gtools.h>
 #include "kconfig.h"
+#include "aux/kcheck.h"
 
 /**
  * 字段类型枚举

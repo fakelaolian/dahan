@@ -24,11 +24,10 @@
 #include "serialize/serialize.c"
 
 #define TABLE_ARRAY_RESIZE(base)                                    \
-{                                                                   \
         base->arrsize += TABLE_ARRAY_SIZE;                          \
         base->tables = krealloc(base->tables,                       \
                 (sizeof(struct table) * base->arrsize));            \
-}
+
 
 bool _cfs_load(struct database *base, char *name)
 {
@@ -63,23 +62,30 @@ void _cfs_serialze_table(struct database *base, struct table *table)
         /* 结果类似： /home/root/<数据库名>/<表名> */
         xsnprintf(tablepath, CFS_PATH_MAX, "%s/%s", base->pathname, table->name);
 
-        if(!file_exist(tablepath))
+        if (!file_exist(tablepath))
                 cfs_mkdirs(tablepath);
 
         // 将表结构信息写入文件
         _serialize_table_struct(tablepath, table);
 }
 
-void cfs_add_table(struct database *base, struct table *table)
+void cfs_add_table(struct database *bp, struct table *tp)
 {
-        if (base->tabnum == (base->arrsize - 1))
-                TABLE_ARRAY_RESIZE(base)
+        if (bp->tabnum == (bp->arrsize - 1)) {
+                TABLE_ARRAY_RESIZE(bp);
+        }
 
-        base->tables[base->tabnum] = (*table);
-        ++base->tabnum;
+        // 检测字段名是否重复
+        if (kcheck_table_name_dup(bp->tables, bp->tabnum, tp->name)) {
+                puts("表名重复");
+                return;
+        }
+
+        bp->tables[bp->tabnum] = (*tp);
+        ++bp->tabnum;
 
         // 序列化
-        _cfs_serialze_table(base, table);
+        _cfs_serialze_table(bp, tp);
 }
 
 struct table *cfs_get_table(struct database *base, const char *name)
@@ -87,7 +93,7 @@ struct table *cfs_get_table(struct database *base, const char *name)
         struct table *tab;
 
         size_t i;
-        for(i = 0; i < base->tabnum; i++) {
+        for (i = 0; i < base->tabnum; i++) {
                 tab = (base->tables + i);
                 if (strcmp(tab->name, name) == 0)
                         return tab;

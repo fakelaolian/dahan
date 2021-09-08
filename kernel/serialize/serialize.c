@@ -75,7 +75,7 @@ inline static void _write_columns(const char *tablepath, struct column *cols, si
         xsnprintf(coldir, CFS_PATH_MAX, "%s/%s", tablepath, CFS_FCOLS_DIR_NAME);
 
         // 如果文件夹不存在就创建
-        if(!file_exist(coldir))
+        if (!file_exist(coldir))
                 cfs_mkdirs(coldir);
 
         // 循环序列化所有字段

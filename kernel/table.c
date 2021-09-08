@@ -33,7 +33,12 @@
 void table_add_column(struct table *table, struct column *column)
 {
         if (table->colnum == (table->arrsize - 1))
-                COLUMN_ARRAY_RESIZE(table)
+                COLUMN_ARRAY_RESIZE(table);
+
+        if(kcheck_column_name_dup(table->columns, table->colnum, column->name)) {
+                puts("字段名重复");
+                return;
+        }
 
         table->columns[table->colnum] = (*column);
         ++table->colnum;
