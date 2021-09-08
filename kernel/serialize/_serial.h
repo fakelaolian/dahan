@@ -21,10 +21,10 @@
 /*!
  * @author 范特西
  */
-#ifndef CFS__SERIAL_H
-#define CFS__SERIAL_H
+#ifndef CFS_SERIAL_H
+#define CFS_SERIAL_H
 
 #include "kernel/database.h"
 #include "mdef/_f_name.h"
 
-#endif /* CFS__SERIAL_H */
+#endif /* CFS_SERIAL_H */

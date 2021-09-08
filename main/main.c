@@ -21,13 +21,9 @@
 /*!
  * @author 范特西
  */
-#include <stdbool.h>
-#include <stdalign.h>
 #include "kernel/database.h"
-#include "gtools.h"
-#include "tools/files.h"
-void init_config();
 
+void init_config();
 void build_table(struct database *base);
 
 int main(void)
