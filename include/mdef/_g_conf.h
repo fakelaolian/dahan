@@ -16,20 +16,17 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/7. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#ifndef CFS__G_CONF_H
+#define CFS__G_CONF_H
 
-#include <malloc.h>
+/** 表名或函数名长度 */
+#define __cfs_name_len 200
+/** 备注长度 */
+#define __cfs_remark_len 800
 
-#define kmalloc(size) malloc(size)
-
-#define krealloc(ptr, size) realloc(ptr, size)
-
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+#endif /* CFS__G_CONF_H */

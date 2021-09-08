@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 netforklabs All rights reserved.
+ * Copyright (C) 2020 luots All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@ void build_table(struct database *base)
         struct column user;
         struct column member;
 
-        table_init(&table, "user");
+        table_init(&table, "user", "fuck you.");
 
         column_init(&username, "username", _VARCHAR, 255);
         column_init(&password, "password", _VARCHAR, 255);

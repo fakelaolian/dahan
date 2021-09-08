@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 netforklabs All rights reserved.
+ * Copyright (C) 2020 luots All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,17 +29,19 @@
 #define COLUMN_ARRAY_SIZE 16
 
 struct table {
-        char* name;
-        size_t colnum;                  /* 字段个数 */
-        size_t arrsize;                 /* 存放字段结构体的数组大小 */
-        struct column *columns;         /* 结构体数组 */
+        char name[__cfs_name_len];
+        size_t colnum;                          /* 字段个数 */
+        size_t arrsize;                         /* 存放字段结构体的数组大小 */
+        char remark[__cfs_remark_len];              /* 备注 */
+        struct column *columns;                 /* 结构体数组 */
 };
 
-inline static void table_init(struct table *table, char* name)
+inline static void table_init(struct table *table, char *name, char *remark)
 {
-        table->name = name;
         table->colnum = 0;
         table->arrsize = COLUMN_ARRAY_SIZE;
+        strncpy(table->name, name, __cfs_name_len);
+        strncpy(table->remark, remark, __cfs_remark_len);
         table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
 }
 

@@ -16,20 +16,15 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/7. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#ifndef CFS__F_NAME_H
+#define CFS__F_NAME_H
 
-#include <malloc.h>
+#define __cfs_table_name "boot"
+#define __cfs_fcols_dir "fcols"
 
-#define kmalloc(size) malloc(size)
-
-#define krealloc(ptr, size) realloc(ptr, size)
-
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+#endif /* CFS__F_NAME_H */

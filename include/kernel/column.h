@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 netforklabs All rights reserved.
+ * Copyright (C) 2020 luots All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@
 #include <glibc.h>
 #include <gtools.h>
 #include "kconfig.h"
+#include <mdef/_f_name.h>
+#include <mdef/_g_conf.h>
 
 /**
  * 字段类型枚举

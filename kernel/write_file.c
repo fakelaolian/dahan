@@ -16,20 +16,28 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/7. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#include "kernel/database.h"
+#include "mdef/_f_name.h"
 
-#include <malloc.h>
+static void _write_table_remark(FILE *fp, char *remark)
+{
+        size_t size = strlen(remark);
+        fwrite(&size, sizeof(size_t), 1, fp);
+        fwrite(remark, size, 1, fp);
+}
 
-#define kmalloc(size) malloc(size)
-
-#define krealloc(ptr, size) realloc(ptr, size)
-
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+inline static void _write_table_file(const char *pathname,
+                                     struct table *table)
+{
+        char tablepath[255];
+        xsnprintf(tablepath, 255, "%s/%s", pathname, __cfs_table_name);
+        // 写入数据
+        FILE *fp = fopen(tablepath, "wb");
+        _write_table_remark(fp, table->remark);
+        fclose(fp);
+}

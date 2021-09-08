@@ -1,6 +1,6 @@
 # =================================================================================
 #
-# Copyright (C) 2020 netforklabs All rights reserved.
+# Copyright (C) 2020 luots All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ ADD_EXECUTABLE(
         kernel/table.c
         kernel/database.c
         kernel/kconfig.c
+        kernel/write_file.c
         tools/string.c
         tools/files.c
         sha256/sha256.c

@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 netforklabs All rights reserved.
+ * Copyright (C) 2020 luots All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
  * @author 范特西
  */
 #include <files.h>
-#include "kernel/database.h"
+#include "write_file.c"
 
 #define TABLE_ARRAY_RESIZE(base)                                    \
 {                                                                   \
@@ -43,8 +43,8 @@ bool load_or_create_database(struct database *base, char *name)
         char *datadir = kconf_data_dir();
 
         xsnprintf(pathname, 255, "%s/%s", datadir, name);
-        if (file_exist(pathname))
-                return _cfs_load(base, name);
+        // if (file_exist(pathname))
+        //         return _cfs_load(base, name);
 
         base->name = name;
         base->tabnum = 0;
@@ -57,6 +57,20 @@ bool load_or_create_database(struct database *base, char *name)
         return true;
 }
 
+/** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
+void _cfs_serialze_table(struct database *base, struct table *table)
+{
+        char tablepath[255];
+        /* 结果类似： /home/root/<数据库名>/<表名> */
+        xsnprintf(tablepath, 255, "%s/%s", base->pathname, table->name);
+
+        if(!file_exist(tablepath))
+                cfs_mkdirs(tablepath);
+
+        // 将表结构信息写入文件
+        _write_table_file(tablepath, table);
+}
+
 void cfs_add_table(struct database *base, struct table *table)
 {
         if (base->tabnum == (base->arrsize - 1))
@@ -64,6 +78,9 @@ void cfs_add_table(struct database *base, struct table *table)
 
         base->tables[base->tabnum] = (*table);
         ++base->tabnum;
+
+        // 序列化表
+        _cfs_serialze_table(base, table);
 }
 
 struct table *cfs_get_table(struct database *base, const char *name)
