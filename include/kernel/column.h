@@ -27,8 +27,6 @@
 #include <glibc.h>
 #include <gtools.h>
 #include "kconfig.h"
-#include <mdef/_f_name.h>
-#include <mdef/_g_conf.h>
 
 /**
  * 字段类型枚举
@@ -42,11 +40,11 @@ ENUM COLTYPE {
 };
 
 struct column {
-        char *name;
-        unsigned int type;      /* 字段类型 */
-        unsigned int len;       /* 字段长度（仅限于可变长度的字段） */
-        char *remark;           /* 备注 */
-        char *vdef;             /* 默认值 */
+        char name[CFS_NAME_MAX];
+        unsigned int type;              /* 字段类型 */
+        unsigned int len;               /* 字段长度（仅限于可变长度的字段） */
+        char remark[CFS_REMARK_MAX];    /* 备注 */
+        char *vdef;                     /* 默认值 */
 };
 
 /**

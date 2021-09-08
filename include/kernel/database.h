@@ -32,7 +32,7 @@ struct database {
         char *name;
         size_t tabnum;
         size_t arrsize;
-        char pathname[255];
+        char pathname[CFS_PATH_MAX];
         struct table *tables;           /* 表结构体列表 */
 };
 

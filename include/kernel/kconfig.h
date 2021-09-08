@@ -25,24 +25,15 @@
 #ifndef _CONFIG_H
 #define _CONFIG_H
 
-#include <string.h>
 #include <gmemp.h>
-
-/**
- * @argv [i] 数据库名
- * @argv [i] 表名
- */
-#define FMT_TABLE_PATH "%s/%s
-
-/**
- * @argv [i] 表所在的路径
- */
-#define FMT_COLUMN_PATH "%s/fcols/"
+#include <string.h>
+#include <mdef/_f_limits.h>
+#include <mdef/_f_name.h>
 
 struct kconfig *privcnf;
 
 struct kconfig {
-        char datadir[255];          /* 数据存放路径 */
+        char datadir[CFS_PATH_MAX];          /* 数据存放路径 */
 };
 
 /** 获取数据文件存放的路径 */

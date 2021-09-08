@@ -37,7 +37,7 @@ ADD_EXECUTABLE(
         kernel/table.c
         kernel/database.c
         kernel/kconfig.c
-        kernel/write_file.c
+        kernel/serialize/serialize.c
         tools/string.c
         tools/files.c
         sha256/sha256.c

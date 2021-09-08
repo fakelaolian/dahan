@@ -21,8 +21,7 @@
 /*!
  * @author 范特西
  */
-#include <files.h>
-#include "write_file.c"
+#include "serialize/serialize.c"
 
 #define TABLE_ARRAY_RESIZE(base)                                    \
 {                                                                   \
@@ -50,7 +49,7 @@ bool load_or_create_database(struct database *base, char *name)
         base->tabnum = 0;
         base->arrsize = TABLE_ARRAY_SIZE;
         base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
-        strncpy(base->pathname, pathname, 255);
+        strncpy(base->pathname, pathname, CFS_PATH_MAX);
 
         // 创建文件夹
         cfs_mkdirs(base->pathname);
@@ -60,15 +59,15 @@ bool load_or_create_database(struct database *base, char *name)
 /** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
 void _cfs_serialze_table(struct database *base, struct table *table)
 {
-        char tablepath[255];
+        char tablepath[CFS_PATH_MAX];
         /* 结果类似： /home/root/<数据库名>/<表名> */
-        xsnprintf(tablepath, 255, "%s/%s", base->pathname, table->name);
+        xsnprintf(tablepath, CFS_PATH_MAX, "%s/%s", base->pathname, table->name);
 
         if(!file_exist(tablepath))
                 cfs_mkdirs(tablepath);
 
         // 将表结构信息写入文件
-        _write_table_file(tablepath, table);
+        _serialize_table_struct(tablepath, table);
 }
 
 void cfs_add_table(struct database *base, struct table *table)
@@ -79,7 +78,7 @@ void cfs_add_table(struct database *base, struct table *table)
         base->tables[base->tabnum] = (*table);
         ++base->tabnum;
 
-        // 序列化表
+        // 序列化
         _cfs_serialze_table(base, table);
 }
 

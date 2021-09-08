@@ -28,7 +28,7 @@ void column_init(struct column *column,
                  unsigned int type,
                  unsigned len)
 {
-        column->name = name;
+        strncpy(column->name, name, CFS_NAME_MAX);
         column->type = type;
         column->len = len;
 }

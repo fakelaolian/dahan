@@ -21,23 +21,13 @@
 /*!
  * @author 范特西
  */
-#include "kernel/database.h"
-#include "mdef/_f_name.h"
+#ifndef CFS_F_LIMITS_H
+#define CFS_F_LIMITS_H
 
-static void _write_table_remark(FILE *fp, char *remark)
-{
-        size_t size = strlen(remark);
-        fwrite(&size, sizeof(size_t), 1, fp);
-        fwrite(remark, size, 1, fp);
-}
+#include <limits.h>
 
-inline static void _write_table_file(const char *pathname,
-                                     struct table *table)
-{
-        char tablepath[255];
-        xsnprintf(tablepath, 255, "%s/%s", pathname, __cfs_table_name);
-        // 写入数据
-        FILE *fp = fopen(tablepath, "wb");
-        _write_table_remark(fp, table->remark);
-        fclose(fp);
-}
+#define CFS_NAME_MAX          255     /* 表名或函数名最大长度 */
+#define CFS_REMARK_MAX        800     /* 备注最大长度 */
+#define CFS_PATH_MAX PATH_MAX         /* 路径最大长度 */
+
+#endif /* CFS_F_LIMITS_H */
