@@ -28,11 +28,11 @@
 /**
  * 重新定义数组大小
  */
-#define _ARRAY_RESIZE(__sp, __a_size, __arrname, __s_size)\
-{\
-__sp->arrsize += __a_size;\
-__sp->__arrname = krealloc(__sp->__arrname,\
-                (__s_size * __sp->arrsize));\
+#define _ARRAY_RESIZE(__sp, __a_size, __arrname, __s_size)              \
+{                                                                       \
+        __sp->arrsize += __a_size;                                      \
+        __sp->__arrname = krealloc(__sp->__arrname,                     \
+                        (__s_size * __sp->arrsize));                    \
 }
 
 #endif /* CFS_COMM_H */
