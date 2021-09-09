@@ -30,16 +30,17 @@ int main(void)
 {
         init_config();
 
-         struct database lbase;
-         load_database(&lbase, kconf_data_dir(), "mydb");
-
         struct database base;
         if (!create_database(&base, "mydb"))
                 return 1;
 
         build_table(&base);
 
+        struct database lbase;
+        load_database(&lbase, kconf_data_dir(), "mydb");
+
         destroy_database(&base);
+        destroy_database(&lbase);
         kconf_destroy();
 
         return 0;
@@ -68,6 +69,10 @@ void build_table(struct database *base)
         column_init(&admin, "admin", _VARCHAR, 255);
         column_init(&user, "user", _VARCHAR, 255);
         column_init(&member, "member", _VARCHAR, 255);
+
+        strncpy(username.vdef, "root", CFS_VDEF_MAX);
+        strncpy(username.remark, "用户名", CFS_REMARK_MAX);
+        strncpy(password.remark, "密码", CFS_REMARK_MAX);
 
         table_add_column(&table0, &password);
         table_add_column(&table0, &username);

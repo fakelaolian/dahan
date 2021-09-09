@@ -25,15 +25,51 @@
  */
 #include "_serial.h"
 
+void deserialize_column(struct table *table, char *colpath)
+{
+        struct column col;
+
+        char colname[CFS_NAME_MAX];
+        char colremark[CFS_REMARK_MAX];
+        char colvdef[CFS_VDEF_MAX];
+        unsigned char coltype;
+        unsigned int collen;
+
+        FILE *fp = fopen(colpath, "rb");
+        fread(colname, CFS_NAME_MAX, 1, fp);
+        fread(colremark, CFS_REMARK_MAX, 1, fp);
+        fread(colvdef, CFS_VDEF_MAX, 1, fp);
+        fread(&coltype, sizeof(unsigned char), 1, fp);
+        fread(&collen, sizeof(unsigned int), 1, fp);
+        fclose(fp);
+
+        column_init(&col, colname, coltype, collen);
+        strncpy(col.remark, colremark, CFS_REMARK_MAX);
+        strncpy(col.vdef, colvdef, CFS_VDEF_MAX);
+
+        printf("col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
+             col.name, col.type, col.len, col.vdef, col.remark);
+
+        table_add_column(table, &col);
+}
+
 /**
  * 加载所有字段
  *
  * @param table         表结构体指针
  * @param folcsdir      fcols目录
  */
-void load_columns(struct table *table, const char *folcsdir)
+void load_columns(struct table *table, const char *fcolsdir)
 {
+        DIR *dirp = opendir(fcolsdir);
+        struct dirent *e;
 
+        while ((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
+                char colpath[CFS_PATH_MAX];
+                xsnprintf(colpath, CFS_PATH_MAX, "%s/%s", fcolsdir, e->d_name);
+                deserialize_column(table, colpath);
+        }
+        closedir(dirp);
 }
 
 /**
@@ -63,6 +99,8 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
 
         // 加载字段列表
         load_columns(&table, fcolsdir);
+
+        cfs_add_table(base, &table);
 }
 
 /**
@@ -81,6 +119,7 @@ void load_tables(struct database *base, const char *basedir)
                 xsnprintf(bootdir, PATH_MAX, "%s/%s", basedir, e->d_name);
                 deserialize_table(base, bootdir, e->d_name);
         }
+        closedir(dirp);
 }
 
 /**
