@@ -21,6 +21,7 @@
 /*!
  * @author 范特西
  */
+#include <cfs_cd/diret.h>
 #include "kernel/database.h"
 
 void init_config();
@@ -28,6 +29,7 @@ void build_table(struct database *base);
 
 int main(void)
 {
+        puts(nop.name);
         init_config();
 
         struct database base;
