@@ -36,6 +36,6 @@ bool file_exist(const char *pathname);
 /** 判断文件夹是否是空 */
 bool is_empty_dir(const char *pathname);
 /** 创建多级目录，不存在则创建 */
-void cfs_mkdirs(const char *pathname);
+void vap_mkdirs(const char *pathname);
 
 #endif /* _GIO_H */

@@ -23,8 +23,8 @@
  *
  * @author 范特西
  */
-#ifndef CFS_KCHECK_H
-#define CFS_KCHECK_H
+#ifndef VAP_KCHECK_H
+#define VAP_KCHECK_H
 
 #include <stdbool.h>
 #include <tools/files.h>
@@ -58,4 +58,4 @@ kcheck_table_name_dup(const void *sp, size_t size, const char *name);
 inline bool
 kcheck_database_name_dup(const char *pathname, const char *name);
 
-#endif /* CFS_KCHECK_H */
+#endif /* VAP_KCHECK_H */

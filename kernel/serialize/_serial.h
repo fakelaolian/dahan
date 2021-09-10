@@ -21,10 +21,10 @@
 /*!
  * @author 范特西
  */
-#ifndef CFS_SERIAL_H
-#define CFS_SERIAL_H
+#ifndef VAP_SERIAL_H
+#define VAP_SERIAL_H
 
 #include "kernel/database.h"
 #include "mdef/_f_name.h"
 
-#endif /* CFS_SERIAL_H */
+#endif /* VAP_SERIAL_H */

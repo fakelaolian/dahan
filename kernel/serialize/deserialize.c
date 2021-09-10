@@ -29,23 +29,23 @@ void deserialize_column(struct table *table, char *colpath)
 {
         struct column col;
 
-        char colname[CFS_NAME_MAX];
-        char colremark[CFS_REMARK_MAX];
-        char colvdef[CFS_VDEF_MAX];
+        char colname[VAP_NAME_MAX];
+        char colremark[VAP_REMARK_MAX];
+        char colvdef[VAP_VDEF_MAX];
         unsigned char coltype;
         unsigned int collen;
 
         FILE *fp = fopen(colpath, "rb");
-        fread(colname, CFS_NAME_MAX, 1, fp);
-        fread(colremark, CFS_REMARK_MAX, 1, fp);
-        fread(colvdef, CFS_VDEF_MAX, 1, fp);
+        fread(colname, VAP_NAME_MAX, 1, fp);
+        fread(colremark, VAP_REMARK_MAX, 1, fp);
+        fread(colvdef, VAP_VDEF_MAX, 1, fp);
         fread(&coltype, sizeof(unsigned char), 1, fp);
         fread(&collen, sizeof(unsigned int), 1, fp);
         fclose(fp);
 
         column_init(&col, colname, coltype, collen);
-        strncpy(col.remark, colremark, CFS_REMARK_MAX);
-        strncpy(col.vdef, colvdef, CFS_VDEF_MAX);
+        strncpy(col.remark, colremark, VAP_REMARK_MAX);
+        strncpy(col.vdef, colvdef, VAP_VDEF_MAX);
 
         printf("col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
              col.name, col.type, col.len, col.vdef, col.remark);
@@ -65,8 +65,8 @@ void load_columns(struct table *table, const char *fcolsdir)
         struct dirent *e;
 
         while ((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
-                char colpath[CFS_PATH_MAX];
-                xsnprintf(colpath, CFS_PATH_MAX, "%s/%s", fcolsdir, e->d_name);
+                char colpath[VAP_PATH_MAX];
+                xsnprintf(colpath, VAP_PATH_MAX, "%s/%s", fcolsdir, e->d_name);
                 deserialize_column(table, colpath);
         }
         closedir(dirp);
@@ -82,25 +82,25 @@ void load_columns(struct table *table, const char *fcolsdir)
 void deserialize_table(struct database *base, const char *tabledir, char *name)
 {
         struct table table;
-        char remark[CFS_REMARK_MAX];
+        char remark[VAP_REMARK_MAX];
 
         // boot文件路径
-        char bootpath[CFS_PATH_MAX];
-        xsnprintf(bootpath, CFS_PATH_MAX, "%s/%s", tabledir, CFS_TABLE_NAME);
+        char bootpath[VAP_PATH_MAX];
+        xsnprintf(bootpath, VAP_PATH_MAX, "%s/%s", tabledir, VAP_TABLE_NAME);
 
         FILE *fp = fopen(bootpath, "rb");
-        fread(remark, CFS_REMARK_MAX, 1, fp);
+        fread(remark, VAP_REMARK_MAX, 1, fp);
         fclose(fp);
 
         table_init(&table, name, remark);
 
-        char fcolsdir[CFS_PATH_MAX];
-        xsnprintf(fcolsdir, CFS_PATH_MAX, "%s/%s", tabledir, CFS_FCOLS_DIR_NAME);
+        char fcolsdir[VAP_PATH_MAX];
+        xsnprintf(fcolsdir, VAP_PATH_MAX, "%s/%s", tabledir, VAP_FCOLS_DIR_NAME);
 
         // 加载字段列表
         load_columns(&table, fcolsdir);
 
-        cfs_add_table(base, &table);
+        vap_add_table(base, &table);
 }
 
 /**
@@ -133,8 +133,8 @@ extern bool
 load_database(struct database *base, const char *basedir, const char *name)
 {
         bool ret = false;
-        char target[CFS_PATH_MAX];
-        xsnprintf(target, CFS_PATH_MAX, "%s/%s", basedir, name);
+        char target[VAP_PATH_MAX];
+        xsnprintf(target, VAP_PATH_MAX, "%s/%s", basedir, name);
 
         if (!file_exist(target)) {
                 ERROR("没有找到“%s”数据库", name);

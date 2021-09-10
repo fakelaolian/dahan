@@ -21,14 +21,14 @@
 /*!
  * @author 范特西
  */
-#ifndef CFS_F_LIMITS_H
-#define CFS_F_LIMITS_H
+#ifndef VAP_F_LIMITS_H
+#define VAP_F_LIMITS_H
 
 #include <limits.h>
 
-#define CFS_NAME_MAX        200          /* 表名或函数名最大长度 */
-#define CFS_REMARK_MAX      300          /* 备注最大长度 */
-#define CFS_VDEF_MAX        200          /* 默认值最大长度 */
-#define CFS_PATH_MAX    PATH_MAX         /* 路径最大长度 */
+#define VAP_NAME_MAX        200          /* 表名或函数名最大长度 */
+#define VAP_REMARK_MAX      300          /* 备注最大长度 */
+#define VAP_VDEF_MAX        200          /* 默认值最大长度 */
+#define VAP_PATH_MAX    PATH_MAX         /* 路径最大长度 */
 
-#endif /* CFS_F_LIMITS_H */
+#endif /* VAP_F_LIMITS_H */

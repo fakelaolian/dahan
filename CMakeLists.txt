@@ -20,11 +20,11 @@
 ### ===> Creates on 2021/07/20. <=== ###
 ### author 范特西
 CMAKE_MINIMUM_REQUIRED(VERSION 3.13...3.19)
-PROJECT(cfs C)
+PROJECT(vap C)
 
 SET(CMAKE_C_STANDARD 11)
 
-ADD_DEFINITIONS(-D__cfs_debug)
+ADD_DEFINITIONS(-D__vap_debug)
 ADD_DEFINITIONS(-fgnu89-inline)
 
 INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/include)

@@ -22,8 +22,8 @@
  * 通用宏或函数
  * @author 范特西
  */
-#ifndef CFS_COMM_H
-#define CFS_COMM_H
+#ifndef VAP_COMM_H
+#define VAP_COMM_H
 
 /**
  * 重新定义数组大小
@@ -35,4 +35,4 @@
                         (__s_size * __sp->arrsize));                    \
 }
 
-#endif /* CFS_COMM_H */
+#endif /* VAP_COMM_H */

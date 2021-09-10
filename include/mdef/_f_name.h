@@ -21,10 +21,10 @@
 /*!
  * @author 范特西
  */
-#ifndef CFS_F_NAME_H
-#define CFS_F_NAME_H
+#ifndef VAP_F_NAME_H
+#define VAP_F_NAME_H
 
-#define CFS_TABLE_NAME       "boot"
-#define CFS_FCOLS_DIR_NAME   "fcols"
+#define VAP_TABLE_NAME       "boot"
+#define VAP_FCOLS_DIR_NAME   "fcols"
 
-#endif /* CFS_F_NAME_H */
+#endif /* VAP_F_NAME_H */

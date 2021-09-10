@@ -21,7 +21,7 @@
 /*!
  * @author 范特西
  */
-#include <cfs_cd/diret.h>
+#include <vap_cd/diret.h>
 #include "kernel/database.h"
 
 void init_config();
@@ -29,7 +29,6 @@ void build_table(struct database *base);
 
 int main(void)
 {
-        puts(nop.name);
         init_config();
 
         struct database base;
@@ -50,7 +49,7 @@ int main(void)
 
 void init_config()
 {
-        kconf_init("/home/shitbro/cfssql");
+        kconf_init("/home/shitbro/vapsql");
 }
 
 void build_table(struct database *base)
@@ -72,9 +71,9 @@ void build_table(struct database *base)
         column_init(&user, "user", _VARCHAR, 255);
         column_init(&member, "member", _VARCHAR, 255);
 
-        strncpy(username.vdef, "root", CFS_VDEF_MAX);
-        strncpy(username.remark, "用户名", CFS_REMARK_MAX);
-        strncpy(password.remark, "密码", CFS_REMARK_MAX);
+        strncpy(username.vdef, "root", VAP_VDEF_MAX);
+        strncpy(username.remark, "用户名", VAP_REMARK_MAX);
+        strncpy(password.remark, "密码", VAP_REMARK_MAX);
 
         table_add_column(&table0, &password);
         table_add_column(&table0, &username);
@@ -85,6 +84,6 @@ void build_table(struct database *base)
         table_add_column(&table1, &user);
         table_add_column(&table1, &member);
 
-        cfs_add_table(base, &table0);
-        cfs_add_table(base, &table1);
+        vap_add_table(base, &table0);
+        vap_add_table(base, &table1);
 }

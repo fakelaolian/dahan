@@ -27,13 +27,13 @@
 
 inline static void _write_table_remark(FILE *fp, char *remark)
 {
-        fwrite(remark, CFS_REMARK_MAX, 1, fp);
+        fwrite(remark, VAP_REMARK_MAX, 1, fp);
 }
 
 inline static void _write_table(const char *pathname, struct table *table)
 {
-        char tablepath[CFS_PATH_MAX];
-        xsnprintf(tablepath, CFS_PATH_MAX, "%s/%s", pathname, CFS_TABLE_NAME);
+        char tablepath[VAP_PATH_MAX];
+        xsnprintf(tablepath, VAP_PATH_MAX, "%s/%s", pathname, VAP_TABLE_NAME);
         // 写入数据
         FILE *fp = fopen(tablepath, "wb");
         _write_table_remark(fp, table->remark);
@@ -48,13 +48,13 @@ inline static void _write_table(const char *pathname, struct table *table)
  */
 __always_inline static void _write_single_column(const char *coldir, struct column *col)
 {
-        char fcolpath[CFS_PATH_MAX];
-        xsnprintf(fcolpath, CFS_PATH_MAX, "%s/%s", coldir, col->name);
+        char fcolpath[VAP_PATH_MAX];
+        xsnprintf(fcolpath, VAP_PATH_MAX, "%s/%s", coldir, col->name);
 
         FILE *fp = fopen(fcolpath, "wb");
-        fwrite(col->name, CFS_NAME_MAX, 1, fp);
-        fwrite(col->remark, CFS_REMARK_MAX, 1, fp);
-        fwrite(col->vdef, CFS_VDEF_MAX, 1, fp);
+        fwrite(col->name, VAP_NAME_MAX, 1, fp);
+        fwrite(col->remark, VAP_REMARK_MAX, 1, fp);
+        fwrite(col->vdef, VAP_VDEF_MAX, 1, fp);
         fwrite(&(col->type), sizeof(unsigned char), 1, fp);
         fwrite(&(col->len), sizeof(unsigned int), 1, fp);
         fclose(fp);
@@ -69,12 +69,12 @@ __always_inline static void _write_single_column(const char *coldir, struct colu
  */
 inline static void _write_columns(const char *tablepath, struct column *cols, size_t size)
 {
-        char coldir[CFS_PATH_MAX];
-        xsnprintf(coldir, CFS_PATH_MAX, "%s/%s", tablepath, CFS_FCOLS_DIR_NAME);
+        char coldir[VAP_PATH_MAX];
+        xsnprintf(coldir, VAP_PATH_MAX, "%s/%s", tablepath, VAP_FCOLS_DIR_NAME);
 
         // 如果文件夹不存在就创建
         if (!file_exist(coldir))
-                cfs_mkdirs(coldir);
+                vap_mkdirs(coldir);
 
         // 循环序列化所有字段
         for (size_t i = 0; i < size; i++)

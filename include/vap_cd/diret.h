@@ -19,18 +19,20 @@
 /*! ===> Creates on 2021/9/9. <=== */
 
 /*!
+ * 指令集
  * @author 范特西
  */
-#include <stdio.h>
+#ifndef VAP_INST_H
+#define VAP_INST_H
 
-#define COLOR_NONE "\033[0m" //表示清除前面设置的格式
-#define RED "\033[1;31;40m"  //40表示背景色为黑色, 1 表示高亮
-#define BLUE "\033[1;34;40m"
-#define GREEN "\033[1;32;40m"
-#define YELLOW "\033[1;33;40m"
+struct directive {
+        unsigned char code;        /* 指令码 */
+        char name[8];              /* 助记符号 */
+        char command[200];         /* 备注 */
+        char param[30];            /* 参数，使用逗号分割 */
+};
 
-int main(void)
-{
-        printf(RED"%s", "（查询用户表中用户名为范特西的数据）");
-        return 0;
-}
+#define __such(code, name, cm) \
+struct directive name = { code, #name,  cm};
+
+#endif /* VAP_INST_H */
