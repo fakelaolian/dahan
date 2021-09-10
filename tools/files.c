@@ -77,7 +77,6 @@ void vap_mkdirs(const char *__cpy_pathname)
         strncpy(pathname, __cpy_pathname, 255);
 
         char tmp;
-        size_t end;
         size_t len = strlen(pathname);
         for (size_t i = 0, end = len - 1; i < len; i++) {
                 tmp = pathname[i];
