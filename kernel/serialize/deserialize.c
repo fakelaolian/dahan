@@ -43,9 +43,7 @@ void deserialize_column(struct table *table, char *colpath)
         fread(&collen, sizeof(unsigned int), 1, fp);
         fclose(fp);
 
-        column_init(&col, colname, coltype, collen);
-        strncpy(col.remark, colremark, _REMARK_MAX);
-        strncpy(col.vdef, colvdef, _VDEF_MAX);
+        column_init(&col, colname, coltype, collen, colremark, colvdef);
 
         printf("col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
              col.name, col.type, col.len, col.vdef, col.remark);
@@ -92,7 +90,7 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
         fread(remark, _REMARK_MAX, 1, fp);
         fclose(fp);
 
-        table_init(&table, name, remark);
+        table_init(&table, name);
 
         char fcolsdir[_PATH_MAX];
         xsnprintf(fcolsdir, _PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);
@@ -130,10 +128,11 @@ void load_tables(struct database *base, const char *basedir)
  * @param name      数据库名称
  */
 extern bool
-load_database(struct database *base, const char *basedir, const char *name)
+load_database(struct database *base, const char *name)
 {
         bool ret = false;
         char target[_PATH_MAX];
+        char *basedir = kconf_data_dir();
         xsnprintf(target, _PATH_MAX, "%s/%s", basedir, name);
 
         if (!file_exist(target)) {

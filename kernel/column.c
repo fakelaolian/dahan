@@ -23,12 +23,24 @@
  */
 #include "kernel/column.h"
 
-void column_init(struct column *column, char *name, unsigned int type,
-                 unsigned len)
+void column_init(struct column *column,
+                 char *name,
+                 unsigned char type,
+                 size_t len,
+                 char *remark,
+                 char *vdef)
 {
         column->type = type;
         column->len = len;
-        memset(column->vdef, 0, _VDEF_MAX);
-        memset(column->remark, 0, _REMARK_MAX);
         strncpy(column->name, name, _NAME_MAX);
+
+        if(remark != NULL && strlen(remark) != 0)
+                strncpy(column->remark, remark, _REMARK_MAX);
+        else
+                memset(column->remark, 0, _REMARK_MAX);
+
+        if(vdef != NULL && strlen(vdef) != 0)
+                strncpy(column->vdef, vdef, _VDEF_MAX);
+        else
+                memset(column->vdef, 0, _VDEF_MAX);
 }

@@ -59,7 +59,9 @@ struct column {
  */
 inline void column_init(struct column *column,
                         char *name,
-                        unsigned int type,
-                        unsigned len);
+                        unsigned char type,
+                        size_t len,
+                        char *remark,
+                        char *vdef);
 
 #endif // _COLUMN_H

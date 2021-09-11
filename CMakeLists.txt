@@ -24,7 +24,8 @@ project(vacat C)
 
 set(cmake_c_standard 11)
 
-add_definitions(-d__vacat_debug)
+add_definitions(-D__vacat_debug)
+add_definitions(-D__vacat_close_check)
 add_definitions(-fgnu89-inline)
 
 include_directories(system ${PROJECT_SOURCE_DIR}/include)

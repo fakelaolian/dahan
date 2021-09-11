@@ -47,6 +47,9 @@ bool kcheck_table_name_dup(const void *sp, size_t size, const char *name)
 bool kcheck_database_name_dup(const char *pathname, const char *name)
 {
         DIR *dirp = opendir(pathname);
+        if(dirp == NULL)
+                return false;
+
         struct dirent *e;
 
         bool ret = false;

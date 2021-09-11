@@ -47,6 +47,6 @@ void vacat_add_table(struct database *base, struct table *table);
 /** 获取一张表 */
 struct table* vacat_get_table(struct database *base, const char *name);
 /** 加载数据库 */
-extern bool load_database(struct database *base, const char *basedir, const char *name);
+extern bool load_database(struct database *base, const char *name);
 
 #endif // _DATABASE_H

@@ -32,13 +32,13 @@ void database_init(struct database *base, const char *pathname, const char *name
         strncpy(base->pathname, pathname, _PATH_MAX);
 }
 
-bool create_database(struct database *base, char *name)
+extern bool create_database(struct database *base, char *name)
 {
         char pathname[255];
         char *datadir = kconf_data_dir();
         xsnprintf(pathname, 255, "%s/%s", datadir, name);
 
-#ifndef __vacat_debug
+#ifndef __vacat_close_check
         if (kcheck_database_name_dup(kconf_data_dir(), name)) {
                 puts("数据库已存在");
                 return false;

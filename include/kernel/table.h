@@ -36,13 +36,14 @@ struct table {
         struct column *columns;                 /* 结构体数组 */
 };
 
-inline static void table_init(struct table *table, char *name, char *remark)
+inline static void table_init(struct table *table, char *name)
 {
         table->colnum = 0;
         table->arrsize = COLUMN_ARRAY_SIZE;
         strncpy(table->name, name, _NAME_MAX);
-        strncpy(table->remark, remark, _REMARK_MAX);
         table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
+
+        memset(table->remark, 0, _REMARK_MAX);
 }
 
 inline static void destroy_table(struct table *table)

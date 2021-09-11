@@ -29,22 +29,21 @@ void build_table(struct database *base);
 
 int main(void)
 {
+        loadvasm();
+        init_config();
 
-        vacat_exec_comp("../.vacat");
-//        init_config();
-//
-//        struct database base;
-//        if (!create_database(&base, "mydb"))
-//                return 1;
-//
-//        build_table(&base);
-//
-//        struct database lbase;
-//        load_database(&lbase, kconf_data_dir(), "mydb");
-//
-//        destroy_database(&base);
-//        destroy_database(&lbase);
-//        kconf_destroy();
+        struct database base;
+        if (!vasm_cvap_database(&base, "mydb"))
+                return 1;
+
+        build_table(&base);
+
+        struct database lbase;
+        vasm_lvap_database(&lbase, "mydb");
+
+        vasm_fvap_database(&base);
+        vasm_fvap_database(&lbase);
+        kconf_destroy();
         return 0;
 }
 
@@ -57,8 +56,8 @@ void build_table(struct database *base)
 {
         struct table table0;
         struct table table1;
-        table_init(&table0, "user", "fuck you.");
-        table_init(&table1, "mytable", "去你妈的");
+        vasm_cvap_table(&table0, "user");
+        vasm_cvap_table(&table1, "mytable");
 
         struct column username;
         struct column password;
@@ -66,25 +65,22 @@ void build_table(struct database *base)
         struct column user;
         struct column member;
 
-        column_init(&username, "username", _VARCHAR, 255);
-        column_init(&password, "password", _VARCHAR, 255);
-        column_init(&admin, "admin", _VARCHAR, 255);
-        column_init(&user, "user", _VARCHAR, 255);
-        column_init(&member, "member", _VARCHAR, 255);
+        vasm_cvap_column(&username, "username", _VARCHAR, 255, "用户名", NULL);
+        vasm_cvap_column(&password, "password", _VARCHAR, 255, NULL, NULL);
+        vasm_cvap_column(&admin, "admin", _VARCHAR, 255, "管理员", NULL);
+        vasm_cvap_column(&user, "user", _VARCHAR, 255, NULL, NULL);
+        vasm_cvap_column(&member, "member", _VARCHAR, 255, NULL, NULL);
 
-        strncpy(username.vdef, "root", _VDEF_MAX);
-        strncpy(username.remark, "用户名", _REMARK_MAX);
-        strncpy(password.remark, "密码", _REMARK_MAX);
 
-        table_add_column(&table0, &password);
-        table_add_column(&table0, &username);
-        table_add_column(&table0, &admin);
-        table_add_column(&table0, &user);
-        table_add_column(&table0, &member);
+        vasm_add_column(&table0, &password);
+        vasm_add_column(&table0, &username);
+        vasm_add_column(&table0, &admin);
+        vasm_add_column(&table0, &user);
+        vasm_add_column(&table0, &member);
 
-        table_add_column(&table1, &user);
-        table_add_column(&table1, &member);
+        vasm_add_column(&table1, &user);
+        vasm_add_column(&table1, &member);
 
-        vacat_add_table(base, &table0);
-        vacat_add_table(base, &table1);
+        vasm_add_table(base, &table0);
+        vasm_add_table(base, &table1);
 }
