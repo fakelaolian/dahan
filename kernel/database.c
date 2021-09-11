@@ -28,8 +28,8 @@ void database_init(struct database *base, const char *pathname, const char *name
         base->tabnum = 0;
         base->arrsize = TABLE_ARRAY_SIZE;
         base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
-        strncpy(base->name, name, VAP_NAME_MAX);
-        strncpy(base->pathname, pathname, VAP_PATH_MAX);
+        strncpy(base->name, name, _NAME_MAX);
+        strncpy(base->pathname, pathname, _PATH_MAX);
 }
 
 bool create_database(struct database *base, char *name)
@@ -38,35 +38,35 @@ bool create_database(struct database *base, char *name)
         char *datadir = kconf_data_dir();
         xsnprintf(pathname, 255, "%s/%s", datadir, name);
 
-#ifndef __vap_debug
+#ifndef __vacat_debug
         if (kcheck_database_name_dup(kconf_data_dir(), name)) {
                 puts("数据库已存在");
                 return false;
         }
-#endif /* __vap_debug */
+#endif /* __vacat_debug */
 
         database_init(base, pathname, name);
 
         // 创建文件夹
-        vap_mkdirs(base->pathname);
+        vacat_mkdirs(base->pathname);
         return true;
 }
 
 /** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
-void _vap_serialze_table(struct database *base, struct table *table)
+void _vacat_serialze_table(struct database *base, struct table *table)
 {
-        char tablepath[VAP_PATH_MAX];
+        char tablepath[_PATH_MAX];
         /* 结果类似： /home/root/<数据库名>/<表名> */
-        xsnprintf(tablepath, VAP_PATH_MAX, "%s/%s", base->pathname, table->name);
+        xsnprintf(tablepath, _PATH_MAX, "%s/%s", base->pathname, table->name);
 
         if (!file_exist(tablepath))
-                vap_mkdirs(tablepath);
+                vacat_mkdirs(tablepath);
 
         // 将表结构信息写入文件
         _serialize_table_struct(tablepath, table);
 }
 
-void vap_add_table(struct database *bp, struct table *tp)
+void vacat_add_table(struct database *bp, struct table *tp)
 {
         if (bp->tabnum == (bp->arrsize - 1))
                 _ARRAY_RESIZE(bp, TABLE_ARRAY_SIZE, tables,
@@ -82,10 +82,10 @@ void vap_add_table(struct database *bp, struct table *tp)
         ++bp->tabnum;
 
         // 序列化
-        _vap_serialze_table(bp, tp);
+        _vacat_serialze_table(bp, tp);
 }
 
-struct table *vap_get_table(struct database *base, const char *name)
+struct table *vacat_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 

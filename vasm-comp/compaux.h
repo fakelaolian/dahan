@@ -21,19 +21,19 @@
 /*!
  * @author 范特西
  */
-#ifndef VAP_VASM_COMP
-#define VAP_VASM_COMP
+#ifndef _VASM_COMP
+#define _VASM_COMP
 
 #include <tools/files.h>
 #include <tools/vstring.h>
 
 /**
  * vasm语法很简单，一行指令代码就是一个最小的执行单元。
- * 所有这里的“vapexec_u”就是一个最小的执行单元，也就是一行
+ * 所有这里的“vacatexec_u”就是一个最小的执行单元，也就是一行
  * 指令解析出来的内容。
  */
-struct vapexec_u {
+struct vacatexec_u {
 
 };
 
-#endif /* VAP_VASM_COMP */
+#endif /* _VASM_COMP */

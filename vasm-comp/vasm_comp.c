@@ -25,12 +25,12 @@
 
 /**
  * 解析v开头的指令, v开头指令有：
- *      - vap
+ *      - vacat
  */
-void vap_parse_start_v(const char *vapline)
+void vacat_parse_start_v(const char *vacatline)
 {
         char *token;
-        token = strtok(vapline, " ");
+        token = strtok(vacatline, " ");
 
         while (token != NULL) {
                 printf("%s\n", token);
@@ -38,11 +38,11 @@ void vap_parse_start_v(const char *vapline)
         }
 }
 
-extern void vap_exec_comp(const char *vappath)
+extern void vacat_exec_comp(const char *vacatpath)
 {
 
         char getlc[1024];
-        FILE *fp = fopen(vappath, "r");
+        FILE *fp = fopen(vacatpath, "r");
 
         while (!feof(fp)) {
                 fgets(getlc, sizeof(getlc) - 1, fp);
@@ -71,7 +71,7 @@ extern void vap_exec_comp(const char *vappath)
                         case 't': {break;}
                         case 'u': {break;}
                         case 'v': {
-                                vap_parse_start_v(getlc);
+                                vacat_parse_start_v(getlc);
                                 break;
                         }
                         case 'w': {break;}

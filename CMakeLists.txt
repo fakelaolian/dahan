@@ -20,11 +20,11 @@
 ### ===> Creates on 2021/07/20. <=== ###
 ### author 范特西
 CMAKE_MINIMUM_REQUIRED(VERSION 3.13...3.19)
-PROJECT(vap C)
+PROJECT(vacat C)
 
 SET(CMAKE_C_STANDARD 11)
 
-ADD_DEFINITIONS(-D__vap_debug)
+ADD_DEFINITIONS(-D__vacat_debug)
 ADD_DEFINITIONS(-fgnu89-inline)
 
 INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/include)

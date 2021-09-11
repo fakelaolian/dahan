@@ -28,7 +28,7 @@ void column_init(struct column *column, char *name, unsigned int type,
 {
         column->type = type;
         column->len = len;
-        memset(column->vdef, 0, VAP_VDEF_MAX);
-        memset(column->remark, 0, VAP_REMARK_MAX);
-        strncpy(column->name, name, VAP_NAME_MAX);
+        memset(column->vdef, 0, _VDEF_MAX);
+        memset(column->remark, 0, _REMARK_MAX);
+        strncpy(column->name, name, _NAME_MAX);
 }

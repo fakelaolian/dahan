@@ -33,7 +33,7 @@
 struct kconfig *privcnf;
 
 struct kconfig {
-        char datadir[VAP_PATH_MAX];          /* 数据存放路径 */
+        char datadir[_PATH_MAX];          /* 数据存放路径 */
 };
 
 /** 获取数据文件存放的路径 */

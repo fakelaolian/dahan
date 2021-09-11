@@ -4,7 +4,7 @@
 
 | 关键字  | 说明                                      |
 | ------- | ----------------------------------------- |
-| base     | 数据库类型，一般用于mov, get, vap等地方   |
+| base     | 数据库类型，一般用于mov, get, va等地方   |
 | tab     | 表类型，作用同上                          |
 | col     | 字段类型                                  |
 | all     | 代表所有，如果是get指令，代表查询所有匹配 |
@@ -18,31 +18,31 @@
 
 ```clojure
 ; 创建数据库
-vap vp0, base
+va vp0, base
 aoc &vp0, "mydb"
 
 ; 创建表
-vap vp1, tab
+va vp1, tab
 aoc &vp1, "t_user"
 
 ; 创建表字段
 beg *v1:
 
-	vap col:
+	va col:
 	    mov "username"
 	    mov varchar
 	    mov 255
 	    mov false
 	end:add
 	
-	vap col:
+	va col:
 	    mov "password"
 	    mov varchar
 	    mov 255
 	    mov false
 	end:add
 	
-	vap col:
+	va col:
 	    mov "age"
 	    mov int
 	    mov 3
@@ -59,7 +59,7 @@ add &vp0, &vp1 ; 将表添加到数据库
 > select * from t_user
 
 ```clojure
-vap vp0, tab
+va vp0, tab
 get &vp0, "mydb/t_user"
 
 get &vp0, all
@@ -70,10 +70,10 @@ get &vp0, all
 > ALTER TABLE t_user MODIFY name varchar(255);
 
 ```clojure
-vap vp0, tab
+va vp0, tab
 get &vp0, "mydb/t_user"
 
-vap vp1, col
+va vp1, col
 get &vp1, &vp0["name"] ; &vp0["name"] 表示从vp0指针中获取name表
 
 mod &vp1, 0, "name"
@@ -86,7 +86,7 @@ mod &vp1, 2, 255
 > select * from t_user where name = '张三'
 
 ```clojure
-vap vp0, tab
+va vp0, tab
 get &vp0, "mydb/t_user"
 
 ```

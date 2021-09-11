@@ -29,7 +29,7 @@ void build_table(struct database *base);
 
 int main(void)
 {
-        vap_exec_comp("./.vap");
+        vacat_exec_comp("./.vacat");
 //        init_config();
 //
 //        struct database base;
@@ -49,7 +49,7 @@ int main(void)
 
 void init_config()
 {
-        kconf_init("/home/shitbro/vapsql");
+        kconf_init("/home/shitbro/vacatsql");
 }
 
 void build_table(struct database *base)
@@ -71,9 +71,9 @@ void build_table(struct database *base)
         column_init(&user, "user", _VARCHAR, 255);
         column_init(&member, "member", _VARCHAR, 255);
 
-        strncpy(username.vdef, "root", VAP_VDEF_MAX);
-        strncpy(username.remark, "用户名", VAP_REMARK_MAX);
-        strncpy(password.remark, "密码", VAP_REMARK_MAX);
+        strncpy(username.vdef, "root", _VDEF_MAX);
+        strncpy(username.remark, "用户名", _REMARK_MAX);
+        strncpy(password.remark, "密码", _REMARK_MAX);
 
         table_add_column(&table0, &password);
         table_add_column(&table0, &username);
@@ -84,6 +84,6 @@ void build_table(struct database *base)
         table_add_column(&table1, &user);
         table_add_column(&table1, &member);
 
-        vap_add_table(base, &table0);
-        vap_add_table(base, &table1);
+        vacat_add_table(base, &table0);
+        vacat_add_table(base, &table1);
 }

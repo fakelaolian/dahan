@@ -27,13 +27,13 @@
 
 inline static void _write_table_remark(FILE *fp, char *remark)
 {
-        fwrite(remark, VAP_REMARK_MAX, 1, fp);
+        fwrite(remark, _REMARK_MAX, 1, fp);
 }
 
 inline static void _write_table(const char *pathname, struct table *table)
 {
-        char tablepath[VAP_PATH_MAX];
-        xsnprintf(tablepath, VAP_PATH_MAX, "%s/%s", pathname, VAP_TABLE_NAME);
+        char tablepath[_PATH_MAX];
+        xsnprintf(tablepath, _PATH_MAX, "%s/%s", pathname, _TABLE_NAME);
         // 写入数据
         FILE *fp = fopen(tablepath, "wb");
         _write_table_remark(fp, table->remark);
@@ -48,13 +48,13 @@ inline static void _write_table(const char *pathname, struct table *table)
  */
 __always_inline static void _write_single_column(const char *coldir, struct column *col)
 {
-        char fcolpath[VAP_PATH_MAX];
-        xsnprintf(fcolpath, VAP_PATH_MAX, "%s/%s", coldir, col->name);
+        char fcolpath[_PATH_MAX];
+        xsnprintf(fcolpath, _PATH_MAX, "%s/%s", coldir, col->name);
 
         FILE *fp = fopen(fcolpath, "wb");
-        fwrite(col->name, VAP_NAME_MAX, 1, fp);
-        fwrite(col->remark, VAP_REMARK_MAX, 1, fp);
-        fwrite(col->vdef, VAP_VDEF_MAX, 1, fp);
+        fwrite(col->name, _NAME_MAX, 1, fp);
+        fwrite(col->remark, _REMARK_MAX, 1, fp);
+        fwrite(col->vdef, _VDEF_MAX, 1, fp);
         fwrite(&(col->type), sizeof(unsigned char), 1, fp);
         fwrite(&(col->len), sizeof(unsigned int), 1, fp);
         fclose(fp);
@@ -69,12 +69,12 @@ __always_inline static void _write_single_column(const char *coldir, struct colu
  */
 inline static void _write_columns(const char *tablepath, struct column *cols, size_t size)
 {
-        char coldir[VAP_PATH_MAX];
-        xsnprintf(coldir, VAP_PATH_MAX, "%s/%s", tablepath, VAP_FCOLS_DIR_NAME);
+        char coldir[_PATH_MAX];
+        xsnprintf(coldir, _PATH_MAX, "%s/%s", tablepath, _FCOLS_DIR_NAME);
 
         // 如果文件夹不存在就创建
         if (!file_exist(coldir))
-                vap_mkdirs(coldir);
+                vacat_mkdirs(coldir);
 
         // 循环序列化所有字段
         for (size_t i = 0; i < size; i++)
