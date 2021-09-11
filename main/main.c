@@ -38,11 +38,7 @@ int main(void)
 
         build_table(&base);
 
-        struct database lbase;
-        vasm_lvap_database(&lbase, "mydb");
-
         vasm_fvap_database(&base);
-        vasm_fvap_database(&lbase);
         kconf_destroy();
         return 0;
 }
@@ -56,8 +52,8 @@ void build_table(struct database *base)
 {
         struct table table0;
         struct table table1;
-        vasm_cvap_table(&table0, "user");
-        vasm_cvap_table(&table1, "mytable");
+        table_init(&table0, "user");
+        table_init(&table1, "mytable");
 
         struct column username;
         struct column password;
@@ -65,22 +61,22 @@ void build_table(struct database *base)
         struct column user;
         struct column member;
 
-        vasm_cvap_column(&username, "username", _VARCHAR, 255, "用户名", NULL);
-        vasm_cvap_column(&password, "password", _VARCHAR, 255, NULL, NULL);
-        vasm_cvap_column(&admin, "admin", _VARCHAR, 255, "管理员", NULL);
-        vasm_cvap_column(&user, "user", _VARCHAR, 255, NULL, NULL);
-        vasm_cvap_column(&member, "member", _VARCHAR, 255, NULL, NULL);
+        column_init(&username, "username", _VARCHAR, 255, "用户名", NULL);
+        column_init(&password, "password", _VARCHAR, 255, NULL, NULL);
+        column_init(&admin, "admin", _VARCHAR, 255, "管理员", NULL);
+        column_init(&user, "user", _VARCHAR, 255, NULL, NULL);
+        column_init(&member, "member", _VARCHAR, 255, NULL, NULL);
 
+        table_add_column(&table0, &password);
+        table_add_column(&table0, &username);
+        table_add_column(&table0, &admin);
+        table_add_column(&table0, &user);
+        table_add_column(&table0, &member);
 
-        vasm_add_column(&table0, &password);
-        vasm_add_column(&table0, &username);
-        vasm_add_column(&table0, &admin);
-        vasm_add_column(&table0, &user);
-        vasm_add_column(&table0, &member);
+        table_add_column(&table1, &user);
+        table_add_column(&table1, &member);
 
-        vasm_add_column(&table1, &user);
-        vasm_add_column(&table1, &member);
-
-        vasm_add_table(base, &table0);
-        vasm_add_table(base, &table1);
+        vacat_add_table(base, &table0);
+        modify_database_name(base, "mydb", "mod_mydb");
+        vacat_add_table(base, &table1);
 }

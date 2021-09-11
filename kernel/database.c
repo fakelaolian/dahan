@@ -34,9 +34,9 @@ void database_init(struct database *base, const char *pathname, const char *name
 
 extern bool create_database(struct database *base, char *name)
 {
-        char pathname[255];
+        char pathname[_PATH_MAX];
         char *datadir = kconf_data_dir();
-        xsnprintf(pathname, 255, "%s/%s", datadir, name);
+        xsnprintf(pathname, _PATH_MAX, "%s/%s", datadir, name);
 
 #ifndef __vacat_close_check
         if (kcheck_database_name_dup(kconf_data_dir(), name)) {
@@ -97,6 +97,17 @@ struct table *vacat_get_table(struct database *base, const char *name)
         }
 
         return NULL;
+}
+
+void modify_database_name(struct database *base, const char *oldname, const char *newname)
+{
+        char newpathname[_PATH_MAX];
+        char oldpathname[_PATH_MAX];
+        xsnprintf(newpathname, _PATH_MAX, "%s/%s", kconf_data_dir(), newname);
+        xsnprintf(oldpathname, _PATH_MAX, "%s/%s", kconf_data_dir(), oldname);
+
+        rename(oldpathname, newpathname);
+        strncpy(base->pathname, newpathname, _PATH_MAX);
 }
 
 void destroy_database(struct database *database)

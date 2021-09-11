@@ -70,7 +70,7 @@ typedef void* (*f_vasm_lvap_column)(void *table, char *name);
 __vasm_api f_vasm_lvap_column VASM_LVAP_COLUMN;
 #define vasm_lvap_column VASM_LVAP_COLUMN
 /** 修改数据库名 */
-typedef void (*f_vasm_mod_database_name)(void *base, char *name);
+typedef void (*f_vasm_mod_database_name)(void *base, char *oldname, char *newname);
 __vasm_api f_vasm_mod_database_name VASM_MOD_DATABASE_NAME;
 #define vasm_mod_database_name VASM_MOD_DATABASE_NAME
 /** 修改表名 */
@@ -130,6 +130,7 @@ static void loadvasm()
         VASM_LVAP_COLUMN = (f_vasm_lvap_column) table_get_column;
         VASM_LVAP_DATABASE = (f_vasm_lvap_database) load_database;
         VASM_FVAP_DATABASE = (f_vasm_fvap_database) destroy_database;
+        VASM_MOD_DATABASE_NAME = (f_vasm_mod_database_name) modify_database_name;
 }
 
 /**
