@@ -1,47 +1,55 @@
 # =================================================================================
 #
-# Copyright (C) 2020 luots All rights reserved.
+# copyright (c) 2020 luots all rights reserved.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# licensed under the apache license, version 2.0 (the "license");
+# you may not use this file except in compliance with the license.
+# you may obtain a copy of the license at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/license-2.0
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# unless required by applicable law or agreed to in writing, software
+# distributed under the license is distributed on an "as is" basis,
+# without warranties or conditions of any kind, either express or implied.
+# see the license for the specific language governing permissions and
+# limitations under the license.
 #
 # =================================================================================/
 
 ### ==============================================
-### ===> Creates on 2021/07/20. <=== ###
+### ===> creates on 2021/07/20. <=== ###
 ### author 范特西
-CMAKE_MINIMUM_REQUIRED(VERSION 3.13...3.19)
-PROJECT(vacat C)
+cmake_minimum_required(VERSION 3.13...3.19)
+project(vacat C)
 
-SET(CMAKE_C_STANDARD 11)
+set(cmake_c_standard 11)
 
-ADD_DEFINITIONS(-D__vacat_debug)
-ADD_DEFINITIONS(-fgnu89-inline)
+add_definitions(-d__vacat_debug)
+add_definitions(-fgnu89-inline)
 
-INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/include)
-INCLUDE_DIRECTORIES(SYSTEM ${PROJECT_SOURCE_DIR}/sha256)
+include_directories(system ${PROJECT_SOURCE_DIR}/include)
+include_directories(system ${PROJECT_SOURCE_DIR}/sha256)
 
-ADD_EXECUTABLE(
+aux_source_directory(${CMAKE_SOURCE_DIR}/main main)
+aux_source_directory(${CMAKE_SOURCE_DIR}/sha256 sha256)
+aux_source_directory(${CMAKE_SOURCE_DIR}/kernel kernel)
+aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/aux kernel_aux)
+aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kernel_serialize)
+aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
+aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
+aux_source_directory(${CMAKE_SOURCE_DIR}/vasm/comp vasm_comp)
+aux_source_directory(${CMAKE_SOURCE_DIR}/vasm/exec vasm_exec)
+
+add_executable(
         ${PROJECT_NAME}
-        main/main.c
-        kernel/column.c
-        kernel/table.c
-        kernel/database.c
-        kernel/kconfig.c
-        kernel/serialize/serialize.c
-        kernel/serialize/deserialize.c
-        kernel/aux/kcheck.c
-        tools/string.c
-        tools/files.c
-        sha256/sha256.c
-        vasm-comp/vasm_comp.c
+        ${main}
+        ${sha256}
+        ${kernel}
+        ${kernel_aux}
+        ${kernel_serialize}
+        ${tools}
+        ${vasm}
+        ${vasm_comp}
+        ${vasm_exec}
+
 )

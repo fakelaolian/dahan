@@ -22,8 +22,8 @@
  * 指令集
  * @author 范特西
  */
-#ifndef _INST_H
-#define _INST_H
+#ifndef _VASM_DIRET
+#define _VASM_DIRET
 
 struct directive {
         unsigned char code;        /* 指令码 */
@@ -49,4 +49,4 @@ __mark__(0x11, ifle, "小于");
 __mark__(0x12, ifgt, "大于等于");
 __mark__(0x13, iflt, "小于等于");
 
-#endif /* _INST_H */
+#endif /* _VASM_DIRET */

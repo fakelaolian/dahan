@@ -1,29 +1,29 @@
 ; 创建数据库
-vacat vp0, 0x0
+vap vp0, 0x0
 aoc &vp0, "mydb"
 
 ; 创建表
-vacat vp1, 0x1
+vap vp1, 0x1
 aoc &vp1, "t_user"
 
 ; 创建表字段
 beg *v1:
 
-	vacat 0x2:
+	vap 0x2:
 	    mov "username"
 	    mov varchar
 	    mov 255
 	    mov false
 	end:add
 
-	vacat 0x2:
+	vap 0x2:
 	    mov "password"
 	    mov varchar
 	    mov 255
 	    mov false
 	end:add
 
-	vacat 0x2:
+	vap 0x2:
 	    mov "age"
 	    mov int
 	    mov 3

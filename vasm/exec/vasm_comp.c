@@ -25,19 +25,19 @@
 
 /**
  * 解析v开头的指令, v开头指令有：
- *      - vacat
+ *      - vap
  */
 void vacat_parse_start_v(const char *vacatline)
 {
-        char *token;
-        token = strtok(vacatline, " ");
+        if (vacatline[1] == 'a' && vacatline[2] == 'p') {
 
-        while (token != NULL) {
-                printf("%s\n", token);
-                token = strtok(NULL, " ");
         }
 }
 
+/**
+ * 编译.vacat文件
+ * @param vacatpath vacat文件路径
+ */
 extern void vacat_exec_comp(const char *vacatpath)
 {
 
