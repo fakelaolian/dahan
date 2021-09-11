@@ -21,20 +21,21 @@
 /*!
  * @author 范特西
  */
-#ifndef _VASM_EXEC
-#define _VASM_EXEC
+#ifndef _VACAT_API_H
+#define _VACAT_API_H
 
-/**
- * 最小执行单元
- */
-struct vacatunit {
+#ifdef WIN32
+#   define __api_import__ __declspec(dllimport)
+#   define __api_export__ __declspec(dllexport)
+#else
+#   define __api_export__
+#   define __api_import__
+#endif /* WIN32 */
 
-};
+#ifdef __BUILD_DLL__
+#   define __gext_api__ __api_export__
+#else
+#   define __gext_api__ __api_import__
+#endif /* __BUILD_DLL__ */
 
-/**
- * 运行指令
- * @param vaunit 最小执行单元
- */
-void exec_vacat_unit(struct vacatunit *vaunit);
-
-#endif /* _VASM_EXEC */
+#endif /* _VACAT_API_H */

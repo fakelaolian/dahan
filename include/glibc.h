@@ -30,6 +30,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
+#include <gext_api.h>
 
 #define ENUM enum
 
@@ -37,19 +38,5 @@
 #define DEBUG printf
 #define ERROR printf
 #define WARN printf
-
-#ifdef WIN32
-#   define __api_import__ __declspec(dllimport)
-#   define __api_export__ __declspec(dllexport)
-#else
-#   define __api_export__
-#   define __api_import__
-#endif /* WIN32 */
-
-#ifdef __BUILD_DLL__
-#   define __glibc_api__ __api_export__
-#else
-#   define __glibc_api__ __api_import__
-#endif /* __BUILD_DLL__ */
 
 #endif /* _GLIBC_H */
