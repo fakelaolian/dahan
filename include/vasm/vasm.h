@@ -21,3 +21,14 @@
 /*!
  * @author 范特西
  */
+#ifndef VAP_VASM_H
+#define VAP_VASM_H
+
+/**
+ * 编译.vasm文件
+ *
+ * @param vappath 文件路径
+ */
+extern void vap_exec_comp(const char *vappath);
+
+#endif /* VAP_VASM_H */

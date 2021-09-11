@@ -21,9 +21,42 @@
 /*!
  * @author 范特西
  */
-#include "tools/vstring.h"
 #include <glibc.h>
 #include <stdarg.h>
+#include <tools/vstring.h>
+#include <ctype.h>
+
+void rtrim(char *str)
+{
+        if (str == NULL || *str == '\0')
+                return;
+
+        int len = strlen(str);
+        char *p = str + len - 1;
+        while (p >= str && isspace(*p))
+                *p = '\0'; --p;
+}
+
+
+//去除首部空格
+void ltrim(char *str)
+{
+        if (str == NULL || *str == '\0')
+                return;
+
+        int len = 0;
+        char *p = str;
+        while (*p != '\0' && isspace(*p))
+                ++p; ++len;
+
+        memmove(str, p, strlen(str) - len + 1);
+}
+
+void trim(char *str)
+{
+        rtrim(str);
+        ltrim(str);
+}
 
 int xsnprintf(char *dest, size_t max, const char *fmt, ...)
 {

@@ -21,7 +21,7 @@
 /*!
  * @author 范特西
  */
-#include <vasm/diret.h>
+#include <vasm/vasm.h>
 #include "kernel/database.h"
 
 void init_config();
@@ -29,6 +29,7 @@ void build_table(struct database *base);
 
 int main(void)
 {
+        vap_exec_comp("./.vap");
 //        init_config();
 //
 //        struct database base;

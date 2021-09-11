@@ -16,24 +16,24 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/5. <=== */
+/*! ===> Creates on 2021/9/11. <=== */
 
 /*!
  * @author 范特西
  */
-#ifndef _GUTIL_H
-#define _GUTIL_H
+#ifndef VAP_VASM_COMP
+#define VAP_VASM_COMP
 
-#include <string.h>
+#include <tools/files.h>
+#include <tools/vstring.h>
 
-/** 修剪字符串去除首部空格 */
-void ltrim(char *str);
-/** 修剪字符串去除末尾空格 */
-void rtrim(char *str);
-/** 修剪字符串去除前后空格 */
-inline void trim(char *str);
-/** 格式化字符串 */
-__attribute__((format (printf, 3, 4)))
-int xsnprintf(char *dest, size_t max, const char *fmt, ...);
+/**
+ * vasm语法很简单，一行指令代码就是一个最小的执行单元。
+ * 所有这里的“vapexec_u”就是一个最小的执行单元，也就是一行
+ * 指令解析出来的内容。
+ */
+struct vapexec_u {
 
-#endif /* _GUTIL_H */
+};
+
+#endif /* VAP_VASM_COMP */
