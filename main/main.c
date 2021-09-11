@@ -29,6 +29,7 @@ void build_table(struct database *base);
 
 int main(void)
 {
+
         vacat_exec_comp("../.vacat");
 //        init_config();
 //

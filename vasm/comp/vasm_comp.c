@@ -40,7 +40,6 @@ void vacat_parse_start_v(const char *vacatline)
  */
 extern void vacat_exec_comp(const char *vacatpath)
 {
-
         char getlc[1024];
         FILE *fp = fopen(vacatpath, "r");
 
