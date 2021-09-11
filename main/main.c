@@ -21,7 +21,7 @@
 /*!
  * @author 范特西
  */
-#include <vap_cd/diret.h>
+#include <vasm/diret.h>
 #include "kernel/database.h"
 
 void init_config();
@@ -29,7 +29,6 @@ void build_table(struct database *base);
 
 int main(void)
 {
-        vap_cd_parse("./test.vap");
 //        init_config();
 //
 //        struct database base;
@@ -44,7 +43,6 @@ int main(void)
 //        destroy_database(&base);
 //        destroy_database(&lbase);
 //        kconf_destroy();
-
         return 0;
 }
 

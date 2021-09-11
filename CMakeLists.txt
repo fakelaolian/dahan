@@ -43,5 +43,5 @@ ADD_EXECUTABLE(
         tools/string.c
         tools/files.c
         sha256/sha256.c
-        vap/vap_parser.c
+        vasm-comp/vasm_lex.c
 )

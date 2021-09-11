@@ -49,6 +49,4 @@ struct directive name = { code, #name,  cm}
 // __mark__(0x12, ifgt, "大于等于");
 // __mark__(0x13, iflt, "小于等于");
 
-extern void vap_cd_parse(const char *cd_path);
-
 #endif /* VAP_INST_H */
