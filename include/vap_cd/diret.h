@@ -32,16 +32,23 @@ struct directive {
         char param[30];            /* 参数，使用逗号分割 */
 };
 
-#define __such(code, name, cm) \
+#define __mark__(code, name, cm) \
 struct directive name = { code, #name,  cm}
 
-__such(0x01, vap, "创建一个对象");
-__such(0x02, aoc, "给对象分配数据");
-__such(0x03, beg, "代码块开始标记");
-__such(0x04, end, "代码块结束标记");
-__such(0x05, mov, "将数据根据offset移动到对应的内存区域");
-__such(0x06, add, "将一个表添加到数据库或者将字段添加到表中");
-__such(0x07, get, "从指针中获取表或者字段，根据指针类型而定");
-__such(0x08, mod, "修改数据");
+// __mark__(0x01, vap, "创建一个对象");
+// __mark__(0x02, aoc, "给对象分配数据");
+// __mark__(0x03, beg, "代码块开始标记");
+// __mark__(0x04, end, "代码块结束标记");
+// __mark__(0x05, mov, "将数据根据offset移动到对应的内存区域");
+// __mark__(0x06, add, "将一个表添加到数据库或者将字段添加到表中");
+// __mark__(0x07, get, "从指针中获取表或者字段，根据指针类型而定");
+// __mark__(0x08, mod, "修改数据");
+// __mark__(0x09, ifeq, "等于");
+// __mark__(0x10, ifge, "大于");
+// __mark__(0x11, ifle, "小于");
+// __mark__(0x12, ifgt, "大于等于");
+// __mark__(0x13, iflt, "小于等于");
+
+extern void vap_cd_parse(const char *cd_path);
 
 #endif /* VAP_INST_H */

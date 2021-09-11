@@ -29,20 +29,21 @@ void build_table(struct database *base);
 
 int main(void)
 {
-        init_config();
-
-        struct database base;
-        if (!create_database(&base, "mydb"))
-                return 1;
-
-        build_table(&base);
-
-        struct database lbase;
-        load_database(&lbase, kconf_data_dir(), "mydb");
-
-        destroy_database(&base);
-        destroy_database(&lbase);
-        kconf_destroy();
+        vap_cd_parse("./test.vap");
+//        init_config();
+//
+//        struct database base;
+//        if (!create_database(&base, "mydb"))
+//                return 1;
+//
+//        build_table(&base);
+//
+//        struct database lbase;
+//        load_database(&lbase, kconf_data_dir(), "mydb");
+//
+//        destroy_database(&base);
+//        destroy_database(&lbase);
+//        kconf_destroy();
 
         return 0;
 }

@@ -24,7 +24,7 @@
 #ifndef _GUTIL_H
 #define _GUTIL_H
 
-#include "glibc.h"
+#include <string.h>
 
 __attribute__((format (printf, 3, 4)))
 int xsnprintf(char *dest, size_t max, const char *fmt, ...);

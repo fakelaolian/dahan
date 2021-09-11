@@ -21,7 +21,8 @@
 /*!
  * @author 范特西
  */
-#include "gtools.h"
+#include "tools/vstring.h"
+#include <glibc.h>
 #include <stdarg.h>
 
 int xsnprintf(char *dest, size_t max, const char *fmt, ...)
