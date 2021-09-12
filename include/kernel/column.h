@@ -34,7 +34,7 @@
  * 字段类型枚举
  */
 ENUM COLTYPE {
-        _INT,
+        _INT = 1,
         _VARCHAR,
         _FLOAT,
         _DECIMAL,

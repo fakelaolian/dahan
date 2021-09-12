@@ -26,10 +26,28 @@
 
 #include "database.h"
 
+/**
+ * 修改字段名
+ *
+ * @param table
+ * @param name
+ * @param newname
+ * @param type
+ * @param len
+ * @param remark
+ * @param vdef
+ */
+void modify_column_info(struct database *base,
+                        const char *name,               /* <database name>/<table name> */
+                        const char *newname,
+                        unsigned char type,
+                        unsigned int len,
+                        const char *remark,
+                        const char *vdef);
 /** 修改表名 */
 void modify_table_name(struct database *base, const char *oldname, const char *newname);
 /** 添加一张表到数据库 */
-void vacat_add_table(struct database *base, struct table *table);
+extern void vacat_add_table(struct database *base, struct table *table);
 /** 修改数据库名 */
 void modify_database_name(struct database *base, const char *oldname, const char *newname);
 /** 获取一张表 */

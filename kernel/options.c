@@ -24,16 +24,117 @@
 #include "kernel/options.h"
 #include "serialize/serialize.c"
 
-/** 修改表名 */
+#define CHK_TABLE_NOT_FOUND(__ptr, name)           \
+if(__ptr == NULL) {                                \
+        kerror("【%s】表不存在\n", name);             \
+        return;                                    \
+}
+
+#define CHK_COLUMN_NOT_FOUND(__ptr, name)          \
+if(__ptr == NULL) {                                \
+        kerror("【%s】字段不存在\n", name);           \
+        return;                                    \
+}
+
+static __always_inline void getname(const char *path, char *tabname, char *colname)
+{
+        char cpypath[_PATH_MAX];
+        strncpy(cpypath, path, _PATH_MAX);
+
+        char *word;
+        word = strtok(cpypath, "/");
+
+        unsigned char count = 0;
+        while (word != NULL) {
+                switch (count) {
+                        case 0: {
+                                if (tabname != NULL)
+                                        strncpy(tabname, word, _NAME_MAX);
+                                break;
+                        }
+                        case 1: {
+                                if (colname != NULL)
+                                        strncpy(colname, word, _NAME_MAX);
+                                break;
+                        }
+                }
+                word = strtok(NULL, "/");
+                count++;
+        }
+}
+
+void modify_column_info(struct database *base,
+                        const char *name,
+                        const char *newname,
+                        unsigned char type,
+                        unsigned int len,
+                        const char *remark,
+                        const char *vdef)
+{
+        char tabname[_NAME_MAX];
+        char colname[_NAME_MAX];
+        getname(name, tabname, colname);
+
+#ifdef __vacat_debug
+        DEBUG("############## 调试开始【修改字段信息】 ##############\n");
+        DEBUG("路径: %s\n", name);
+        DEBUG("表名: %s\n", tabname);
+        DEBUG("字段名: %s\n", colname);
+        DEBUG("############## 调试结束【修改字段信息】 ##############\n");
+#endif
+
+        // 获取表结构体
+        struct table *table = vacat_get_table(base, tabname);
+        CHK_TABLE_NOT_FOUND(table, tabname)
+
+        // 获取字段结构体
+        struct column *column = table_get_column(table, colname);
+        CHK_COLUMN_NOT_FOUND(column, colname)
+
+        if(newname != NULL && strlen(newname) != 0) {
+                memset(column->name, 0, _NAME_MAX);
+                strncpy(column->name, newname, _NAME_MAX);
+        }
+
+        if(remark != NULL && strlen(remark) != 0) {
+                memset(column->remark, 0, _REMARK_MAX);
+                strncpy(column->remark, remark, _REMARK_MAX);
+        }
+
+        if(vdef != NULL && strlen(vdef) != 0) {
+                memset(column->vdef, 0, _VDEF_MAX);
+                strncpy(column->vdef, vdef, _VDEF_MAX);
+        }
+
+        if(type > 0)
+                column->type = type;
+
+        if(len > 0)
+                column->len = len;
+
+}
+
+/** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
+void _vacat_serialze_table(struct database *base, struct table *table)
+{
+        char tablepath[_PATH_MAX];
+        /* 结果类似： /home/root/<数据库名>/<表名> */
+        xsnprintf(tablepath, _PATH_MAX, "%s/%s", base->pathname, table->name);
+
+        if (!file_exist(tablepath))
+                vacat_mkdirs(tablepath);
+
+        // 将表结构信息写入文件
+        _write_table(tablepath, table);
+        _write_columns(tablepath, table->columns, table->colnum);
+}
+
 void modify_table_name(struct database *base, const char *oldname, const char *newname)
 {
         struct table *table;
         table = vacat_get_table(base, oldname);
 
-        if(table == NULL) {
-                kerror("【%s】表不存在\n", oldname);
-                return;
-        }
+        CHK_TABLE_NOT_FOUND(table, oldname)
 
         char oldpath[_PATH_MAX];
         char newpath[_PATH_MAX];
@@ -54,22 +155,7 @@ void modify_table_name(struct database *base, const char *oldname, const char *n
         rename(oldpath, newpath);
 }
 
-/** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
-void _vacat_serialze_table(struct database *base, struct table *table)
-{
-        char tablepath[_PATH_MAX];
-        /* 结果类似： /home/root/<数据库名>/<表名> */
-        xsnprintf(tablepath, _PATH_MAX, "%s/%s", base->pathname, table->name);
-
-        if (!file_exist(tablepath))
-                vacat_mkdirs(tablepath);
-
-        // 将表结构信息写入文件
-        _write_table(tablepath, table);
-        _write_columns(tablepath, table->columns, table->colnum);
-}
-
-void vacat_add_table(struct database *bp, struct table *tp)
+extern void vacat_add_table(struct database *bp, struct table *tp)
 {
         if (bp->tabnum == (bp->arrsize - 1))
         _ARRAY_RESIZE(bp, TABLE_ARRAY_SIZE, tables,

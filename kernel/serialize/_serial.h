@@ -27,4 +27,6 @@
 #include "kernel/database.h"
 #include "mdef/_f_name.h"
 
+extern void vacat_add_table(struct database *base, struct table *table);
+
 #endif /* _SERIAL_H */
