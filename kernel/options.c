@@ -106,9 +106,11 @@ void modify_column_info(struct database *base,
                 strncpy(column->vdef, vdef, _VDEF_MAX);
         }
 
+        // TODO 需要检测当前字段的数据中类型是否符合条件
         if(type > 0)
                 column->type = type;
 
+        // TODO 需要检测当前字段的数据中长度是否符合条件
         if(len > 0)
                 column->len = len;
 

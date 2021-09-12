@@ -40,7 +40,7 @@ int main(void)
         build_table(&base);
 
         modify_table_name(&base, "user", "usermod");
-        modify_column_info(&base, "mydb/usermod", NULL, 1, 1, NULL, NULL);
+        modify_column_info(&base, "mydb/usermod", NULL, 0, 0, NULL, NULL);
 
         vasm_fvap_database(&base);
         kconf_destroy();
