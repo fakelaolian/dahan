@@ -34,13 +34,17 @@ int main(void)
         init_config();
 
         struct database base;
-        if (!vasm_cvap_database(&base, "mydb"))
+        if (!create_database(&base, "mydb"))
                 return 1;
 
         build_table(&base);
 
         modify_table_name(&base, "user", "usermod");
-        modify_column_info(&base, "mydb/usermod", NULL, 0, 0, NULL, NULL);
+        modify_column_info(&base, "usermod/username", "newusername",
+                           0, 0, "修改了字段名", NULL);
+
+        struct database lbsae;
+        load_database(&lbsae, "mydb");
 
         vasm_fvap_database(&base);
         kconf_destroy();
@@ -81,6 +85,5 @@ void build_table(struct database *base)
         table_add_column(&table1, &member);
 
         vacat_add_table(base, &table0);
-        modify_database_name(base, "mydb", "mod_mydb");
         vacat_add_table(base, &table1);
 }

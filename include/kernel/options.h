@@ -47,7 +47,9 @@ void modify_column_info(struct database *base,
 /** 修改表名 */
 void modify_table_name(struct database *base, const char *oldname, const char *newname);
 /** 添加一张表到数据库 */
-extern void vacat_add_table(struct database *base, struct table *table);
+extern inline void vacat_add_table(struct database *base, struct table *table);
+/** 添加一张表到数据库（反序列化时使用） */
+extern inline void lvacat_add_table(struct database *base, struct table *table);
 /** 修改数据库名 */
 void modify_database_name(struct database *base, const char *oldname, const char *newname);
 /** 获取一张表 */

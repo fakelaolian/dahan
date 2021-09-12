@@ -27,6 +27,28 @@
 #include "kernel/database.h"
 #include "mdef/_f_name.h"
 
+__always_inline static void gettabdir(char *tabdir, const char *basedir, const char *name)
+{
+        /* 结果类似： /home/root/<数据库名>/<表名> */
+        xsnprintf(tabdir, _PATH_MAX, "%s/%s", basedir, name);
+}
+
+/**
+ * 根据表路径拼接字段所在文件夹
+ */
+__always_inline static void getcoldir0(char *coldir, const char *tablepath)
+{
+        xsnprintf(coldir, _PATH_MAX, "%s/%s", tablepath, _FCOLS_DIR_NAME);
+}
+
+__always_inline static void getcoldir1(char *coldir, const char *basedir, const char *tabname)
+{
+        char tabdir[_PATH_MAX];
+        gettabdir(tabdir, basedir, tabname);
+        getcoldir0(coldir, tabdir);
+}
+
 extern void vacat_add_table(struct database *base, struct table *table);
+extern void lvacat_add_table(struct database *base, struct table *table);
 
 #endif /* _SERIAL_H */

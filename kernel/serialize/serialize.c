@@ -70,7 +70,7 @@ __always_inline static void _write_single_column(const char *coldir, struct colu
 inline static void _write_columns(const char *tablepath, struct column *cols, size_t size)
 {
         char coldir[_PATH_MAX];
-        xsnprintf(coldir, _PATH_MAX, "%s/%s", tablepath, _FCOLS_DIR_NAME);
+        getcoldir0(coldir, tablepath);
 
         // 如果文件夹不存在就创建
         if (!file_exist(coldir))
