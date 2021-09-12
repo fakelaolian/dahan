@@ -27,15 +27,10 @@
 #include "database.h"
 
 /**
- * 修改字段名
+ * 修改字段信息，本来是打算每个属性都写单个函数的。
+ * 但是如果这样做的话如果同时修改多个内容那么就会写入多次IO，风险较大不合适数据的原子性操作。
  *
- * @param table
- * @param name
- * @param newname
- * @param type
- * @param len
- * @param remark
- * @param vdef
+ * 如果无需修改的属性参数设置为NULL即可，type和len设置为0即可
  */
 void modify_column_info(struct database *base,
                         const char *name,               /* <database name>/<table name> */
