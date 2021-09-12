@@ -25,6 +25,7 @@
 #define _GUTIL_H
 
 #include <string.h>
+#include <stdarg.h>
 
 /** 修剪字符串去除首部空格 */
 void ltrim(char *str);

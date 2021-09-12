@@ -22,9 +22,8 @@
  * @author 范特西
  */
 #include <glibc.h>
-#include <stdarg.h>
-#include <tools/vstring.h>
 #include <ctype.h>
+#include <tools/vstring.h>
 
 void rtrim(char *str)
 {

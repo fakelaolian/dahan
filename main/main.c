@@ -26,10 +26,10 @@
 
 void init_config();
 void build_table(struct database *base);
+void build_table(struct database *base);
 
 int main(void)
 {
-
         loadvasm();
         init_config();
 

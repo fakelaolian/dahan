@@ -35,11 +35,25 @@
  */
 ENUM COLTYPE {
         _INT = 1,
+        _LONG,
         _VARCHAR,
         _FLOAT,
         _DECIMAL,
         _TEXT,
 };
+
+typedef char VA_BOOL;
+typedef char VA_INT[4];
+typedef char VA_LONG[8];
+typedef char VA_SHORT[2];
+typedef char VA_FLOAT[4];
+typedef char VA_DOUBLE[8];
+
+typedef char *VA_TEXT;
+
+#define vacpy(__vatype, __val) memcpy(__vatype, &__val, sizeof(__vatype))
+
+#define typeas(__astype, __vatype) memcpy(&__astype, __vatype, sizeof(__vatype))
 
 struct column {
         char name[_NAME_MAX];
