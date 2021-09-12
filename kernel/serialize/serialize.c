@@ -80,10 +80,3 @@ inline static void _write_columns(const char *tablepath, struct column *cols, si
         for (size_t i = 0; i < size; i++)
                 _write_single_column(coldir, &cols[i]);
 }
-
-/**
- * 序列化表结构
- */
-#define _serialize_table_struct(pathname, table)                      \
-_write_table(pathname, table);                                        \
-_write_columns(pathname, table->columns, table->colnum);

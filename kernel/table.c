@@ -23,6 +23,16 @@
  */
 #include "kernel/table.h"
 
+void table_init(struct table *table, char *name)
+{
+        table->colnum = 0;
+        table->arrsize = COLUMN_ARRAY_SIZE;
+        strncpy(table->name, name, _NAME_MAX);
+        table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
+
+        memset(table->remark, 0, _REMARK_MAX);
+}
+
 void table_add_column(struct table *table, struct column *column)
 {
         if (table->colnum == (table->arrsize - 1))
@@ -50,4 +60,9 @@ struct column *table_get_column(struct table *table, const char *name)
         }
 
         return NULL;
+}
+
+void destroy_table(struct table *table)
+{
+        kfree(table->columns);
 }

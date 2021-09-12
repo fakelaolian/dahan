@@ -36,21 +36,10 @@ struct table {
         struct column *columns;                 /* 结构体数组 */
 };
 
-inline static void table_init(struct table *table, char *name)
-{
-        table->colnum = 0;
-        table->arrsize = COLUMN_ARRAY_SIZE;
-        strncpy(table->name, name, _NAME_MAX);
-        table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
-
-        memset(table->remark, 0, _REMARK_MAX);
-}
-
-inline static void destroy_table(struct table *table)
-{
-        kfree(table->columns);
-}
-
+/** 初始化表 */
+inline void table_init(struct table *table, char *name);
+/** 释放表数据 */
+inline void destroy_table(struct table *table);
 /** 添加字段 */
 void table_add_column(struct table *table, struct column *column);
 /** 根据名称获取表中的字段指针 */

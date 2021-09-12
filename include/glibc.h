@@ -39,4 +39,6 @@
 #define ERROR printf
 #define WARN printf
 
+#define kerror printf
+
 #endif /* _GLIBC_H */

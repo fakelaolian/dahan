@@ -22,7 +22,7 @@
  * @author 范特西
  */
 #include <vasm/vasm.h>
-#include "kernel/database.h"
+#include "kernel/options.h"
 
 void init_config();
 void build_table(struct database *base);
@@ -37,6 +37,8 @@ int main(void)
                 return 1;
 
         build_table(&base);
+
+        modify_table_name(&base, "user", "usermod");
 
         vasm_fvap_database(&base);
         kconf_destroy();

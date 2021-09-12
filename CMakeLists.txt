@@ -22,7 +22,8 @@
 cmake_minimum_required(VERSION 3.13...3.19)
 project(vacat C)
 
-set(cmake_c_standard 11)
+set(CMAKE_C_STANDARD 11)
+
 
 add_definitions(-D__vacat_debug)
 add_definitions(-D__vacat_close_check)

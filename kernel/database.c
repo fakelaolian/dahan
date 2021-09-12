@@ -52,64 +52,6 @@ extern bool create_database(struct database *base, char *name)
         return true;
 }
 
-/** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
-void _vacat_serialze_table(struct database *base, struct table *table)
-{
-        char tablepath[_PATH_MAX];
-        /* 结果类似： /home/root/<数据库名>/<表名> */
-        xsnprintf(tablepath, _PATH_MAX, "%s/%s", base->pathname, table->name);
-
-        if (!file_exist(tablepath))
-                vacat_mkdirs(tablepath);
-
-        // 将表结构信息写入文件
-        _serialize_table_struct(tablepath, table);
-}
-
-void vacat_add_table(struct database *bp, struct table *tp)
-{
-        if (bp->tabnum == (bp->arrsize - 1))
-                _ARRAY_RESIZE(bp, TABLE_ARRAY_SIZE, tables,
-                              sizeof(struct table));
-
-        // 检测字段名是否重复
-        if (kcheck_table_name_dup(bp->tables, bp->tabnum, tp->name)) {
-                puts("表名重复");
-                return;
-        }
-
-        bp->tables[bp->tabnum] = (*tp);
-        ++bp->tabnum;
-
-        // 序列化
-        _vacat_serialze_table(bp, tp);
-}
-
-struct table *vacat_get_table(struct database *base, const char *name)
-{
-        struct table *tab;
-
-        size_t i;
-        for (i = 0; i < base->tabnum; i++) {
-                tab = (base->tables + i);
-                if (strcmp(tab->name, name) == 0)
-                        return tab;
-        }
-
-        return NULL;
-}
-
-void modify_database_name(struct database *base, const char *oldname, const char *newname)
-{
-        char newpathname[_PATH_MAX];
-        char oldpathname[_PATH_MAX];
-        xsnprintf(newpathname, _PATH_MAX, "%s/%s", kconf_data_dir(), newname);
-        xsnprintf(oldpathname, _PATH_MAX, "%s/%s", kconf_data_dir(), oldname);
-
-        rename(oldpathname, newpathname);
-        strncpy(base->pathname, newpathname, _PATH_MAX);
-}
-
 void destroy_database(struct database *database)
 {
         size_t i;

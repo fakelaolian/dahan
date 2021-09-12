@@ -25,7 +25,7 @@
 #define _VASM_H
 
 #include <gext_api.h>
-#include <kernel/database.h>
+#include <kernel/options.h>
 
 #define __vasm_api __gext_api__
 
