@@ -80,3 +80,10 @@ inline static void _write_columns(const char *tablepath, struct column *cols, si
         for (size_t i = 0; i < size; i++)
                 _write_single_column(coldir, &cols[i]);
 }
+
+extern void vacat_insert(struct database *base, const char *name, __vacatrow *row)
+{
+        struct table *table = vacat_get_table(base, name);
+        if(isnull(table))
+                return; /* TODO 抛出异常 */
+}

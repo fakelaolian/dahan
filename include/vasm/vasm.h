@@ -121,8 +121,8 @@ __vasm_api f_vasm_mod_column_submit VASM_MOD_COLUMN_SUBMIT;
 static void loadvasm()
 {
         VASM_CVAP_DATABASE = (f_vasm_cvap_database) create_database;
-        VASM_CVAP_TABLE = (f_vasm_cvap_table) table_init;
-        VASM_CVAP_COLUMN = (f_vasm_cvap_column) column_init;
+        VASM_CVAP_TABLE = (f_vasm_cvap_table) create_table;
+        VASM_CVAP_COLUMN = (f_vasm_cvap_column) create_column;
         VASM_ADD_COLUMN = (f_vasm_add_column) table_add_column;
         VASM_ADD_TABLE = (f_vasm_add_table) vacat_add_table;
         VASM_LVAP_DATABASE = (f_vasm_lvap_database) vacat_add_table;

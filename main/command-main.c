@@ -21,26 +21,33 @@
 /*!
  * @author 范特西
  */
-#include "kernel/column.h"
+#include "kernel/options.h"
 
-void create_column(struct column *column,
-                   char *name,
-                   unsigned char type,
-                   size_t len,
-                   char *remark,
-                   char *vdef)
+int main(void)
 {
-        column->type = type;
-        column->len = len;
-        strncpy(column->name, name, _NAME_MAX);
+        kconf_init("/home/shitbro/vacatsql");
 
-        if (remark != NULL && strlen(remark) != 0)
-                strncpy(column->remark, remark, _REMARK_MAX);
-        else
-                memset(column->remark, 0, _REMARK_MAX);
+        struct database mydb;
+        create_database(&mydb, "mydb");
 
-        if (vdef != NULL && strlen(vdef) != 0)
-                strncpy(column->vdef, vdef, _VDEF_MAX);
-        else
-                memset(column->vdef, 0, _VDEF_MAX);
+        struct table usertab;
+        create_table(&usertab, "t_user");
+
+        struct column username;
+        struct column password;
+
+        create_column(&username, "username", _VARCHAR, 255, NULL, NULL);
+        create_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
+
+        table_add_column(&usertab, &username);
+        table_add_column(&usertab, &password);
+
+        vacat_add_table(&mydb, &usertab);
+
+        struct database lmydb;
+        load_database(&lmydb, "mydb");
+
+        vacat_insert(&lmydb, "t_user", NULL);
+
+        return 0;
 }

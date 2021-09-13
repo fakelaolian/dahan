@@ -71,7 +71,7 @@ struct column {
  * @param type      字段类型， 参考<ENUM COLTYPE>
  * @param len       字段长度
  */
-inline void column_init(struct column *column,
+inline void create_column(struct column *column,
                         char *name,
                         unsigned char type,
                         size_t len,

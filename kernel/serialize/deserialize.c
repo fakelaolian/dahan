@@ -43,7 +43,7 @@ void deserialize_column(struct table *table, char *colpath)
         fread(&collen, sizeof(unsigned int), 1, fp);
         fclose(fp);
 
-        column_init(&col, colname, coltype, collen, colremark, colvdef);
+        create_column(&col, colname, coltype, collen, colremark, colvdef);
 
         printf("col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
              col.name, col.type, col.len, col.vdef, col.remark);
@@ -90,7 +90,7 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
         fread(remark, _REMARK_MAX, 1, fp);
         fclose(fp);
 
-        table_init(&table, name);
+        create_table(&table, name);
 
         char fcolsdir[_PATH_MAX];
         xsnprintf(fcolsdir, _PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);

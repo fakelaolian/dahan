@@ -48,8 +48,10 @@ extern inline void lvacat_add_table(struct database *base, struct table *table);
 /** 修改数据库名 */
 void modify_database_name(struct database *base, const char *oldname, const char *newname);
 /** 获取一张表 */
-struct table* vacat_get_table(struct database *base, const char *name);
+extern struct table* vacat_get_table(struct database *base, const char *name);
 /** 加载数据库 */
 extern bool load_database(struct database *base, const char *name);
+/** 插入一行数据 */
+extern void vacat_insert(struct database *base, const char *name, __vacatrow *row);
 
 #endif /* _KERNEL_OPTIONS_H */

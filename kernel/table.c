@@ -23,7 +23,7 @@
  */
 #include "kernel/table.h"
 
-void table_init(struct table *table, char *name)
+void create_table(struct table *table, char *name)
 {
         table->colnum = 0;
         table->arrsize = COLUMN_ARRAY_SIZE;

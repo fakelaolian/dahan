@@ -34,6 +34,8 @@
 
 #define ENUM enum
 
+#define isnull(__ptr) ( __ptr == NULL )
+
 #define INFO printf
 #define DEBUG printf
 #define ERROR printf

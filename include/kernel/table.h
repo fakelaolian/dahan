@@ -36,8 +36,17 @@ struct table {
         struct column *columns;                 /* 结构体数组 */
 };
 
+/**
+ * 一行数据
+ */
+struct rowdata {
+
+};
+
+#define __vacatrow struct rowdata
+
 /** 初始化表 */
-inline void table_init(struct table *table, char *name);
+inline void create_table(struct table *table, char *name);
 /** 释放表数据 */
 inline void destroy_table(struct table *table);
 /** 添加字段 */

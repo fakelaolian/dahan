@@ -199,7 +199,7 @@ extern void vacat_add_table(struct database *bp, struct table *tp)
         _load_vacat_add_table(bp, tp, false);
 }
 
-struct table *vacat_get_table(struct database *base, const char *name)
+extern struct table *vacat_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 
