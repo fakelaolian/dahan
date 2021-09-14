@@ -126,20 +126,8 @@ typedef void (*f_vasm_push_buf)(void *ptr, size_t size, void *buf);
 __vasm_api f_vasm_push_buf VASM_PUSH_BUF;
 #define vasm_push_buf VASM_PUSH_BUF
 
-static void loadvasm()
-{
-        VASM_CVAP_DATABASE = (f_vasm_cvap_database) create_database;
-        VASM_CVAP_TABLE = (f_vasm_cvap_table) create_table;
-        VASM_CVAP_COLUMN = (f_vasm_cvap_column) create_column;
-        VASM_ADD_COLUMN = (f_vasm_add_column) table_add_column;
-        VASM_ADD_TABLE = (f_vasm_add_table) vacat_add_table;
-        VASM_LVAP_DATABASE = (f_vasm_lvap_database) vacat_add_table;
-        VASM_LVAP_TABLE = (f_vasm_lvap_table) vacat_get_table;
-        VASM_LVAP_COLUMN = (f_vasm_lvap_column) table_get_column;
-        VASM_LVAP_DATABASE = (f_vasm_lvap_database) load_database;
-        VASM_FVAP_DATABASE = (f_vasm_fvap_database) destroy_database;
-        VASM_MOD_DATABASE_NAME = (f_vasm_mod_database_name) modify_database_name;
-}
+/** 加载指令对应的函数指针 */
+static void loadvasm();
 
 /**
  * 编译.vasm文件
