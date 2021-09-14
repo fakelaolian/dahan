@@ -26,31 +26,38 @@
 #include <gmemp.h>
 #include "kernel/bytebuf.h"
 
-__always_inline static void reopen_bytebuf(bytebuf *buf, size_t resize)
+__always_inline static void bufresize(bytebuf *buf, size_t resize)
 {
-        size_t n_size = resize + buf->size;
-        buf = krealloc(buf, n_size);
-        buf->size = n_size;
+        size_t n_size = resize + buf->count;
+        buf->buf = krealloc(buf->buf, n_size);
+        buf->count = n_size;
 }
 
-void bytebuf_open(bytebuf *buf)
+bytebuf *bufopen(size_t size)
 {
-        buf->size = 64;
-        buf->pos = 0;
-        buf->buf = kmalloc(buf->size);
-        memset(buf->buf, 0, buf->size);
+        bytebuf *buf = kmalloc(sizeof(bytebuf));
+        buf->count = size;
+        buf->wpos = 0;
+        buf->rpos = 0;
+        buf->size = 0;
+        buf->buf = kmalloc(size);
+        memset(buf->buf, 0, size);
+
+        return buf;
 }
 
-void bytebuf_read(void *ptr, size_t size, bytebuf *buf)
+void bufread(void *ptr, size_t size, bytebuf *buf)
 {
-        memcpy(ptr, (buf->buf + buf->pos), size);
+        memcpy(ptr, (buf->buf + buf->rpos), size);
+        buf->rpos += size;
 }
 
-void bytebuf_write(void *ptr, size_t size, bytebuf *buf)
+void bufwrite(void *ptr, size_t size, bytebuf *buf)
 {
-        if((buf->pos + size) >= buf->size)
-                reopen_bytebuf(buf, 64 + size);
+        if((buf->wpos + size) >= buf->count)
+                bufresize(buf, size + 128);
 
-        memcpy(buf->buf, ptr, size);
-        buf->pos += size;
+        memcpy((buf->buf + buf->wpos), ptr, size);
+        buf->wpos += size;
+        buf->size += size;
 }

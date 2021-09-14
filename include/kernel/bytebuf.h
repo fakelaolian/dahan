@@ -29,23 +29,36 @@
 typedef char *buffer_t;
 
 struct bytebuf {
-        size_t size;      /* 缓冲区总大小 */
-        size_t pos;       /* 当前缓冲区位置 */
-        buffer_t buf;     /* 缓冲区 */
+        size_t count;       /* 缓冲区总大小 */
+        size_t size;        /* 已使用大小 */
+        size_t wpos;        /* 写指针 */
+        size_t rpos;        /* 读指针 */
+        buffer_t buf;       /* 缓冲区 */
 };
 
 #define bytebuf struct bytebuf
 
-#define bytebuf_seek_beg(__buf, __pos) (__buf)->pos = __pos
-#define bytebuf_seek_cur(__buf, __pos) (__buf)->pos += __pos
-#define bytebuf_seek_end(__buf) (__buf)->pos = (__buf)->size
+/** 从第0个位置设置缓冲区偏移量 */
+#define bufseek_beg(__buf, __pos) __buf->rpos = __pos
+/** 从第当前位置设置缓冲区偏移量 */
+#define bufseek_cur(__buf, __pos) __buf->rpos += __pos
+/** 从第最后的位置设置缓冲区偏移量 */
+#define bufseek_end(__buf) __buf->rpos = __buf->size - __buf->size
 
-#define bytebuf_tell(__buf) __buf->pos
+/** 获取缓冲区指针位置 */
+#define bytebuf_tell(__buf) __buf->rpos
 
-void bytebuf_open(bytebuf *buf);
-void bytebuf_write(void *ptr, size_t size, bytebuf *buf);
-
-inline void bytebuf_read(void *ptr, size_t size, bytebuf *buf);
-#define bytebuf_close(__buf) kfree((__buf)->buf)
+/**
+ * 创建bytebuf（叫open完全就是为了尊重buffer这个名字）
+ * size参数为创建缓冲区的
+ */
+bytebuf *bufopen(size_t size);
+/** 往缓冲区写入数据 */
+void bufwrite(void *ptr, size_t size, bytebuf *buf);
+inline void bufread(void *ptr, size_t size, bytebuf *buf);
+/** 关闭缓冲区 */
+#define bytebuf_close(__buf) \
+kfree(__buf->buf);\
+kfree(__buf);
 
 #endif /* VACAT_BYTEBUF_H */

@@ -24,23 +24,9 @@
 #include "kernel/bytebuf.h"
 #include "kernel/options.h"
 
-int main(void)
+// #define __options__0
+void test_options()
 {
-        bytebuf buf;
-        bytebuf_open(&buf);
-
-        unsigned long longsize = 1234567890;
-        bytebuf_write(&longsize, sizeof(unsigned long), &buf);
-
-        bytebuf_seek_beg(&buf, 0);
-
-        unsigned long llongsize;
-        bytebuf_read(&llongsize, sizeof(unsigned long), &buf);
-
-        printf("test: %zu\n", llongsize);
-
-        bytebuf_close(&buf);
-
         kconf_init("/home/shitbro/vacatsql");
 
         struct database mydb;
@@ -64,6 +50,36 @@ int main(void)
         load_database(&lmydb, "mydb");
 
         vacat_insert(&lmydb, "t_user");
+}
 
+#define __bytebuf__0
+void test_bytebuf()
+{
+        bytebuf *buf = bufopen(12);
+
+        char *helloworld = "helloworld..........这里是第10个点";
+        bufwrite(helloworld, strlen(helloworld), buf);
+        unsigned int number = 123456789;
+        bufwrite(&number, sizeof(unsigned int), buf);
+
+        char *reads = kmalloc(strlen(helloworld) + 1);
+        memset(reads, 0, strlen(helloworld) + 1);
+        bufread(reads, strlen(helloworld), buf);
+
+        unsigned int rnumber;
+        bufread(&rnumber, sizeof(unsigned int), buf);
+
+        printf("char *: %s, unsigned int: %d\n", reads, rnumber);
+
+}
+
+int main(void)
+{
+#ifdef __bytebuf__0
+        test_bytebuf();
+#endif
+#ifdef __options__0
+        test_options();
+#endif
         return 0;
 }
