@@ -25,18 +25,18 @@
  */
 #include "_serial.h"
 
-inline static void _write_table_remark(FILE *fp, char *remark)
+inline static void write_table_remark(FILE *fp, char *remark)
 {
         fwrite(remark, _REMARK_MAX, 1, fp);
 }
 
-inline static void _write_table(const char *pathname, struct table *table)
+inline static void write_table(const char *pathname, struct table *table)
 {
         char tablepath[_PATH_MAX];
         xsnprintf(tablepath, _PATH_MAX, "%s/%s", pathname, _TABLE_NAME);
         // 写入数据
         FILE *fp = fopen(tablepath, "wb");
-        _write_table_remark(fp, table->remark);
+        write_table_remark(fp, table->remark);
         fclose(fp);
 }
 
@@ -67,7 +67,7 @@ __always_inline static void _write_single_column(const char *coldir, struct colu
  * @param cols          字段数组指针
  * @param size          数组大小
  */
-inline static void _write_columns(const char *tablepath, struct column *cols, size_t size)
+inline static void write_columns(const char *tablepath, struct column *cols, size_t size)
 {
         char coldir[_PATH_MAX];
         getcoldir0(coldir, tablepath);
@@ -79,11 +79,4 @@ inline static void _write_columns(const char *tablepath, struct column *cols, si
         // 循环序列化所有字段
         for (size_t i = 0; i < size; i++)
                 _write_single_column(coldir, &cols[i]);
-}
-
-extern void vacat_insert(struct database *base, const char *name, __vacatrow *row)
-{
-        struct table *table = vacat_get_table(base, name);
-        if(isnull(table))
-                return; /* TODO 抛出异常 */
 }

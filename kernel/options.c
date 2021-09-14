@@ -138,7 +138,7 @@ void modify_column_info(struct database *base, const char *name, const char *new
 }
 
 /** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
-void _vacat_serialze_table(struct database *base, struct table *table)
+void vacat_serialze_table(struct database *base, struct table *table)
 {
         char tablepath[_PATH_MAX];
         gettabdir(tablepath, base->pathname, table->name);
@@ -147,8 +147,8 @@ void _vacat_serialze_table(struct database *base, struct table *table)
                 vacat_mkdirs(tablepath);
 
         // 将表结构信息写入文件
-        _write_table(tablepath, table);
-        _write_columns(tablepath, table->columns, table->colnum);
+        write_table(tablepath, table);
+        write_columns(tablepath, table->columns, table->colnum);
 }
 
 void modify_table_name(struct database *base, const char *oldname, const char *newname)
@@ -170,7 +170,7 @@ void modify_table_name(struct database *base, const char *oldname, const char *n
         rename(oldpath, newpath);
 }
 
-extern void _load_vacat_add_table(struct database *bp, struct table *tp, bool is_load)
+extern void load_vacat_add_table(struct database *bp, struct table *tp, bool is_load)
 {
         if (bp->tabnum == (bp->arrsize - 1)) _ARRAY_RESIZE(bp, TABLE_ARRAY_SIZE, tables,
                                                            sizeof(struct table));
@@ -186,20 +186,20 @@ extern void _load_vacat_add_table(struct database *bp, struct table *tp, bool is
 
         // 序列化
         if(!is_load)
-                _vacat_serialze_table(bp, tp);
+                vacat_serialze_table(bp, tp);
 }
 
-extern void lvacat_add_table(struct database *bp, struct table *tp)
+void lvacat_add_table(struct database *bp, struct table *tp)
 {
-        _load_vacat_add_table(bp, tp, true);
+        load_vacat_add_table(bp, tp, true);
 }
 
-extern void vacat_add_table(struct database *bp, struct table *tp)
+void vacat_add_table(struct database *bp, struct table *tp)
 {
-        _load_vacat_add_table(bp, tp, false);
+        load_vacat_add_table(bp, tp, false);
 }
 
-extern struct table *vacat_get_table(struct database *base, const char *name)
+struct table *vacat_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 
@@ -222,4 +222,12 @@ void modify_database_name(struct database *base, const char *oldname, const char
 
         rename(oldpathname, newpathname);
         strncpy(base->pathname, newpathname, _PATH_MAX);
+}
+
+void vacat_insert(struct database *base, const char *tabname)
+{
+        struct table *table;
+        table = vacat_get_table(base, tabname);
+        if (table == NULL)
+                return;
 }

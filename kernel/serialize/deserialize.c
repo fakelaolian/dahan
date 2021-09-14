@@ -127,8 +127,7 @@ void load_tables(struct database *base, const char *basedir)
  * @param basedir   数据库所在目录
  * @param name      数据库名称
  */
-extern bool
-load_database(struct database *base, const char *name)
+bool load_database(struct database *base, const char *name)
 {
         bool ret = false;
         char target[_PATH_MAX];

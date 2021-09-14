@@ -47,7 +47,7 @@ int main(void)
         struct database lmydb;
         load_database(&lmydb, "mydb");
 
-        vacat_insert(&lmydb, "t_user", NULL);
+        vacat_insert(&lmydb, "t_user");
 
         return 0;
 }
