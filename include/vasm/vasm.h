@@ -117,6 +117,14 @@ __vasm_api f_vasm_mod_table_submit VASM_MOD_TABLE_SUBMIT;
 typedef void (*f_vasm_mod_column_submit)(void *base, void *table, void *column);
 __vasm_api f_vasm_mod_column_submit VASM_MOD_COLUMN_SUBMIT;
 #define vasm_mod_column_submit VASM_MOD_COLUMN_SUBMIT
+/** 创建缓冲区 */
+typedef void (*f_vasm_cvap_buf)(size_t bufsize);
+__vasm_api f_vasm_cvap_buf VASM_CVAP_BUF;
+#define vasm_cvap_buf VASM_CVAP_BUF
+/** 向缓冲区添加数据 */
+typedef void (*f_vasm_push_buf)(void *ptr, size_t size, void *buf);
+__vasm_api f_vasm_push_buf VASM_PUSH_BUF;
+#define vasm_push_buf VASM_PUSH_BUF
 
 static void loadvasm()
 {
