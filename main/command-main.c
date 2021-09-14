@@ -21,10 +21,26 @@
 /*!
  * @author 范特西
  */
+#include "kernel/bytebuf.h"
 #include "kernel/options.h"
 
 int main(void)
 {
+        bytebuf buf;
+        bytebuf_open(&buf);
+
+        unsigned long longsize = 1234567890;
+        bytebuf_write(&longsize, sizeof(unsigned long), &buf);
+
+        bytebuf_seek_beg(&buf, 0);
+
+        unsigned long llongsize;
+        bytebuf_read(&llongsize, sizeof(unsigned long), &buf);
+
+        printf("test: %zu\n", llongsize);
+
+        bytebuf_close(&buf);
+
         kconf_init("/home/shitbro/vacatsql");
 
         struct database mydb;
