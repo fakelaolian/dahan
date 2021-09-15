@@ -24,7 +24,6 @@
 #include "kernel/bytebuf.h"
 #include "kernel/options.h"
 
-// #define __options__0
 void test_options()
 {
         kconf_init("/home/shitbro/dahansql");
@@ -52,27 +51,29 @@ void test_options()
         dahan_insert(&lmydb, "t_user");
 }
 
-#define __bytebuf__0
 void test_bytebuf()
 {
-        __bytebuf *buf = bufopen(12);
+        __bytebuf *buf = bytebuf_open(64);
 
         char *helloworld = "helloworld..........这里是第10个点";
-        bufwrite(helloworld, strlen(helloworld), buf);
+        bytebuf_write(helloworld, strlen(helloworld), buf);
         unsigned int number = 123456789;
-        bufwrite(&number, sizeof(unsigned int), buf);
+        bytebuf_write(&number, sizeof(unsigned int), buf);
 
         char *reads = kmalloc(strlen(helloworld) + 1);
         memset(reads, 0, strlen(helloworld) + 1);
-        bufread(reads, strlen(helloworld), buf);
+        bytebuf_read(reads, strlen(helloworld), buf);
 
         unsigned int rnumber;
-        bufread(&rnumber, sizeof(unsigned int), buf);
+        bytebuf_read(&rnumber, sizeof(unsigned int), buf);
 
         printf("char *: %s, unsigned int: %d\n", reads, rnumber);
 
+        bytebuf_close(buf);
 }
 
+//#define __bytebuf__0
+//#define __options__0
 int main(void)
 {
 #ifdef __bytebuf__0

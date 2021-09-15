@@ -50,6 +50,6 @@ __always_inline static void getcoldir1(char *coldir, const char *basedir, const 
 
 extern void dahan_add_table(struct database *base, struct table *table);
 extern struct table *dahan_get_table(struct database *base, const char *name);
-extern void ldahan_add_table(struct database *base, struct table *table);
+extern void dahan_ladd_table(struct database *base, struct table *table);
 
 #endif /* _SERIAL_H */

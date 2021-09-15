@@ -25,10 +25,8 @@
  */
 #include "_serial.h"
 
-inline static void write_table_remark(FILE *fp, char *remark)
-{
-        fwrite(remark, _REMARK_MAX, 1, fp);
-}
+#define write_table_remark(remark, fp) fwrite(remark, _REMARK_MAX, 1, fp)
+#define write_table_size(size, fp) fwrite(size, sizeof(unsigned long), 1, fp)
 
 inline static void write_table(const char *pathname, struct table *table)
 {
@@ -36,7 +34,8 @@ inline static void write_table(const char *pathname, struct table *table)
         xsnprintf(tablepath, _PATH_MAX, "%s/%s", pathname, _TABLE_NAME);
         // 写入数据
         FILE *fp = fopen(tablepath, "wb");
-        write_table_remark(fp, table->remark);
+        write_table_remark(table->remark, fp);
+        write_table_size(&table->size, fp);
         fclose(fp);
 }
 
@@ -46,7 +45,7 @@ inline static void write_table(const char *pathname, struct table *table)
  * @param [i] coldir    字段所存放的文件夹
  * @param [i] col       字段数组
  */
-__always_inline static void _write_single_column(const char *coldir, struct column *col)
+__always_inline static void write_single_column(const char *coldir, struct column *col)
 {
         char fcolpath[_PATH_MAX];
         xsnprintf(fcolpath, _PATH_MAX, "%s/%s", coldir, col->name);
@@ -78,5 +77,5 @@ inline static void write_columns(const char *tablepath, struct column *cols, siz
 
         // 循环序列化所有字段
         for (size_t i = 0; i < size; i++)
-                _write_single_column(coldir, &cols[i]);
+                write_single_column(coldir, &cols[i]);
 }

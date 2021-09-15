@@ -29,6 +29,7 @@ void create_table(struct table *table, char *name)
         table->arrsize = COLUMN_ARRAY_SIZE;
         strncpy(table->name, name, _NAME_MAX);
         table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
+        table->size = 0;
 
         memset(table->remark, 0, _REMARK_MAX);
 }

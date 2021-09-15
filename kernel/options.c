@@ -134,7 +134,7 @@ void modify_column_info(struct database *base, const char *name, const char *new
                 column->len = len;
 
         // 写入文件
-        _write_single_column(coldir, column);
+        write_single_column(coldir, column);
 }
 
 /** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
@@ -189,7 +189,7 @@ extern void load_dahan_add_table(struct database *bp, struct table *tp, bool is_
                 dahan_serialze_table(bp, tp);
 }
 
-void ldahan_add_table(struct database *bp, struct table *tp)
+void dahan_ladd_table(struct database *bp, struct table *tp)
 {
         load_dahan_add_table(bp, tp, true);
 }

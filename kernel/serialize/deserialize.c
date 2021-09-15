@@ -79,26 +79,30 @@ void load_columns(struct table *table, const char *fcolsdir)
  */
 void deserialize_table(struct database *base, const char *tabledir, char *name)
 {
-        struct table table;
+        unsigned long size;
         char remark[_REMARK_MAX];
+
+        struct table table;
+        create_table(&table, name);
 
         // boot文件路径
         char bootpath[_PATH_MAX];
         xsnprintf(bootpath, _PATH_MAX, "%s/%s", tabledir, _TABLE_NAME);
 
         FILE *fp = fopen(bootpath, "rb");
+        fread(&size, sizeof(unsigned long), 1, fp);
         fread(remark, _REMARK_MAX, 1, fp);
         fclose(fp);
 
-        create_table(&table, name);
+        table.size = size;
+        strncpy(table.remark, remark, _REMARK_MAX);
 
         char fcolsdir[_PATH_MAX];
         xsnprintf(fcolsdir, _PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);
 
         // 加载字段列表
         load_columns(&table, fcolsdir);
-
-        ldahan_add_table(base, &table);
+        dahan_ladd_table(base, &table);
 }
 
 /**

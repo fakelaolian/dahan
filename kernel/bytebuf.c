@@ -19,8 +19,6 @@
 /*! ===> Creates on 2021/9/14. <=== */
 
 /*!
- * 用于二进制解析的函数库
- *
  * @author 范特西
  */
 #include <gmemp.h>
@@ -33,7 +31,7 @@ __always_inline static void bufresize(__bytebuf *buf, size_t resize)
         buf->count = n_size;
 }
 
-__bytebuf *bufopen(size_t size)
+__bytebuf *bytebuf_open(size_t size)
 {
         __bytebuf *buf = kmalloc(sizeof(__bytebuf));
         buf->count = size;
@@ -46,13 +44,13 @@ __bytebuf *bufopen(size_t size)
         return buf;
 }
 
-void bufread(void *ptr, size_t size, __bytebuf *buf)
+void bytebuf_read(void *ptr, size_t size, __bytebuf *buf)
 {
         memcpy(ptr, (buf->buf + buf->rpos), size);
         buf->rpos += size;
 }
 
-void bufwrite(void *ptr, size_t size, __bytebuf *buf)
+void bytebuf_write(void *ptr, size_t size, __bytebuf *buf)
 {
         if((buf->wpos + size) >= buf->count)
                 bufresize(buf, size + 128);

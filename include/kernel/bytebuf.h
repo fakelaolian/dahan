@@ -19,6 +19,9 @@
 /*! ===> Creates on 2021/9/14. <=== */
 
 /*!
+ * 方便保存二进制数据库的一个缓冲区，该缓冲区只支持追加数据和读取数据。
+ * 不支持插入、 删除等操作。
+ *
  * @author 范特西
  */
 #ifndef DAHAN_BYTEBUF_H
@@ -39,11 +42,11 @@ struct bytebuf {
 #define __bytebuf struct bytebuf
 
 /** 从第0个位置设置缓冲区偏移量 */
-#define bufseek_beg(__buf, __pos) __buf->rpos = __pos
+#define bytebuf_seek_beg(__buf, __pos) __buf->rpos = __pos
 /** 从第当前位置设置缓冲区偏移量 */
-#define bufseek_cur(__buf, __pos) __buf->rpos += __pos
+#define bytebuf_seek_cur(__buf, __pos) __buf->rpos += __pos
 /** 从第最后的位置设置缓冲区偏移量 */
-#define bufseek_end(__buf) __buf->rpos = __buf->size - __buf->size
+#define bytebuf_seek_end(__buf) __buf->rpos = __buf->size - __buf->size
 
 /** 获取缓冲区指针位置 */
 #define bytebuf_tell(__buf) __buf->rpos
@@ -52,10 +55,11 @@ struct bytebuf {
  * 创建bytebuf（叫open完全就是为了尊重buffer这个名字）
  * size参数为创建缓冲区的
  */
-__bytebuf *bufopen(size_t size);
+__bytebuf *bytebuf_open(size_t size);
 /** 往缓冲区写入数据 */
-void bufwrite(void *ptr, size_t size, __bytebuf *buf);
-inline void bufread(void *ptr, size_t size, __bytebuf *buf);
+void bytebuf_write(void *ptr, size_t size, __bytebuf *buf);
+/** 从缓冲区读取数据 */
+inline void bytebuf_read(void *ptr, size_t size, __bytebuf *buf);
 /** 关闭缓冲区 */
 #define bytebuf_close(__buf) \
 kfree(__buf->buf);\

@@ -44,7 +44,7 @@ void modify_table_name(struct database *base, const char *oldname, const char *n
 /** 添加一张表到数据库 */
 inline void dahan_add_table(struct database *base, struct table *table);
 /** 添加一张表到数据库（反序列化时使用） */
-inline void ldahan_add_table(struct database *base, struct table *table);
+inline void dahan_ladd_table(struct database *base, struct table *table);
 /** 修改数据库名 */
 void modify_database_name(struct database *base, const char *oldname, const char *newname);
 /** 获取一张表 */
