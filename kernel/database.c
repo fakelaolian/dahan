@@ -38,17 +38,17 @@ extern bool create_database(struct database *base, char *name)
         char *datadir = kconf_data_dir();
         xsnprintf(pathname, _PATH_MAX, "%s/%s", datadir, name);
 
-#ifndef __vacat_close_check
+#ifndef __dahan_close_check
         if (kcheck_database_name_dup(kconf_data_dir(), name)) {
                 puts("数据库已存在");
                 return false;
         }
-#endif /* __vacat_debug */
+#endif /* __dahan_debug */
 
         database_init(base, pathname, name);
 
         // 创建文件夹
-        vacat_mkdirs(base->pathname);
+        dahan_mkdirs(base->pathname);
         return true;
 }
 

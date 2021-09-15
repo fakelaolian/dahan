@@ -20,13 +20,13 @@
 ### ===> creates on 2021/07/20. <=== ###
 ### author 范特西
 cmake_minimum_required(VERSION 3.13...3.19)
-project(vacat C)
+project(dahan C)
 
 set(CMAKE_C_STANDARD 11)
 
 
-add_definitions(-D__vacat_debug)
-# add_definitions(-D__vacat_close_check)
+add_definitions(-D__dahan_debug)
+# add_definitions(-D__dahan_close_check)
 add_definitions(-fgnu89-inline)
 
 include_directories(system ${PROJECT_SOURCE_DIR}/include)
@@ -38,9 +38,9 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/kernel kernel)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/aux kernel_aux)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kernel_serialize)
 aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
-aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
-aux_source_directory(${CMAKE_SOURCE_DIR}/vasm/comp vasm_comp)
-aux_source_directory(${CMAKE_SOURCE_DIR}/vasm/exec vasm_exec)
+aux_source_directory(${CMAKE_SOURCE_DIR}/inst-set inst-set)
+aux_source_directory(${CMAKE_SOURCE_DIR}/inst-set/comp inst_set_comp)
+aux_source_directory(${CMAKE_SOURCE_DIR}/inst-set/exec inst_set_exec)
 
 add_executable(
         ${PROJECT_NAME}
@@ -50,8 +50,8 @@ add_executable(
         ${kernel_aux}
         ${kernel_serialize}
         ${tools}
-        ${vasm}
-        ${vasm_comp}
-        ${vasm_exec}
+        ${inst-set}
+        ${inst_set_comp}
+        ${inst_set_exec}
 
 )

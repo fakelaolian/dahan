@@ -27,7 +27,7 @@
 // #define __options__0
 void test_options()
 {
-        kconf_init("/home/shitbro/vacatsql");
+        kconf_init("/home/shitbro/dahansql");
 
         struct database mydb;
         create_database(&mydb, "mydb");
@@ -44,12 +44,12 @@ void test_options()
         table_add_column(&usertab, &username);
         table_add_column(&usertab, &password);
 
-        vacat_add_table(&mydb, &usertab);
+        dahan_add_table(&mydb, &usertab);
 
         struct database lmydb;
         load_database(&lmydb, "mydb");
 
-        vacat_insert(&lmydb, "t_user");
+        dahan_insert(&lmydb, "t_user");
 }
 
 #define __bytebuf__0

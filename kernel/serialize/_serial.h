@@ -48,8 +48,8 @@ __always_inline static void getcoldir1(char *coldir, const char *basedir, const 
         getcoldir0(coldir, tabdir);
 }
 
-extern void vacat_add_table(struct database *base, struct table *table);
-extern struct table *vacat_get_table(struct database *base, const char *name);
-extern void lvacat_add_table(struct database *base, struct table *table);
+extern void dahan_add_table(struct database *base, struct table *table);
+extern struct table *dahan_get_table(struct database *base, const char *name);
+extern void ldahan_add_table(struct database *base, struct table *table);
 
 #endif /* _SERIAL_H */

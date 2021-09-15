@@ -42,16 +42,16 @@ void modify_column_info(struct database *base,
 /** 修改表名 */
 void modify_table_name(struct database *base, const char *oldname, const char *newname);
 /** 添加一张表到数据库 */
-inline void vacat_add_table(struct database *base, struct table *table);
+inline void dahan_add_table(struct database *base, struct table *table);
 /** 添加一张表到数据库（反序列化时使用） */
-inline void lvacat_add_table(struct database *base, struct table *table);
+inline void ldahan_add_table(struct database *base, struct table *table);
 /** 修改数据库名 */
 void modify_database_name(struct database *base, const char *oldname, const char *newname);
 /** 获取一张表 */
-struct table* vacat_get_table(struct database *base, const char *name);
+struct table* dahan_get_table(struct database *base, const char *name);
 /** 加载数据库 */
 bool load_database(struct database *base, const char *name);
 /** 添加一条数据 */
-void vacat_insert(struct database *base, const char *tabname);
+void dahan_insert(struct database *base, const char *tabname);
 
 #endif /* _KERNEL_OPTIONS_H */

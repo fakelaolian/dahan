@@ -74,7 +74,7 @@ inline static void write_columns(const char *tablepath, struct column *cols, siz
 
         // 如果文件夹不存在就创建
         if (!file_exist(coldir))
-                vacat_mkdirs(coldir);
+                dahan_mkdirs(coldir);
 
         // 循环序列化所有字段
         for (size_t i = 0; i < size; i++)

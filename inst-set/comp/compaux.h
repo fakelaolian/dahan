@@ -21,19 +21,19 @@
 /*!
  * @author 范特西
  */
-#ifndef _VASM_COMP
-#define _VASM_COMP
+#ifndef _INST_SET_COMP
+#define _INST_SET_COMP
 
 #include <tools/files.h>
 #include <tools/vstring.h>
 
 /**
- * vasm语法很简单，一行指令代码就是一个最小的执行单元。
- * 所有这里的“vacatexec_u”就是一个最小的执行单元，也就是一行
+ * inst_set语法很简单，一行指令代码就是一个最小的执行单元。
+ * 所有这里的“dahanexec_u”就是一个最小的执行单元，也就是一行
  * 指令解析出来的内容。
  */
-struct vacatexec_u {
+struct dahanexec_u {
 
 };
 
-#endif /* _VASM_COMP */
+#endif /* _INST_SET_COMP */

@@ -43,7 +43,7 @@ struct rowdata {
 
 };
 
-#define __vacatrow struct rowdata
+#define __dahanrow struct rowdata
 
 /** 初始化表 */
 inline void create_table(struct table *table, char *name);

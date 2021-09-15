@@ -102,7 +102,7 @@ void modify_column_info(struct database *base, const char *name, const char *new
         getname(name, tabname, colname);
 
         // 获取表结构体
-        table = vacat_get_table(base, tabname);
+        table = dahan_get_table(base, tabname);
         CHK_TABLE_NOT_FOUND(table, tabname)
 
         // 获取字段结构体
@@ -138,13 +138,13 @@ void modify_column_info(struct database *base, const char *name, const char *new
 }
 
 /** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
-void vacat_serialze_table(struct database *base, struct table *table)
+void dahan_serialze_table(struct database *base, struct table *table)
 {
         char tablepath[_PATH_MAX];
         gettabdir(tablepath, base->pathname, table->name);
 
         if (!file_exist(tablepath))
-                vacat_mkdirs(tablepath);
+                dahan_mkdirs(tablepath);
 
         // 将表结构信息写入文件
         write_table(tablepath, table);
@@ -154,7 +154,7 @@ void vacat_serialze_table(struct database *base, struct table *table)
 void modify_table_name(struct database *base, const char *oldname, const char *newname)
 {
         struct table *table;
-        table = vacat_get_table(base, oldname);
+        table = dahan_get_table(base, oldname);
 
         CHK_TABLE_NOT_FOUND(table, oldname)
 
@@ -170,7 +170,7 @@ void modify_table_name(struct database *base, const char *oldname, const char *n
         rename(oldpath, newpath);
 }
 
-extern void load_vacat_add_table(struct database *bp, struct table *tp, bool is_load)
+extern void load_dahan_add_table(struct database *bp, struct table *tp, bool is_load)
 {
         if (bp->tabnum == (bp->arrsize - 1)) _ARRAY_RESIZE(bp, TABLE_ARRAY_SIZE, tables,
                                                            sizeof(struct table));
@@ -186,20 +186,20 @@ extern void load_vacat_add_table(struct database *bp, struct table *tp, bool is_
 
         // 序列化
         if(!is_load)
-                vacat_serialze_table(bp, tp);
+                dahan_serialze_table(bp, tp);
 }
 
-void lvacat_add_table(struct database *bp, struct table *tp)
+void ldahan_add_table(struct database *bp, struct table *tp)
 {
-        load_vacat_add_table(bp, tp, true);
+        load_dahan_add_table(bp, tp, true);
 }
 
-void vacat_add_table(struct database *bp, struct table *tp)
+void dahan_add_table(struct database *bp, struct table *tp)
 {
-        load_vacat_add_table(bp, tp, false);
+        load_dahan_add_table(bp, tp, false);
 }
 
-struct table *vacat_get_table(struct database *base, const char *name)
+struct table *dahan_get_table(struct database *base, const char *name)
 {
         struct table *tab;
 
@@ -224,10 +224,10 @@ void modify_database_name(struct database *base, const char *oldname, const char
         strncpy(base->pathname, newpathname, _PATH_MAX);
 }
 
-void vacat_insert(struct database *base, const char *tabname)
+void dahan_insert(struct database *base, const char *tabname)
 {
         struct table *table;
-        table = vacat_get_table(base, tabname);
+        table = dahan_get_table(base, tabname);
         if (table == NULL)
                 return;
 }

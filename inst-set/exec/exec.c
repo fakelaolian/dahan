@@ -21,20 +21,10 @@
 /*!
  * @author 范特西
  */
-#ifndef _VASM_EXEC
-#define _VASM_EXEC
+#include <dlfcn.h>
+#include "inst-set/exec/inst-set-exec.h"
 
-/**
- * 最小执行单元
- */
-struct vacatunit {
+void exec_dahan_unit(struct dahanunit *vaunit)
+{
 
-};
-
-/**
- * 运行指令
- * @param vaunit 最小执行单元
- */
-void exec_vacat_unit(struct vacatunit *vaunit);
-
-#endif /* _VASM_EXEC */
+}

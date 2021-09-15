@@ -98,7 +98,7 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
         // 加载字段列表
         load_columns(&table, fcolsdir);
 
-        lvacat_add_table(base, &table);
+        ldahan_add_table(base, &table);
 }
 
 /**

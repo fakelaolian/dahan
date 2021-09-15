@@ -27,21 +27,21 @@
  * 解析v开头的指令, v开头指令有：
  *      - vap
  */
-void vacat_parse_start_v(const char *vacatline)
+void dahan_parse_start_v(const char *dahanline)
 {
-        if (vacatline[1] == 'a' && vacatline[2] == 'p') {
+        if (dahanline[1] == 'a' && dahanline[2] == 'p') {
 
         }
 }
 
 /**
- * 编译.vacat文件
- * @param vacatpath vacat文件路径
+ * 编译.dahan文件
+ * @param dahanpath dahan文件路径
  */
-extern void vacat_exec_comp(const char *vacatpath)
+extern void dahan_exec_comp(const char *dahanpath)
 {
         char getlc[1024];
-        FILE *fp = fopen(vacatpath, "r");
+        FILE *fp = fopen(dahanpath, "r");
 
         while (!feof(fp)) {
                 fgets(getlc, sizeof(getlc) - 1, fp);
@@ -70,7 +70,7 @@ extern void vacat_exec_comp(const char *vacatpath)
                         case 't': {break;}
                         case 'u': {break;}
                         case 'v': {
-                                vacat_parse_start_v(getlc);
+                                dahan_parse_start_v(getlc);
                                 break;
                         }
                         case 'w': {break;}

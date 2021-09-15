@@ -21,8 +21,8 @@
 /*!
  * @author 范特西
  */
-#ifndef VACAT_BYTEBUF_H
-#define VACAT_BYTEBUF_H
+#ifndef DAHAN_BYTEBUF_H
+#define DAHAN_BYTEBUF_H
 
 #include <string.h>
 
@@ -61,4 +61,4 @@ inline void bufread(void *ptr, size_t size, bytebuf *buf);
 kfree(__buf->buf);\
 kfree(__buf);
 
-#endif /* VACAT_BYTEBUF_H */
+#endif /* DAHAN_BYTEBUF_H */

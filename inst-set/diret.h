@@ -22,8 +22,8 @@
  * 指令集
  * @author 范特西
  */
-#ifndef _VASM_DIRET
-#define _VASM_DIRET
+#ifndef _INST_SET_DIRET
+#define _INST_SET_DIRET
 
 struct directive {
         unsigned char code;        /* 指令码 */
@@ -35,7 +35,7 @@ struct directive {
 #define __mark__(code, name, cm) \
 struct directive name = { code, #name,  cm}
 
-__mark__(0x01, vacat, "创建一个对象");
+__mark__(0x01, dahan, "创建一个对象");
 __mark__(0x02, aoc, "给对象分配数据");
 __mark__(0x03, beg, "代码块开始标记");
 __mark__(0x04, end, "代码块结束标记");
@@ -49,4 +49,4 @@ __mark__(0x11, ifle, "小于");
 __mark__(0x12, ifgt, "大于等于");
 __mark__(0x13, iflt, "小于等于");
 
-#endif /* _VASM_DIRET */
+#endif /* _INST_SET_DIRET */

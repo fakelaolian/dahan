@@ -64,14 +64,14 @@ bool is_empty_dir(const char *pathname)
         return ret;
 }
 
-void _vacat_if_not_exist_mkdir(const char *pathname)
+void _dahan_if_not_exist_mkdir(const char *pathname)
 {
         // 如果文件夹不存在则创建
         if (!file_exist(pathname))
                 mkdir(pathname, S_IRWXU);
 }
 
-void vacat_mkdirs(const char *__cpy_pathname)
+void dahan_mkdirs(const char *__cpy_pathname)
 {
         char pathname[255];
         strncpy(pathname, __cpy_pathname, 255);
@@ -81,13 +81,13 @@ void vacat_mkdirs(const char *__cpy_pathname)
         for (size_t i = 0, end = len - 1; i < len; i++) {
                 tmp = pathname[i];
                 if (i == end) {
-                        _vacat_if_not_exist_mkdir(pathname);
+                        _dahan_if_not_exist_mkdir(pathname);
                         return;
                 }
 
                 if (tmp == '/' || tmp == '\\') {
                         pathname[i] = '\0';
-                        _vacat_if_not_exist_mkdir(pathname);
+                        _dahan_if_not_exist_mkdir(pathname);
                         pathname[i] = '/';
                 }
         }

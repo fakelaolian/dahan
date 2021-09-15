@@ -21,8 +21,8 @@
 /*!
  * @author 范特西
  */
-#ifndef _VACAT_API_H
-#define _VACAT_API_H
+#ifndef _DAHAN_API_H
+#define _DAHAN_API_H
 
 #ifdef WIN32
 #   define __api_import__ __declspec(dllimport)
@@ -38,4 +38,4 @@
 #   define __gext_api__ __api_import__
 #endif /* __BUILD_DLL__ */
 
-#endif /* _VACAT_API_H */
+#endif /* _DAHAN_API_H */
