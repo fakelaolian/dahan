@@ -38,9 +38,7 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/kernel kernel)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/aux kernel_aux)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kernel_serialize)
 aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
-aux_source_directory(${CMAKE_SOURCE_DIR}/inst-set inst-set)
-aux_source_directory(${CMAKE_SOURCE_DIR}/inst-set/comp inst_set_comp)
-aux_source_directory(${CMAKE_SOURCE_DIR}/inst-set/exec inst_set_exec)
+aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
 
 add_executable(
         ${PROJECT_NAME}
@@ -50,8 +48,5 @@ add_executable(
         ${kernel_aux}
         ${kernel_serialize}
         ${tools}
-        ${inst-set}
-        ${inst_set_comp}
-        ${inst_set_exec}
-
+        ${vasm}
 )

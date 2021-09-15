@@ -21,6 +21,7 @@
 /*!
  * @author 范特西
  */
+#include "vasm/design.h"
 #include "kernel/bytebuf.h"
 #include "kernel/options.h"
 
@@ -28,27 +29,30 @@ void test_options()
 {
         kconf_init("/home/shitbro/dahansql");
 
+        vasm_load_impl_v0();
+
         struct database mydb;
-        create_database(&mydb, "mydb");
+        vasm_mvap_database(&mydb, "mydb");
 
         struct table usertab;
-        create_table(&usertab, "t_user");
+        vasm_mvap_table(&usertab, "t_user");
 
         struct column username;
         struct column password;
 
-        create_column(&username, "username", _VARCHAR, 255, NULL, NULL);
-        create_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
+        vasm_mvap_column(&username, "username", _VARCHAR, 255, NULL, NULL);
+        vasm_mvap_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
 
-        table_add_column(&usertab, &username);
-        table_add_column(&usertab, &password);
+        vasm_add_column(&usertab, &username);
+        vasm_add_column(&usertab, &password);
 
-        dahan_add_table(&mydb, &usertab);
+        vasm_add_table(&mydb, &usertab);
 
         struct database lmydb;
-        load_database(&lmydb, "mydb");
+        vasm_lvap_database(&lmydb, "mydb");
 
-        dahan_insert(&lmydb, "t_user");
+        vasm_fvap_database(&mydb);
+        vasm_fvap_database(&lmydb);
 }
 
 void test_bytebuf()
@@ -73,7 +77,7 @@ void test_bytebuf()
 }
 
 //#define __bytebuf__0
-//#define __options__0
+#define __options__0
 int main(void)
 {
 #ifdef __bytebuf__0
