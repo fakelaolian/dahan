@@ -127,7 +127,7 @@ __inst_set_api f_inst_set_push_buf INST_SET_PUSH_BUF;
 #define inst_set_push_buf INST_SET_PUSH_BUF
 
 /** 加载指令对应的函数指针 */
-static void loadinst_set();
+static void load_inst_set();
 
 /**
  * 编译.inst_set文件

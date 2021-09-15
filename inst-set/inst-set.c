@@ -23,7 +23,7 @@
  */
 #include "inst-set/inst-set.h"
 
-static void loadinst_set()
+static void load_inst_set()
 {
         INST_SET_CVAP_DATABASE = (f_inst_set_cvap_database) create_database;
         INST_SET_CVAP_TABLE = (f_inst_set_cvap_table) create_table;
