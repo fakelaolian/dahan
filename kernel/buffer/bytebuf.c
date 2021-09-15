@@ -44,12 +44,6 @@ __bytebuf *bytebuf_open(size_t size)
         return buf;
 }
 
-void bytebuf_read(void *ptr, size_t size, __bytebuf *buf)
-{
-        memcpy(ptr, (buf->buf + buf->rpos), size);
-        buf->rpos += size;
-}
-
 void bytebuf_write(void *ptr, size_t size, __bytebuf *buf)
 {
         if((buf->wpos + size) >= buf->count)

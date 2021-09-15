@@ -29,14 +29,14 @@
 
 #include <string.h>
 
-typedef char *buffer_t;
+typedef char buffer_t;
 
 struct bytebuf {
         size_t count;       /* 缓冲区总大小 */
         size_t size;        /* 已使用大小 */
         size_t wpos;        /* 写指针 */
         size_t rpos;        /* 读指针 */
-        buffer_t buf;       /* 缓冲区 */
+        buffer_t *buf;      /* 缓冲区 */
 };
 
 #define __bytebuf struct bytebuf
@@ -59,7 +59,9 @@ __bytebuf *bytebuf_open(size_t size);
 /** 往缓冲区写入数据 */
 void bytebuf_write(void *ptr, size_t size, __bytebuf *buf);
 /** 从缓冲区读取数据 */
-inline void bytebuf_read(void *ptr, size_t size, __bytebuf *buf);
+#define bytebuf_read(ptr, size, buf) \
+memcpy(ptr, (buf->buf + buf->rpos), size); \
+buf->rpos += size;
 /** 关闭缓冲区 */
 #define bytebuf_close(__buf) \
 kfree(__buf->buf);\
