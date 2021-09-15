@@ -55,7 +55,7 @@ void test_options()
 #define __bytebuf__0
 void test_bytebuf()
 {
-        bytebuf *buf = bufopen(12);
+        __bytebuf *buf = bufopen(12);
 
         char *helloworld = "helloworld..........这里是第10个点";
         bufwrite(helloworld, strlen(helloworld), buf);

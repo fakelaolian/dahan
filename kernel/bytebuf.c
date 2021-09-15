@@ -26,16 +26,16 @@
 #include <gmemp.h>
 #include "kernel/bytebuf.h"
 
-__always_inline static void bufresize(bytebuf *buf, size_t resize)
+__always_inline static void bufresize(__bytebuf *buf, size_t resize)
 {
         size_t n_size = resize + buf->count;
         buf->buf = krealloc(buf->buf, n_size);
         buf->count = n_size;
 }
 
-bytebuf *bufopen(size_t size)
+__bytebuf *bufopen(size_t size)
 {
-        bytebuf *buf = kmalloc(sizeof(bytebuf));
+        __bytebuf *buf = kmalloc(sizeof(__bytebuf));
         buf->count = size;
         buf->wpos = 0;
         buf->rpos = 0;
@@ -46,13 +46,13 @@ bytebuf *bufopen(size_t size)
         return buf;
 }
 
-void bufread(void *ptr, size_t size, bytebuf *buf)
+void bufread(void *ptr, size_t size, __bytebuf *buf)
 {
         memcpy(ptr, (buf->buf + buf->rpos), size);
         buf->rpos += size;
 }
 
-void bufwrite(void *ptr, size_t size, bytebuf *buf)
+void bufwrite(void *ptr, size_t size, __bytebuf *buf)
 {
         if((buf->wpos + size) >= buf->count)
                 bufresize(buf, size + 128);

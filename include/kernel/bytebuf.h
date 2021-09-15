@@ -36,7 +36,7 @@ struct bytebuf {
         buffer_t buf;       /* 缓冲区 */
 };
 
-#define bytebuf struct bytebuf
+#define __bytebuf struct bytebuf
 
 /** 从第0个位置设置缓冲区偏移量 */
 #define bufseek_beg(__buf, __pos) __buf->rpos = __pos
@@ -52,10 +52,10 @@ struct bytebuf {
  * 创建bytebuf（叫open完全就是为了尊重buffer这个名字）
  * size参数为创建缓冲区的
  */
-bytebuf *bufopen(size_t size);
+__bytebuf *bufopen(size_t size);
 /** 往缓冲区写入数据 */
-void bufwrite(void *ptr, size_t size, bytebuf *buf);
-inline void bufread(void *ptr, size_t size, bytebuf *buf);
+void bufwrite(void *ptr, size_t size, __bytebuf *buf);
+inline void bufread(void *ptr, size_t size, __bytebuf *buf);
 /** 关闭缓冲区 */
 #define bytebuf_close(__buf) \
 kfree(__buf->buf);\
