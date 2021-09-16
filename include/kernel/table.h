@@ -37,15 +37,6 @@ struct table {
         unsigned long size;                     /* 数据大小 */
 };
 
-/**
- * 一行数据
- */
-struct rowdata {
-
-};
-
-#define __dahanrow struct rowdata
-
 /** 初始化表 */
 inline void create_table(struct table *table, char *name);
 /** 释放表数据 */
