@@ -31,14 +31,14 @@ void test_options()
 
         vasm_load_impl_v0();
 
-        struct database mydb;
+        vasm_dvap_database(mydb);
         vasm_mvap_database(&mydb, "mydb");
 
-        struct table usertab;
+        vasm_dvap_table(usertab);
         vasm_mvap_table(&usertab, "t_user");
 
-        struct column username;
-        struct column password;
+        vasm_dvap_column(username);
+        vasm_dvap_column(password);
 
         vasm_mvap_column(&username, "username", _VARCHAR, 255, NULL, NULL);
         vasm_mvap_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
@@ -48,7 +48,7 @@ void test_options()
 
         vasm_add_table(&mydb, &usertab);
 
-        struct database lmydb;
+        vasm_dvap_database(lmydb);
         vasm_lvap_database(&lmydb, "mydb");
 
         vasm_fvap_database(&mydb);
