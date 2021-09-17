@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luots All rights reserved.
+ * Copyright (C) 2020 luotiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
 /*!
  * 全局配置
- * @author 范特西
+ * @author tiansheng
  */
 #ifndef _CONFIG_H
 #define _CONFIG_H

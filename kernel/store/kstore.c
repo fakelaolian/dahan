@@ -16,19 +16,20 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/7. <=== */
+/*! ===> Creates on 2021/9/16. <=== */
 
 /*!
  * @author tiansheng
  */
-#ifndef _F_LIMITS_H
-#define _F_LIMITS_H
+#include <tools/files.h>
+#include "kernel/store/stdstore.h"
 
-#include <limits.h>
+void init_store_file(const char *path)
+{
+}
 
-#define _NAME_MAX        200          /* 表名或函数名最大长度 */
-#define _REMARK_MAX      300          /* 备注最大长度 */
-#define _VDEF_MAX        200          /* 默认值最大长度 */
-#define _PATH_MAX    PATH_MAX         /* 路径最大长度 */
-
-#endif /* _F_LIMITS_H */
+void storebuf(const char *datapath, __bytebuf *buf)
+{
+        FILE *fp = fopen(datapath, "ab");
+        fclose(fp);
+}

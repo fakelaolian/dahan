@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luots All rights reserved.
+ * Copyright (C) 2020 luotiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
  * 方便保存二进制数据库的一个缓冲区，该缓冲区只支持追加数据和读取数据。
  * 不支持插入、 删除等操作。
  *
- * @author 范特西
+ * @author tiansheng
  */
 #ifndef DAHAN_BYTEBUF_H
 #define DAHAN_BYTEBUF_H

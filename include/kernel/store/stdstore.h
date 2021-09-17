@@ -16,19 +16,19 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/7. <=== */
+/*! ===> Creates on 2021/9/16. <=== */
 
 /*!
  * @author tiansheng
  */
-#ifndef _F_LIMITS_H
-#define _F_LIMITS_H
+#ifndef DAHAN_STDSTORE_H
+#define DAHAN_STDSTORE_H
 
-#include <limits.h>
+#include "../bytebuf.h"
 
-#define _NAME_MAX        200          /* 表名或函数名最大长度 */
-#define _REMARK_MAX      300          /* 备注最大长度 */
-#define _VDEF_MAX        200          /* 默认值最大长度 */
-#define _PATH_MAX    PATH_MAX         /* 路径最大长度 */
+/** 初始化存储文件，将文件按块初始化 */
+static void init_store_file(const char *path);
+/** 存储文件 */
+static void storebuf(const char *datapath, __bytebuf *buf);
 
-#endif /* _F_LIMITS_H */
+#endif /* DAHAN_STDSTORE_H */

@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luots All rights reserved.
+ * Copyright (C) 2020 luotiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,6 @@
 /*!
  * sha256文件签名， 用来保证文件的完整性等。
  *
- * @author 范特西
+ * @author tiansheng
  */
 #include "sha256.h"
