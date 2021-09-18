@@ -1,6 +1,6 @@
 # =================================================================================
 #
-# copyright (c) 2020 luotiansheng all rights reserved.
+# copyright (c) 2020 LuoTianSheng all rights reserved.
 #
 # licensed under the apache license, version 2.0 (the "license");
 # you may not use this file except in compliance with the license.
@@ -18,7 +18,7 @@
 
 ### ==============================================
 ### ===> creates on 2021/07/20. <=== ###
-### author tiansheng
+### author TianSheng
 cmake_minimum_required(VERSION 3.13...3.19)
 project(dahan C)
 
@@ -38,7 +38,7 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/kernel kernel)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/aux kernel_aux)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kernel_serialize)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/buffer kernel_buffer)
-aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/store kernel_store)
+aux_source_directory(${CMAKE_SOURCE_DIR}/fs fs)
 aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
 aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
 
@@ -50,7 +50,7 @@ add_executable(
         ${kernel_aux}
         ${kernel_serialize}
         ${kernel_buffer}
-        ${kernel_store}
+        ${fs}
         ${tools}
         ${vasm}
 )

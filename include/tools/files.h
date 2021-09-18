@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luotiansheng All rights reserved.
+ * Copyright (C) 2020 LuoTianSheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /*! ===> Creates on 2021/9/5. <=== */
 
 /*!
- * @author tiansheng
+ * @author TianSheng
  */
 #ifndef _GIO_H
 #define _GIO_H

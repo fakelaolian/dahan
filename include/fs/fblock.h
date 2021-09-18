@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 LuoTianSheng All rights reserved.
+ * Copyright (C) 2020 luots All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,13 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/4. <=== */
+/*! ===> Creates on 2021/9/18. <=== */
 
 /*!
+ * 文件块初始化
  * @author TianSheng
  */
-#ifndef _GMEMP_H
-#define _GMEMP_H
+#ifndef _FBLOCK_H
+#define _FBLOCK_H
 
-#include <malloc.h>
-
-#define kmalloc(size) malloc(size)
-#define krealloc(ptr, size) realloc(ptr, size)
-#define kfree(ptr) free(ptr)
-
-#endif /* _GMEMP_H */
+#endif /* _FBLOCK_H */

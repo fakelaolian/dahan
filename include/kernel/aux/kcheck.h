@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luotiansheng All rights reserved.
+ * Copyright (C) 2020 LuoTianSheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 /*!
  * 检测工具
  *
- * @author tiansheng
+ * @author TianSheng
  */
 #ifndef _KCHECK_H
 #define _KCHECK_H

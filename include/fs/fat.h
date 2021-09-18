@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luotiansheng All rights reserved.
+ * Copyright (C) 2020 luots All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,20 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/16. <=== */
+/*! ===> Creates on 2021/9/18. <=== */
 
 /*!
- * @author tiansheng
+ * 文件分配表
+ * @author TianSheng
  */
-#include <tools/files.h>
-#include "kernel/store/stdstore.h"
+#ifndef _M_FAT_H
+#define _M_FAT_H
 
-void init_store_file(const char *path)
-{
-}
+struct fat0 {
+        unsigned int beg;       /* 开始块号 */
+        unsigned int end;       /* 结束块号 */
+};
 
-void storebuf(const char *datapath, __bytebuf *buf)
-{
-        FILE *fp = fopen(datapath, "ab");
-        fclose(fp);
-}
+#define __fat struct fat0
+
+#endif /* _M_FAT_H */

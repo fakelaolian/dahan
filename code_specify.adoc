@@ -3,8 +3,8 @@
 == 常用规范
 
 - tab使用8个空格
-- 一些通用数据类型定义应该放到**https://github.com/luotiansheng/nuclear/blob/master/include/nctype.h[<nctype.h>]**文件中， 比如： **BOOL**/**TRUE**/**FALSE**
-- **BOOL**等通用类型应该是用**https://github.com/luotiansheng/nuclear/blob/master/include/nctype.h[<nctype.h>]**中的宏或者typedef
+- 一些通用数据类型定义应该放到**https://github.com/LuoTianSheng/nuclear/blob/master/include/nctype.h[<nctype.h>]**文件中， 比如： **BOOL**/**TRUE**/**FALSE**
+- **BOOL**等通用类型应该是用**https://github.com/LuoTianSheng/nuclear/blob/master/include/nctype.h[<nctype.h>]**中的宏或者typedef
 - 小函数尽量使用**内联函数（inline）**或**宏定义**函数
 
     什么是小函数？如果一个函数的代码行数不超过**3-4**行，一般叫做小函数。
@@ -55,8 +55,8 @@ void foo()
 
 == 字符串操作
 
-- 如果要分配一个到堆中的字符串， 请使用**https://github.com/luotiansheng/nuclear/blob/master/include/nuclear/kmemory.h#L56[smalloc(size_t)]**
-- 对字符串的操作尽量使用**https://github.com/luotiansheng/nuclear/blob/master/include/nuclear/string.h[<string.h>]**头文件中的操作函数， 尽量避免使用strcpy等不安全的操作函数
+- 如果要分配一个到堆中的字符串， 请使用**https://github.com/LuoTianSheng/nuclear/blob/master/include/nuclear/kmemory.h#L56[smalloc(size_t)]**
+- 对字符串的操作尽量使用**https://github.com/LuoTianSheng/nuclear/blob/master/include/nuclear/string.h[<string.h>]**头文件中的操作函数， 尽量避免使用strcpy等不安全的操作函数
 
 == 命名规范
 
