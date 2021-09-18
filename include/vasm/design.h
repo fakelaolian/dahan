@@ -136,11 +136,4 @@ __vasm_api f_vasm_push_buf VASM_PUSH_BUF;
 /** 加载指令对应的函数指针 */
 inline void vasm_load_impl_v0();
 
-/**
- * 编译.vasm文件
- *
- * @param vasmpath 文件路径
- */
-extern void vasm_exec_comp(char *vasmpath);
-
 #endif /* _VASM_H */
