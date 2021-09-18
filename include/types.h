@@ -1,6 +1,6 @@
 /*! ************************************************************************
  *
- * Copyright (C) 2020 luots All rights reserved.
+ * Copyright (C) 2020 LuoTianSheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,12 @@
 /*! ===> Creates on 2021/9/18. <=== */
 
 /*!
- * 文件分配表
  * @author TianSheng
  */
-#ifndef _M_FAT_H
-#define _M_FAT_H
+#ifndef _TYPES_H
+#define _TYPES_H
 
-struct fat0 {
-        unsigned int beg;       /* 开始块号 */
-        unsigned int end;       /* 结束块号 */
-};
+#define u4 unsigned int
+#define u8 unsigned long
 
-#define __fat struct fat0
-
-#endif /* _M_FAT_H */
+#endif /* _TYPES_H */

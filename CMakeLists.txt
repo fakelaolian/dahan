@@ -38,7 +38,6 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/kernel kernel)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/aux kernel_aux)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kernel_serialize)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/buffer kernel_buffer)
-aux_source_directory(${CMAKE_SOURCE_DIR}/fs fs)
 aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
 aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
 
@@ -50,7 +49,6 @@ add_executable(
         ${kernel_aux}
         ${kernel_serialize}
         ${kernel_buffer}
-        ${fs}
         ${tools}
         ${vasm}
 )

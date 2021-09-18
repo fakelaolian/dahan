@@ -88,7 +88,7 @@ __always_inline static void _modify_column_name(struct column *col, const char *
 }
 
 void modify_column_info(struct database *base, const char *name, const char *newname,
-                        unsigned char type, unsigned int len, const char *remark,
+                        unsigned char type, u4 len, const char *remark,
                         const char *vdef)
 {
         char tabname[_NAME_MAX];        /* 表名 */

@@ -33,14 +33,14 @@ void deserialize_column(struct table *table, char *colpath)
         char colremark[_REMARK_MAX];
         char colvdef[_VDEF_MAX];
         unsigned char coltype;
-        unsigned int collen;
+        u4 collen;
 
         FILE *fp = fopen(colpath, "rb");
         fread(colname, _NAME_MAX, 1, fp);
         fread(colremark, _REMARK_MAX, 1, fp);
         fread(colvdef, _VDEF_MAX, 1, fp);
         fread(&coltype, sizeof(unsigned char), 1, fp);
-        fread(&collen, sizeof(unsigned int), 1, fp);
+        fread(&collen, sizeof(u4), 1, fp);
         fclose(fp);
 
         create_column(&col, colname, coltype, collen, colremark, colvdef);
@@ -79,7 +79,7 @@ void load_columns(struct table *table, const char *fcolsdir)
  */
 void deserialize_table(struct database *base, const char *tabledir, char *name)
 {
-        unsigned long size;
+        u8 size;
         char remark[_REMARK_MAX];
 
         struct table table;
@@ -90,7 +90,7 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
         xsnprintf(bootpath, _PATH_MAX, "%s/%s", tabledir, _TABLE_NAME);
 
         FILE *fp = fopen(bootpath, "rb");
-        fread(&size, sizeof(unsigned long), 1, fp);
+        fread(&size, sizeof(u8), 1, fp);
         fread(remark, _REMARK_MAX, 1, fp);
         fclose(fp);
 

@@ -61,17 +61,17 @@ void test_bytebuf()
 
         char *helloworld = "helloworld..........这里是第10个点";
         bytebuf_write(helloworld, strlen(helloworld), buf);
-        unsigned int number = 123456789;
-        bytebuf_write(&number, sizeof(unsigned int), buf);
+        u4 number = 123456789;
+        bytebuf_write(&number, sizeof(u4), buf);
 
         char *reads = kmalloc(strlen(helloworld) + 1);
         memset(reads, 0, strlen(helloworld) + 1);
         bytebuf_read(reads, strlen(helloworld), buf);
 
-        unsigned int rnumber;
-        bytebuf_read(&rnumber, sizeof(unsigned int), buf);
+        u4 rnumber;
+        bytebuf_read(&rnumber, sizeof(u4), buf);
 
-        printf("char *: %s, unsigned int: %d\n", reads, rnumber);
+        printf("char *: %s, u4: %d\n", reads, rnumber);
 
         bytebuf_close(buf);
 }

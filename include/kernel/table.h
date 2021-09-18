@@ -34,7 +34,7 @@ struct table {
         size_t arrsize;                         /* 存放字段结构体的数组大小 */
         char remark[_REMARK_MAX];               /* 备注 */
         struct column *columns;                 /* 结构体数组 */
-        unsigned long size;                     /* 数据大小 */
+        u8 size;                     /* 数据大小 */
 };
 
 /** 初始化表 */
