@@ -24,12 +24,12 @@
 #ifndef _COLUMN_H
 #define _COLUMN_H
 
-#include <glibc.h>
-#include <tools/vstring.h>
 #include "kconfig.h"
 #include "aux/kcheck.h"
 #include "aux/comm.h"
-
+#include <types.h>
+#include <glibc.h>
+#include <tools/vstring.h>
 /**
  * 字段类型枚举
  */
