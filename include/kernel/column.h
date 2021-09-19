@@ -43,11 +43,11 @@ ENUM COLTYPE {
 };
 
 struct column {
-        char name[_NAME_MAX];
+        char name[DH_NAME_MAX];
         unsigned char type;             /* 字段类型 */
         u4 len;               /* 字段长度（仅限于可变长度的字段） */
-        char remark[_REMARK_MAX];       /* 备注 */
-        char vdef[_VDEF_MAX];           /* 默认值 */
+        char remark[DH_REMARK_MAX];       /* 备注 */
+        char vdef[DH_VDEF_MAX];           /* 默认值 */
 };
 
 /**

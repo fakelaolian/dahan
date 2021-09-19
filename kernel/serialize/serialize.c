@@ -25,13 +25,13 @@
  */
 #include "_serial.h"
 
-#define write_table_remark(remark, fp) fwrite(remark, _REMARK_MAX, 1, fp)
+#define write_table_remark(remark, fp) fwrite(remark, DH_REMARK_MAX, 1, fp)
 #define write_table_size(size, fp) fwrite(size, sizeof(u8), 1, fp)
 
 inline static void write_table(const char *pathname, struct table *table)
 {
-        char tablepath[_PATH_MAX];
-        xsnprintf(tablepath, _PATH_MAX, "%s/%s", pathname, _TABLE_NAME);
+        char tablepath[DH_PATH_MAX];
+        xsnprintf(tablepath, DH_PATH_MAX, "%s/%s", pathname, _TABLE_NAME);
         // 写入数据
         FILE *fp = fopen(tablepath, "wb");
         write_table_remark(table->remark, fp);
@@ -47,13 +47,13 @@ inline static void write_table(const char *pathname, struct table *table)
  */
 __always_inline static void write_single_column(const char *coldir, struct column *col)
 {
-        char fcolpath[_PATH_MAX];
-        xsnprintf(fcolpath, _PATH_MAX, "%s/%s", coldir, col->name);
+        char fcolpath[DH_PATH_MAX];
+        xsnprintf(fcolpath, DH_PATH_MAX, "%s/%s", coldir, col->name);
 
         FILE *fp = fopen(fcolpath, "wb");
-        fwrite(col->name, _NAME_MAX, 1, fp);
-        fwrite(col->remark, _REMARK_MAX, 1, fp);
-        fwrite(col->vdef, _VDEF_MAX, 1, fp);
+        fwrite(col->name, DH_NAME_MAX, 1, fp);
+        fwrite(col->remark, DH_REMARK_MAX, 1, fp);
+        fwrite(col->vdef, DH_VDEF_MAX, 1, fp);
         fwrite(&(col->type), sizeof(unsigned char), 1, fp);
         fwrite(&(col->len), sizeof(u4), 1, fp);
         fclose(fp);
@@ -68,7 +68,7 @@ __always_inline static void write_single_column(const char *coldir, struct colum
  */
 inline static void write_columns(const char *tablepath, struct column *cols, size_t size)
 {
-        char coldir[_PATH_MAX];
+        char coldir[DH_PATH_MAX];
         getcoldir0(coldir, tablepath);
 
         // 如果文件夹不存在就创建

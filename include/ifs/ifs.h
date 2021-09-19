@@ -19,28 +19,11 @@
 /*! ===> Creates on 2021/9/19. <=== */
 
 /*!
+ * 索引文件系统
+ *
  * @author TianSheng
  */
-#ifndef _FS_MAIN_H
-#define _FS_MAIN_H
+#ifndef _IFS_H
+#define _IFS_H
 
-#include <types.h>
-
-#define KB_4 4096
-
-/** 数据区块，每个数据区块占用4kb的内存大小。
- * 如果当一条数据溢出当前文件块，那么当前文件块的内容会被抛弃。
- * 数据将会被存放到下一个区块内。
- *
- * 这个数据块是会常驻内存的。直到数据库服务关闭后销毁。每次更新会同步到文件中。 */
-typedef struct fblock {
-        u4 seqnum;          /* 区块序号 */
-        u4 unused;          /* 未使用数据大小 */
-        u4 endpos;          /* 区块结束位置 */
-} fblock, fblock_t;
-
-/* 初始化文件区块，第一个参数表示文件块表存放位置。第二个参数
- * 表示默认初始化多少个区块。*/
-void fblock_init(const char *fblockpath, u4 n);
-
-#endif /* _FS_MAIN_H */
+#endif /* _IFS_H */

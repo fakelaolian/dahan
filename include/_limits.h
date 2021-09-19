@@ -26,9 +26,16 @@
 
 #include <limits.h>
 
-#define _NAME_MAX        200          /* 表名或函数名最大长度 */
-#define _REMARK_MAX      300          /* 备注最大长度 */
-#define _VDEF_MAX        200          /* 默认值最大长度 */
-#define _PATH_MAX    PATH_MAX         /* 路径最大长度 */
+#define DH_NAME_MAX               200          /* 表名或函数名最大长度 */
+#define DH_REMARK_MAX             300          /* 备注最大长度 */
+#define DH_VDEF_MAX               200          /* 默认值最大长度 */
+/* 路径最大长度 */
+#ifdef WIN32
+#       define DH_PATH_MAX        256
+#elif linux
+#       define DH_PATH_MAX        500
+#else
+#       define DH_PATH_MAX        300
+#endif /* WIN32 */
 
 #endif /* _F_LIMITS_H */

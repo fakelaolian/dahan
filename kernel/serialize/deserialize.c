@@ -29,16 +29,16 @@ void deserialize_column(struct table *table, char *colpath)
 {
         struct column col;
 
-        char colname[_NAME_MAX];
-        char colremark[_REMARK_MAX];
-        char colvdef[_VDEF_MAX];
+        char colname[DH_NAME_MAX];
+        char colremark[DH_REMARK_MAX];
+        char colvdef[DH_VDEF_MAX];
         unsigned char coltype;
         u4 collen;
 
         FILE *fp = fopen(colpath, "rb");
-        fread(colname, _NAME_MAX, 1, fp);
-        fread(colremark, _REMARK_MAX, 1, fp);
-        fread(colvdef, _VDEF_MAX, 1, fp);
+        fread(colname, DH_NAME_MAX, 1, fp);
+        fread(colremark, DH_REMARK_MAX, 1, fp);
+        fread(colvdef, DH_VDEF_MAX, 1, fp);
         fread(&coltype, sizeof(unsigned char), 1, fp);
         fread(&collen, sizeof(u4), 1, fp);
         fclose(fp);
@@ -63,8 +63,8 @@ void load_columns(struct table *table, const char *fcolsdir)
         struct dirent *e;
 
         while ((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
-                char colpath[_PATH_MAX];
-                xsnprintf(colpath, _PATH_MAX, "%s/%s", fcolsdir, e->d_name);
+                char colpath[DH_PATH_MAX];
+                xsnprintf(colpath, DH_PATH_MAX, "%s/%s", fcolsdir, e->d_name);
                 deserialize_column(table, colpath);
         }
         closedir(dirp);
@@ -80,25 +80,25 @@ void load_columns(struct table *table, const char *fcolsdir)
 void deserialize_table(struct database *base, const char *tabledir, char *name)
 {
         u8 size;
-        char remark[_REMARK_MAX];
+        char remark[DH_REMARK_MAX];
 
         struct table table;
         create_table(&table, name);
 
         // boot文件路径
-        char bootpath[_PATH_MAX];
-        xsnprintf(bootpath, _PATH_MAX, "%s/%s", tabledir, _TABLE_NAME);
+        char bootpath[DH_PATH_MAX];
+        xsnprintf(bootpath, DH_PATH_MAX, "%s/%s", tabledir, _TABLE_NAME);
 
         FILE *fp = fopen(bootpath, "rb");
         fread(&size, sizeof(u8), 1, fp);
-        fread(remark, _REMARK_MAX, 1, fp);
+        fread(remark, DH_REMARK_MAX, 1, fp);
         fclose(fp);
 
         table.size = size;
-        strncpy(table.remark, remark, _REMARK_MAX);
+        strncpy(table.remark, remark, DH_REMARK_MAX);
 
-        char fcolsdir[_PATH_MAX];
-        xsnprintf(fcolsdir, _PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);
+        char fcolsdir[DH_PATH_MAX];
+        xsnprintf(fcolsdir, DH_PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);
 
         // 加载字段列表
         load_columns(&table, fcolsdir);
@@ -117,8 +117,8 @@ void load_tables(struct database *base, const char *basedir)
         struct dirent *e;
 
         while ((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
-                char bootdir[_PATH_MAX];
-                xsnprintf(bootdir, _PATH_MAX, "%s/%s", basedir, e->d_name);
+                char bootdir[DH_PATH_MAX];
+                xsnprintf(bootdir, DH_PATH_MAX, "%s/%s", basedir, e->d_name);
                 deserialize_table(base, bootdir, e->d_name);
         }
         closedir(dirp);
@@ -134,9 +134,9 @@ void load_tables(struct database *base, const char *basedir)
 bool load_database(struct database *base, const char *name)
 {
         bool ret = false;
-        char target[_PATH_MAX];
+        char target[DH_PATH_MAX];
         char *basedir = kconf_data_dir();
-        xsnprintf(target, _PATH_MAX, "%s/%s", basedir, name);
+        xsnprintf(target, DH_PATH_MAX, "%s/%s", basedir, name);
 
         if (!file_exist(target)) {
                 ERROR("没有找到“%s”数据库", name);

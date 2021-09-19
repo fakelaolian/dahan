@@ -29,10 +29,10 @@
 #define COLUMN_ARRAY_SIZE 16
 
 struct table {
-        char name[_NAME_MAX];
+        char name[DH_NAME_MAX];
         size_t colnum;                          /* 字段个数 */
         size_t arrsize;                         /* 存放字段结构体的数组大小 */
-        char remark[_REMARK_MAX];               /* 备注 */
+        char remark[DH_REMARK_MAX];               /* 备注 */
         struct column *columns;                 /* 结构体数组 */
         u8 size;                     /* 数据大小 */
 };

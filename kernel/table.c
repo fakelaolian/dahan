@@ -27,11 +27,11 @@ void create_table(struct table *table, char *name)
 {
         table->colnum = 0;
         table->arrsize = COLUMN_ARRAY_SIZE;
-        strncpy(table->name, name, _NAME_MAX);
+        strncpy(table->name, name, DH_NAME_MAX);
         table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
         table->size = 0;
 
-        memset(table->remark, 0, _REMARK_MAX);
+        memset(table->remark, 0, DH_REMARK_MAX);
 }
 
 void table_add_column(struct table *table, struct column *column)

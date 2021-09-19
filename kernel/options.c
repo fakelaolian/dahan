@@ -38,8 +38,8 @@ if(__ptr == NULL) {                                \
 
 __always_inline static void getname(const char *path, char *tabname, char *colname)
 {
-        char cpypath[_PATH_MAX];
-        strncpy(cpypath, path, _PATH_MAX);
+        char cpypath[DH_PATH_MAX];
+        strncpy(cpypath, path, DH_PATH_MAX);
 
         char *word;
         word = strtok(cpypath, "/");
@@ -49,12 +49,12 @@ __always_inline static void getname(const char *path, char *tabname, char *colna
                 switch (count) {
                         case 0: {
                                 if (tabname != NULL)
-                                        strncpy(tabname, word, _NAME_MAX);
+                                        strncpy(tabname, word, DH_NAME_MAX);
                                 break;
                         }
                         case 1: {
                                 if (colname != NULL)
-                                        strncpy(colname, word, _NAME_MAX);
+                                        strncpy(colname, word, DH_NAME_MAX);
                                 break;
                         }
                 }
@@ -72,16 +72,16 @@ __always_inline static void getname(const char *path, char *tabname, char *colna
 __always_inline static void _modify_column_name(struct column *col, const char *coldir,
                                                 const char *name)
 {
-        char oldpath[_PATH_MAX];
-        char newpath[_PATH_MAX];
-        char oldname[_NAME_MAX];
-        strncpy(oldname, col->name, _NAME_MAX);
+        char oldpath[DH_PATH_MAX];
+        char newpath[DH_PATH_MAX];
+        char oldname[DH_NAME_MAX];
+        strncpy(oldname, col->name, DH_NAME_MAX);
 
-        memset(col->name, 0, _NAME_MAX);
-        strncpy(col->name, name, _NAME_MAX);
+        memset(col->name, 0, DH_NAME_MAX);
+        strncpy(col->name, name, DH_NAME_MAX);
 
-        xsnprintf(oldpath, _PATH_MAX, "%s/%s", coldir, oldname);
-        xsnprintf(newpath, _PATH_MAX, "%s/%s", coldir, name);
+        xsnprintf(oldpath, DH_PATH_MAX, "%s/%s", coldir, oldname);
+        xsnprintf(newpath, DH_PATH_MAX, "%s/%s", coldir, name);
 
         // 重命名
         rename(oldpath, newpath);
@@ -91,9 +91,9 @@ void modify_column_info(struct database *base, const char *name, const char *new
                         unsigned char type, u4 len, const char *remark,
                         const char *vdef)
 {
-        char tabname[_NAME_MAX];        /* 表名 */
-        char colname[_NAME_MAX];        /* 字段名 */
-        char coldir[_PATH_MAX];         /* 字段所在文件夹 */
+        char tabname[DH_NAME_MAX];        /* 表名 */
+        char colname[DH_NAME_MAX];        /* 字段名 */
+        char coldir[DH_PATH_MAX];         /* 字段所在文件夹 */
 
         struct table *table;
         struct column *column;
@@ -116,13 +116,13 @@ void modify_column_info(struct database *base, const char *name, const char *new
                 _modify_column_name(column, coldir, newname);
 
         if (remark != NULL && strlen(remark) != 0) {
-                memset(column->remark, 0, _REMARK_MAX);
-                strncpy(column->remark, remark, _REMARK_MAX);
+                memset(column->remark, 0, DH_REMARK_MAX);
+                strncpy(column->remark, remark, DH_REMARK_MAX);
         }
 
         if (vdef != NULL && strlen(vdef) != 0) {
-                memset(column->vdef, 0, _VDEF_MAX);
-                strncpy(column->vdef, vdef, _VDEF_MAX);
+                memset(column->vdef, 0, DH_VDEF_MAX);
+                strncpy(column->vdef, vdef, DH_VDEF_MAX);
         }
 
         // TODO 需要检测当前字段的数据中类型是否符合条件
@@ -140,7 +140,7 @@ void modify_column_info(struct database *base, const char *name, const char *new
 /** 序列化表结构，将表结构序列化成文件持久化存放到文件中。 */
 void dahan_serialze_table(struct database *base, struct table *table)
 {
-        char tablepath[_PATH_MAX];
+        char tablepath[DH_PATH_MAX];
         gettabdir(tablepath, base->pathname, table->name);
 
         if (!file_exist(tablepath))
@@ -158,14 +158,14 @@ void modify_table_name(struct database *base, const char *oldname, const char *n
 
         CHK_TABLE_NOT_FOUND(table, oldname)
 
-        char oldpath[_PATH_MAX];
-        char newpath[_PATH_MAX];
+        char oldpath[DH_PATH_MAX];
+        char newpath[DH_PATH_MAX];
 
-        xsnprintf(oldpath, _PATH_MAX, "%s/%s", base->pathname, table->name);
-        xsnprintf(newpath, _PATH_MAX, "%s/%s", base->pathname, newname);
+        xsnprintf(oldpath, DH_PATH_MAX, "%s/%s", base->pathname, table->name);
+        xsnprintf(newpath, DH_PATH_MAX, "%s/%s", base->pathname, newname);
 
-        memset(table->name, 0, _NAME_MAX);
-        strncpy(table->name, newname, _NAME_MAX);
+        memset(table->name, 0, DH_NAME_MAX);
+        strncpy(table->name, newname, DH_NAME_MAX);
 
         rename(oldpath, newpath);
 }
@@ -215,13 +215,13 @@ struct table *dahan_get_table(struct database *base, const char *name)
 
 void modify_database_name(struct database *base, const char *oldname, const char *newname)
 {
-        char newpathname[_PATH_MAX];
-        char oldpathname[_PATH_MAX];
-        xsnprintf(newpathname, _PATH_MAX, "%s/%s", kconf_data_dir(), newname);
-        xsnprintf(oldpathname, _PATH_MAX, "%s/%s", kconf_data_dir(), oldname);
+        char newpathname[DH_PATH_MAX];
+        char oldpathname[DH_PATH_MAX];
+        xsnprintf(newpathname, DH_PATH_MAX, "%s/%s", kconf_data_dir(), newname);
+        xsnprintf(oldpathname, DH_PATH_MAX, "%s/%s", kconf_data_dir(), oldname);
 
         rename(oldpathname, newpathname);
-        strncpy(base->pathname, newpathname, _PATH_MAX);
+        strncpy(base->pathname, newpathname, DH_PATH_MAX);
 }
 
 void dahan_insert(struct database *base, const char *tabname)

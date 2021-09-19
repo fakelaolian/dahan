@@ -29,10 +29,10 @@
 #define TABLE_ARRAY_SIZE 16
 
 struct database {
-        char name[_NAME_MAX];
+        char name[DH_NAME_MAX];
         size_t tabnum;
         size_t arrsize;
-        char pathname[_PATH_MAX];
+        char pathname[DH_PATH_MAX];
         struct table *tables;           /* 表结构体列表 */
 };
 

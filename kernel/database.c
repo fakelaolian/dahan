@@ -28,15 +28,15 @@ void database_init(struct database *base, const char *pathname, const char *name
         base->tabnum = 0;
         base->arrsize = TABLE_ARRAY_SIZE;
         base->tables = kmalloc(sizeof(struct table) * TABLE_ARRAY_SIZE);
-        strncpy(base->name, name, _NAME_MAX);
-        strncpy(base->pathname, pathname, _PATH_MAX);
+        strncpy(base->name, name, DH_NAME_MAX);
+        strncpy(base->pathname, pathname, DH_PATH_MAX);
 }
 
 extern bool create_database(struct database *base, char *name)
 {
-        char pathname[_PATH_MAX];
+        char pathname[DH_PATH_MAX];
         char *datadir = kconf_data_dir();
-        xsnprintf(pathname, _PATH_MAX, "%s/%s", datadir, name);
+        xsnprintf(pathname, DH_PATH_MAX, "%s/%s", datadir, name);
 
 #ifndef __dahan_close_check
         if (kcheck_database_name_dup(kconf_data_dir(), name)) {
