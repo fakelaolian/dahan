@@ -30,6 +30,7 @@ add_definitions(-D__dahan_debug)
 add_definitions(-fgnu89-inline)
 
 include_directories(system ${PROJECT_SOURCE_DIR}/include)
+include_directories(system ${PROJECT_SOURCE_DIR}/include/tools)
 include_directories(system ${PROJECT_SOURCE_DIR}/sha256)
 
 aux_source_directory(${CMAKE_SOURCE_DIR}/main main)
@@ -40,6 +41,7 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kernel_serialize)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/buffer kernel_buffer)
 aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
 aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
+aux_source_directory(${CMAKE_SOURCE_DIR}/fs fs)
 
 add_executable(
         ${PROJECT_NAME}
@@ -51,4 +53,5 @@ add_executable(
         ${kernel_buffer}
         ${tools}
         ${vasm}
+        ${fs}
 )

@@ -117,8 +117,8 @@ void load_tables(struct database *base, const char *basedir)
         struct dirent *e;
 
         while ((e = readdir_skip_dot_and_dotdot(dirp)) != NULL) {
-                char bootdir[PATH_MAX];
-                xsnprintf(bootdir, PATH_MAX, "%s/%s", basedir, e->d_name);
+                char bootdir[_PATH_MAX];
+                xsnprintf(bootdir, _PATH_MAX, "%s/%s", basedir, e->d_name);
                 deserialize_table(base, bootdir, e->d_name);
         }
         closedir(dirp);

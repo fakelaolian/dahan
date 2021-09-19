@@ -21,7 +21,17 @@
 /*!
  * @author TianSheng
  */
-#include <tools/files.h>
+#include <files.h>
+
+void fparent(const char *src, char *dest)
+{
+        u4 size = strlen(src) - 1;
+        for (int i = 0; i < size; i++) {
+                if (*((src + size) - i) == '/') {
+                        memcpy(dest, src, i - 1);
+                }
+        }
+}
 
 bool is_dot_or_dotdot(const char *name)
 {

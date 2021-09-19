@@ -27,8 +27,8 @@
 
 #include <gmemp.h>
 #include <string.h>
-#include <mdef/_f_limits.h>
-#include <mdef/_f_name.h>
+#include <_limits.h>
+#include <_names.h>
 
 struct kconfig *privcnf;
 

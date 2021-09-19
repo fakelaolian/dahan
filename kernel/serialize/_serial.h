@@ -24,7 +24,7 @@
 #ifndef _SERIAL_H
 #define _SERIAL_H
 
-#include "mdef/_f_name.h"
+#include "_names.h"
 #include "kernel/database.h"
 
 __always_inline static void gettabdir(char *tabdir, const char *basedir, const char *name)

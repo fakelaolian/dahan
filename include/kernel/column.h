@@ -29,7 +29,7 @@
 #include "aux/comm.h"
 #include <types.h>
 #include <glibc.h>
-#include <tools/vstring.h>
+#include <xstring.h>
 /**
  * 字段类型枚举
  */

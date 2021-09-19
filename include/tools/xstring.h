@@ -21,25 +21,21 @@
 /*!
  * @author TianSheng
  */
-#ifndef _GIO_H
-#define _GIO_H
+#ifndef _GUTIL_H
+#define _GUTIL_H
 
-#include <glibc.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <xstring.h>
-#include <_limits.h>
+#include <string.h>
+#include <stdarg.h>
+#include <types.h>
 
-bool is_dot_or_dotdot(const char *name);
-struct dirent *readdir_skip_dot_and_dotdot(DIR *dirp);
+/** 修剪字符串去除首部空格 */
+void ltrim(char *str);
+/** 修剪字符串去除末尾空格 */
+void rtrim(char *str);
+/** 修剪字符串去除前后空格 */
+inline void trim(char *str);
+/** 格式化字符串 */
+__attribute__((format (printf, 3, 4)))
+int xsnprintf(char *dest, size_t max, const char *fmt, ...);
 
-/** 获取文件路径的parent */
-void fparent(const char *src, char *dest);
-/** 判断文件是否存在 */
-bool file_exist(const char *pathname);
-/** 判断文件夹是否是空 */
-bool is_empty_dir(const char *pathname);
-/** 创建多级目录，不存在则创建 */
-void dahan_mkdirs(const char *pathname);
-
-#endif /* _GIO_H */
+#endif /* _GUTIL_H */

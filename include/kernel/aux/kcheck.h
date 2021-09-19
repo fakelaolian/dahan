@@ -27,7 +27,7 @@
 #define _KCHECK_H
 
 #include <stdbool.h>
-#include <tools/files.h>
+#include <files.h>
 
 /**
  * 校验字段名是否重复

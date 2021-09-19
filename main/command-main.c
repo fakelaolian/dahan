@@ -24,6 +24,12 @@
 #include "vasm/design.h"
 #include "kernel/bytebuf.h"
 #include "kernel/options.h"
+#include "fs/fs-main.h"
+
+void test_fs()
+{
+        fblock_init("/home/shitbro/Documents/fblock", 1);
+}
 
 void test_options()
 {
@@ -76,7 +82,8 @@ void test_bytebuf()
         bytebuf_close(buf);
 }
 
-#define __bytebuf__0
+#define __fs__0
+//#define __bytebuf__0
 //#define __options__0
 int main(void)
 {
@@ -85,6 +92,9 @@ int main(void)
 #endif
 #ifdef __options__0
         test_options();
+#endif
+#ifdef __fs__0
+        test_fs();
 #endif
         return 0;
 }

@@ -23,7 +23,7 @@
  */
 #include <glibc.h>
 #include <ctype.h>
-#include <tools/vstring.h>
+#include <xstring.h>
 
 void rtrim(char *str)
 {
