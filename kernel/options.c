@@ -36,7 +36,7 @@ if(__ptr == NULL) {                                \
         return;                                    \
 }
 
-__always_inline__ static void getname(const char *path, char *tabname, char *colname)
+__always_inline__ static void getname_for_path(const char *path, char *tabname, char *colname)
 {
         char cpypath[DH_PATH_MAX];
         strncpy(cpypath, path, DH_PATH_MAX);
@@ -69,7 +69,7 @@ __always_inline__ static void getname(const char *path, char *tabname, char *col
  * @param col       字段指针
  * @param name      新名称
  */
-__always_inline__ static void _modify_column_name(struct column *col, const char *coldir,
+__always_inline__ static void modify_column_name(struct column *col, const char *coldir,
                                                 const char *name)
 {
         char oldpath[DH_PATH_MAX];
@@ -99,7 +99,7 @@ void modify_column_info(struct database *base, const char *name, const char *new
         struct column *column;
 
         // 获取字段名以及表名
-        getname(name, tabname, colname);
+        getname_for_path(name, tabname, colname);
 
         // 获取表结构体
         table = dahan_get_table(base, tabname);
@@ -113,7 +113,7 @@ void modify_column_info(struct database *base, const char *name, const char *new
 
         // 修改字段名
         if (name != NULL && strlen(name) != 0)
-                _modify_column_name(column, coldir, newname);
+                modify_column_name(column, coldir, newname);
 
         if (remark != NULL && strlen(remark) != 0) {
                 memset(column->remark, 0, DH_REMARK_MAX);

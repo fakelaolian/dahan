@@ -25,7 +25,7 @@
 #ifndef _CONFIG_H
 #define _CONFIG_H
 
-#include <gmemp.h>
+#include <dhmem.h>
 #include <string.h>
 #include <_limits.h>
 #include <_names.h>

@@ -33,7 +33,7 @@
  * 如果无需修改的属性参数设置为NULL即可，type和len设置为0即可
  */
 void modify_column_info(struct database *base,
-                        const char *name,               /* <database name>/<table name> */
+                        const char *name,               /* <table name>/<column name> */
                         const char *newname,
                         unsigned char type,
                         u4 len,

@@ -28,7 +28,7 @@
 #include "a/kcheck.h"
 #include "a/comm.h"
 #include <types.h>
-#include <glibc.h>
+#include <dhlibc.h>
 #include <xstring.h>
 /**
  * 字段类型枚举

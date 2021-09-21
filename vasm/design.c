@@ -25,9 +25,9 @@
 
 void vasm_load_impl_v0()
 {
-        VASM_MVAP_DATABASE = (f_vasm_mvap_database) create_database;
-        VASM_MVAP_TABLE = (f_vasm_mvap_table) create_table;
-        VASM_MVAP_COLUMN = (f_vasm_mvap_column) create_column;
+        VASM_mkvap_DATABASE = (f_vasm_mkvap_database) create_database;
+        VASM_mkvap_TABLE = (f_vasm_mkvap_table) create_table;
+        VASM_mkvap_COLUMN = (f_vasm_mkvap_column) create_column;
         VASM_ADD_COLUMN = (f_vasm_add_column) table_add_column;
         VASM_ADD_TABLE = (f_vasm_add_table) dahan_add_table;
         VASM_LVAP_TABLE = (f_vasm_lvap_table) dahan_get_table;

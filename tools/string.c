@@ -21,7 +21,7 @@
 /*!
  * @author TianSheng
  */
-#include <glibc.h>
+#include <dhlibc.h>
 #include <ctype.h>
 #include <xstring.h>
 

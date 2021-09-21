@@ -37,7 +37,7 @@ bool kcheck_table_name_dup(const void *sp, size_t size, const char *name)
 {
         struct table *tables = (struct table *) sp;
         for (size_t i = 0; i < size; i++) {
-                if (strcmp(tables[i].name, name) == 0)
+                        if (strcmp(tables[i].name, name) == 0)
                         return true;
         }
         return false;

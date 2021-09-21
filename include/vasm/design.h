@@ -24,34 +24,34 @@
 #ifndef _VASM_H
 #define _VASM_H
 
-#include <gext_api.h>
+#include <dhext.h>
 #include <kernel/options.h>
 
 #define __vasm_api
 
 
 /* 声明数据库结构体 */
-#define vasm_dvap_database(__name__) struct database __name__
+#define vasm_dcvap_database(__name__) struct database __name__
 /* 声明数据表结构体 */
-#define vasm_dvap_table(__name__) struct table __name__
+#define vasm_dcvap_table(__name__) struct table __name__
 /* 声明数据字段结构体 */
-#define vasm_dvap_column(__name__) struct column __name__
+#define vasm_dcvap_column(__name__) struct column __name__
 /* 创建数据库 */
-typedef bool (*f_vasm_mvap_database)(void *base, char *name);
-__vasm_api f_vasm_mvap_database VASM_MVAP_DATABASE;
-#define vasm_mvap_database VASM_MVAP_DATABASE
+typedef bool (*f_vasm_mkvap_database)(void *base, char *name);
+__vasm_api f_vasm_mkvap_database VASM_mkvap_DATABASE;
+#define vasm_mkvap_database VASM_mkvap_DATABASE
 /* 创建数据表 */
-typedef void (*f_vasm_mvap_table)(void *table, char *name);
-__vasm_api f_vasm_mvap_table VASM_MVAP_TABLE;
-#define vasm_mvap_table VASM_MVAP_TABLE
+typedef void (*f_vasm_mkvap_table)(void *table, char *name);
+__vasm_api f_vasm_mkvap_table VASM_mkvap_TABLE;
+#define vasm_mkvap_table VASM_mkvap_TABLE
 /* 创建字段 */
-typedef void (*f_vasm_mvap_column)(void *column, char *name,
+typedef void (*f_vasm_mkvap_column)(void *column, char *name,
         unsigned char type,
         size_t len,
         char *remark,
         char *vdef);
-__vasm_api f_vasm_mvap_column VASM_MVAP_COLUMN;
-#define vasm_mvap_column VASM_MVAP_COLUMN
+__vasm_api f_vasm_mkvap_column VASM_mkvap_COLUMN;
+#define vasm_mkvap_column VASM_mkvap_COLUMN
 /* 将字段添加到数据表 */
 typedef void (*f_vasm_add_column)(void *table, void *col);
 __vasm_api f_vasm_add_column VASM_ADD_COLUMN;
@@ -125,9 +125,9 @@ typedef void (*f_vasm_mod_column_submit)(void *base, void *table, void *column);
 __vasm_api f_vasm_mod_column_submit VASM_MOD_COLUMN_SUBMIT;
 #define vasm_mod_column_submit VASM_MOD_COLUMN_SUBMIT
 /* 创建缓冲区 */
-typedef void (*f_vasm_mvap_buf)(size_t bufsize);
-__vasm_api f_vasm_mvap_buf VASM_MVAP_BUF;
-#define vasm_mvap_buf VASM_MVAP_BUF
+typedef void (*f_vasm_mkvap_buf)(size_t bufsize);
+__vasm_api f_vasm_mkvap_buf VASM_mkvap_BUF;
+#define vasm_mkvap_buf VASM_mkvap_BUF
 /* 向缓冲区添加数据 */
 typedef void (*f_vasm_push_buf)(void *ptr, size_t size, void *buf);
 __vasm_api f_vasm_push_buf VASM_PUSH_BUF;

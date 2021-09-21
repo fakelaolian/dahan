@@ -24,7 +24,7 @@
 #ifndef _GIO_H
 #define _GIO_H
 
-#include <glibc.h>
+#include <dhlibc.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <xstring.h>

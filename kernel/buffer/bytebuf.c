@@ -21,7 +21,7 @@
 /*!
  * @author TianSheng
  */
-#include <gmemp.h>
+#include <dhmem.h>
 #include "kernel/bytebuf.h"
 
 __always_inline__ static void bufresize(__bytebuf *buf, size_t resize)

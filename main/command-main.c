@@ -36,24 +36,26 @@ void test_options()
 
         vasm_load_impl_v0();
 
-        vasm_dvap_database(mydb);
-        vasm_mvap_database(&mydb, "mydb");
+        vasm_dcvap_database(mydb);
+        vasm_mkvap_database(&mydb, "mydb");
 
-        vasm_dvap_table(usertab);
-        vasm_mvap_table(&usertab, "t_user");
+        vasm_dcvap_table(usertab);
+        vasm_mkvap_table(&usertab, "t_user");
 
-        vasm_dvap_column(username);
-        vasm_dvap_column(password);
+        vasm_dcvap_column(username);
+        vasm_dcvap_column(password);
 
-        vasm_mvap_column(&username, "username", _VARCHAR, 255, NULL, NULL);
-        vasm_mvap_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
+        vasm_mkvap_column(&username, "username", _VARCHAR, 255, NULL, NULL);
+        vasm_mkvap_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
 
         vasm_add_column(&usertab, &username);
         vasm_add_column(&usertab, &password);
 
         vasm_add_table(&mydb, &usertab);
 
-        vasm_dvap_database(lmydb);
+        modify_column_info(&mydb, "t_user/username", "name_bak", 0, 0, NULL, NULL);
+
+        vasm_dcvap_database(lmydb);
         vasm_lvap_database(&lmydb, "mydb");
 
         vasm_fvap_database(&mydb);
@@ -86,6 +88,9 @@ void test_bytebuf()
 #define __options__0
 int main(void)
 {
+#ifdef WIN32
+    system("chcp 65001");
+#endif
 #ifdef __bytebuf__0
         test_bytebuf();
 #endif
