@@ -26,4 +26,8 @@
 #ifndef _IFS_H
 #define _IFS_H
 
+struct ifat {
+
+};
+
 #endif /* _IFS_H */

@@ -24,7 +24,7 @@
 #include <gmemp.h>
 #include "kernel/bytebuf.h"
 
-__always_inline static void bufresize(__bytebuf *buf, size_t resize)
+__always_inline__ static void bufresize(__bytebuf *buf, size_t resize)
 {
         size_t n_size = resize + buf->count;
         buf->buf = krealloc(buf->buf, n_size);

@@ -54,7 +54,11 @@ struct dirent *readdir_skip_dot_and_dotdot(DIR *dirp)
 bool file_exist(const char *pathname)
 {
         struct stat sb;
+#ifdef WIN32
+        return stat(pathname, &sb) == 0;
+#elif linux
         return lstat(pathname, &sb) == 0;
+#endif
 }
 
 bool is_empty_dir(const char *pathname)
@@ -74,11 +78,15 @@ bool is_empty_dir(const char *pathname)
         return ret;
 }
 
-void _dahan_if_not_exist_mkdir(const char *pathname)
+void dahan_if_not_exist_mkdir(const char *pathname)
 {
         // 如果文件夹不存在则创建
         if (!file_exist(pathname))
+#ifdef WIN32
+                mkdir(pathname);
+#elif linux
                 mkdir(pathname, S_IRWXU);
+#endif
 }
 
 void dahan_mkdirs(const char *__cpy_pathname)
@@ -91,13 +99,13 @@ void dahan_mkdirs(const char *__cpy_pathname)
         for (size_t i = 0, end = len - 1; i < len; i++) {
                 tmp = pathname[i];
                 if (i == end) {
-                        _dahan_if_not_exist_mkdir(pathname);
+                        dahan_if_not_exist_mkdir(pathname);
                         return;
                 }
 
                 if (tmp == '/' || tmp == '\\') {
                         pathname[i] = '\0';
-                        _dahan_if_not_exist_mkdir(pathname);
+                        dahan_if_not_exist_mkdir(pathname);
                         pathname[i] = '/';
                 }
         }

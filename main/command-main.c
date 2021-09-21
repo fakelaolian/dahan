@@ -81,9 +81,9 @@ void test_bytebuf()
         bytebuf_close(buf);
 }
 
-#define __ifs__0
+//#define __ifs__0
 //#define __bytebuf__0
-//#define __options__0
+#define __options__0
 int main(void)
 {
 #ifdef __bytebuf__0

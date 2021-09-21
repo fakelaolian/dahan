@@ -24,7 +24,18 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
+#define uc unsigned char
 #define u4 unsigned int
 #define u8 unsigned long
+
+#define bool uc
+#define true  1
+#define false 0
+
+#ifdef WIN32
+#       define __always_inline__ inline
+#elif linux
+#       define __always_inline__ __always_inline
+#endif
 
 #endif /* _TYPES_H */

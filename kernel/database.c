@@ -43,7 +43,7 @@ extern bool create_database(struct database *base, char *name)
                 puts("数据库已存在");
                 return false;
         }
-#endif /* __dahan_debug */
+#endif /* __dahan_close_check */
 
         database_init(base, pathname, name);
 

@@ -26,7 +26,6 @@
 #ifndef _KCHECK_H
 #define _KCHECK_H
 
-#include <stdbool.h>
 #include <files.h>
 
 /**

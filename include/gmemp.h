@@ -25,6 +25,7 @@
 #define _GMEMP_H
 
 #include <malloc.h>
+#include <types.h>
 
 #define kmalloc(size) malloc(size)
 #define krealloc(ptr, size) realloc(ptr, size)

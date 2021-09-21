@@ -22,7 +22,6 @@
  * @author TianSheng
  */
 #include "kernel/database.h"
-#include "kernel/aux/kcheck.h"
 
 bool kcheck_column_name_dup(const void *sp, size_t size, const char *name)
 {

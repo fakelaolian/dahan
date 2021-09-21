@@ -45,7 +45,7 @@ inline static void write_table(const char *pathname, struct table *table)
  * @param [i] coldir    字段所存放的文件夹
  * @param [i] col       字段数组
  */
-__always_inline static void write_single_column(const char *coldir, struct column *col)
+__always_inline__ static void write_single_column(const char *coldir, struct column *col)
 {
         char fcolpath[DH_PATH_MAX];
         xsnprintf(fcolpath, DH_PATH_MAX, "%s/%s", coldir, col->name);

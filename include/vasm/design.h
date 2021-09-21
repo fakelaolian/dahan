@@ -27,7 +27,7 @@
 #include <gext_api.h>
 #include <kernel/options.h>
 
-#define __vasm_api __gext_api__
+#define __vasm_api
 
 
 /* 声明数据库结构体 */

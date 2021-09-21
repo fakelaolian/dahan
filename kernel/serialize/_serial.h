@@ -27,7 +27,7 @@
 #include "_names.h"
 #include "kernel/database.h"
 
-__always_inline static void gettabdir(char *tabdir, const char *basedir, const char *name)
+__always_inline__ static void gettabdir(char *tabdir, const char *basedir, const char *name)
 {
         /* 结果类似： /home/root/<数据库名>/<表名> */
         xsnprintf(tabdir, DH_PATH_MAX, "%s/%s", basedir, name);
@@ -36,12 +36,12 @@ __always_inline static void gettabdir(char *tabdir, const char *basedir, const c
 /**
  * 根据表路径拼接字段所在文件夹
  */
-__always_inline static void getcoldir0(char *coldir, const char *tablepath)
+__always_inline__ static void getcoldir0(char *coldir, const char *tablepath)
 {
         xsnprintf(coldir, DH_PATH_MAX, "%s/%s", tablepath, _FCOLS_DIR_NAME);
 }
 
-__always_inline static void getcoldir1(char *coldir, const char *basedir, const char *tabname)
+__always_inline__ static void getcoldir1(char *coldir, const char *basedir, const char *tabname)
 {
         char tabdir[DH_PATH_MAX];
         gettabdir(tabdir, basedir, tabname);

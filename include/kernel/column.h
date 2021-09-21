@@ -25,8 +25,8 @@
 #define _COLUMN_H
 
 #include "kconfig.h"
-#include "aux/kcheck.h"
-#include "aux/comm.h"
+#include "a/kcheck.h"
+#include "a/comm.h"
 #include <types.h>
 #include <glibc.h>
 #include <xstring.h>

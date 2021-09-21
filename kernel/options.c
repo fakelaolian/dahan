@@ -36,7 +36,7 @@ if(__ptr == NULL) {                                \
         return;                                    \
 }
 
-__always_inline static void getname(const char *path, char *tabname, char *colname)
+__always_inline__ static void getname(const char *path, char *tabname, char *colname)
 {
         char cpypath[DH_PATH_MAX];
         strncpy(cpypath, path, DH_PATH_MAX);
@@ -69,7 +69,7 @@ __always_inline static void getname(const char *path, char *tabname, char *colna
  * @param col       字段指针
  * @param name      新名称
  */
-__always_inline static void _modify_column_name(struct column *col, const char *coldir,
+__always_inline__ static void _modify_column_name(struct column *col, const char *coldir,
                                                 const char *name)
 {
         char oldpath[DH_PATH_MAX];
