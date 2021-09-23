@@ -27,6 +27,8 @@
 #define uc unsigned char
 #define u4 unsigned int
 #define u8 unsigned long
+#define int64 long long
+#define uint64 unsigned int64
 
 #define bool uc
 #define true  1

@@ -30,6 +30,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <dhext.h>
+#include <dhmem.h>
 
 #define ENUM enum
 

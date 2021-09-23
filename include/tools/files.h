@@ -21,8 +21,8 @@
 /*!
  * @author TianSheng
  */
-#ifndef _GIO_H
-#define _GIO_H
+#ifndef _FILES_H
+#define _FILES_H
 
 #include <dhlibc.h>
 #include <sys/stat.h>
@@ -42,4 +42,4 @@ bool is_empty_dir(const char *pathname);
 /** 创建多级目录，不存在则创建 */
 void dahan_mkdirs(const char *pathname);
 
-#endif /* _GIO_H */
+#endif /* _FILES_H */

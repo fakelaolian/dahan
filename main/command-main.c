@@ -32,7 +32,7 @@ void test_ifs()
 
 void test_options()
 {
-        kconf_init("/home/shitbro/dahansql");
+        kconf_init("/home/dahansql");
 
         vasm_load_impl_v0();
 
