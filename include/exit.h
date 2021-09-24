@@ -16,17 +16,18 @@
  *
  *! ************************************************************************/
 
-/*! ===> Creates on 2021/9/22. <=== */
+/*! ===> Creates on 2021/9/24. <=== */
 
 /*!
- * 索引文件系统
+ * 如果有什么需要系统强制退出的地方调用这个宏。
+ * 方便后续统计以及修改优化。
+ *
  * @author TianSheng
  */
-#ifndef _FS_MAIN_H
-#define _FS_MAIN_H
+#ifndef _EXIT_H
+#define _EXIT_H
 
-struct fblock {
+/* 退出程序 */
+#define __sysexit__(n) exit(n)
 
-};
-
-#endif /* _FS_MAIN_H */
+#endif /* _EXIT_H */

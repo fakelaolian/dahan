@@ -24,11 +24,9 @@
 #include "vasm/design.h"
 #include "kernel/bytebuf.h"
 #include "kernel/options.h"
-#include "ifs/ifs.h"
 
-void test_ifs()
-{
-}
+//#define __bytebuf__0
+//#define __options__0
 
 void test_options()
 {
@@ -83,9 +81,6 @@ void test_bytebuf()
         bytebuf_close(buf);
 }
 
-//#define __ifs__0
-//#define __bytebuf__0
-#define __options__0
 int main(void)
 {
 #ifdef WIN32
@@ -96,9 +91,6 @@ int main(void)
 #endif
 #ifdef __options__0
         test_options();
-#endif
-#ifdef __ifs__0
-        test_ifs();
 #endif
         return 0;
 }
