@@ -27,14 +27,9 @@ struct aat *aat_init()
 {
         struct aat *aat;
         struct aatcol *areas;
-        uint *idlearea;
 
         aat = kmalloc(sizeof(struct aat));
         areas = kmalloc(sizeof(struct aatcol) * 16);
-        idlearea = kmalloc(sizeof(uint) * 16);
-
-        for (int i = 0; i < 16; i++)
-                idlearea[i] = i;
 
         aat->arrsize = 16;
         aat->areas = areas;
