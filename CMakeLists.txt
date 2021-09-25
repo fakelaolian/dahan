@@ -38,7 +38,7 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/sha256 sha256)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel kernel)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/a ka)
 aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/serialize kserialize)
-aux_source_directory(${CMAKE_SOURCE_DIR}/kernel/buf kbuf)
+aux_source_directory(${CMAKE_SOURCE_DIR}/eng eng)
 aux_source_directory(${CMAKE_SOURCE_DIR}/tools tools)
 aux_source_directory(${CMAKE_SOURCE_DIR}/vasm vasm)
 
@@ -49,7 +49,7 @@ add_executable(
         ${kernel}
         ${ka}
         ${kserialize}
-        ${kbuf}
         ${tools}
         ${vasm}
+        ${eng}
 )

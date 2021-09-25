@@ -22,7 +22,6 @@
  * @author TianSheng
  */
 #include "vasm/design.h"
-#include "kernel/bytebuf.h"
 #include "kernel/options.h"
 
 //#define __bytebuf__0
@@ -43,8 +42,8 @@ void test_options()
         vasm_dcvap_column(username);
         vasm_dcvap_column(password);
 
-        vasm_mkvap_column(&username, "username", _VARCHAR, 255, NULL, NULL);
-        vasm_mkvap_column(&password, "password", _VARCHAR, 256, "没有默认值", NULL);
+        vasm_mkvap_column(&username, "username", BLOCK_TYPE_VARCHAR, 255, NULL, NULL);
+        vasm_mkvap_column(&password, "password", BLOCK_TYPE_VARCHAR, 256, "没有默认值", NULL);
 
         vasm_add_column(&usertab, &username);
         vasm_add_column(&usertab, &password);
@@ -60,34 +59,10 @@ void test_options()
         vasm_fvap_database(&lmydb);
 }
 
-void test_bytebuf()
-{
-        __bytebuf *buf = bytebuf_open(64);
-
-        char *helloworld = "helloworld..........这里是第10个点";
-        bytebuf_write(helloworld, strlen(helloworld), buf);
-        u4 number = 123456789;
-        bytebuf_write(&number, sizeof(u4), buf);
-
-        char *reads = kmalloc(strlen(helloworld) + 1);
-        memset(reads, 0, strlen(helloworld) + 1);
-        bytebuf_read(reads, strlen(helloworld), buf);
-
-        u4 rnumber;
-        bytebuf_read(&rnumber, sizeof(u4), buf);
-
-        printf("char *: %s, u4: %d\n", reads, rnumber);
-
-        bytebuf_close(buf);
-}
-
 int main(void)
 {
 #ifdef WIN32
     system("chcp 65001");
-#endif
-#ifdef __bytebuf__0
-        test_bytebuf();
 #endif
 #ifdef __options__0
         test_options();

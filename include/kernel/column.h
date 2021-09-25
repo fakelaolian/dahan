@@ -27,25 +27,12 @@
 #include "kconfig.h"
 #include "a/kcheck.h"
 #include "a/comm.h"
-#include <types.h>
-#include <dhlibc.h>
-#include <xstring.h>
-/**
- * 字段类型枚举
- */
-ENUM COLTYPE {
-        _INT = 1,
-        _LONG,
-        _VARCHAR,
-        _FLOAT,
-        _DECIMAL,
-        _TEXT,
-};
+#include "eng/datafile.h"
 
 struct column {
         char name[DH_NAME_MAX];
-        unsigned char type;             /* 字段类型 */
-        u4 len;               /* 字段长度（仅限于可变长度的字段） */
+        unsigned char type;               /* 字段类型 */
+        uint len;                         /* 字段长度（仅限于可变长度的字段） */
         char remark[DH_REMARK_MAX];       /* 备注 */
         char vdef[DH_VDEF_MAX];           /* 默认值 */
 };

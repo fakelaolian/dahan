@@ -36,7 +36,7 @@ void modify_column_info(struct database *base,
                         const char *name,               /* <table name>/<column name> */
                         const char *newname,
                         unsigned char type,
-                        u4 len,
+                        uint len,
                         const char *remark,
                         const char *vdef);
 /** 修改表名 */

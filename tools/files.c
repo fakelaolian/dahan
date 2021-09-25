@@ -25,7 +25,7 @@
 
 void fparent(const char *src, char *dest)
 {
-        u4 size = strlen(src) - 1;
+        uint size = strlen(src) - 1;
         for (int i = 0; i < size; i++) {
                 if (*((src + size) - i) == '/') {
                         memcpy(dest, src, i - 1);
@@ -89,10 +89,10 @@ void dahan_if_not_exist_mkdir(const char *pathname)
 #endif
 }
 
-void dahan_mkdirs(const char *__cpy_pathname)
+void dahan_mkdirs(const char *cpy_pathname)
 {
         char pathname[255];
-        strncpy(pathname, __cpy_pathname, 255);
+        strncpy(pathname, cpy_pathname, 255);
 
         char tmp;
         size_t len = strlen(pathname);

@@ -41,6 +41,6 @@ inline void database_init(struct database *base, const char *pathname, const cha
 /** 创建数据库, 并序列化到文件中 */
 bool create_database(struct database *base, char *name);
 /** 销毁数据库结构体所占用的内存 */
-inline void destroy_database(struct database *database);
+inline void database_destroy(struct database *database);
 
 #endif // _DATABASE_H

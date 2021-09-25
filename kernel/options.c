@@ -88,7 +88,7 @@ __always_inline__ static void modify_column_name(struct column *col, const char 
 }
 
 void modify_column_info(struct database *base, const char *name, const char *newname,
-                        unsigned char type, u4 len, const char *remark,
+                        unsigned char type, uint len, const char *remark,
                         const char *vdef)
 {
         char tabname[DH_NAME_MAX];        /* 表名 */
@@ -146,6 +146,7 @@ void dahan_serialze_table(struct database *base, struct table *table)
         if (!file_exist(tablepath))
                 dahan_mkdirs(tablepath);
 
+        table->datafile = datafile_init(tablepath, table->blocksize, table->colnum);
         // 将表结构信息写入文件
         write_table(tablepath, table);
         write_columns(tablepath, table->columns, table->colnum);

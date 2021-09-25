@@ -25,6 +25,7 @@
 #define _F_NAME_H
 
 #define _TABLE_NAME       "descfile"
+#define _DATA_FILE        ".data"
 #define _FCOLS_DIR_NAME   "fcols"
 
 #endif /* _F_NAME_H */

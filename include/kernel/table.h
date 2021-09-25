@@ -24,17 +24,32 @@
 #ifndef _TABLE_H
 #define _TABLE_H
 
-#include "column.h"
+#include "aat.h"
 
 #define COLUMN_ARRAY_SIZE 16
 
+/*
+
+ z
+
+ 0 -> name
+ s
+ 2 -> hight
+ 3 -> width
+ 4 -> x
+ 5 -> y
+
+ */
 struct table {
         char name[DH_NAME_MAX];
-        size_t colnum;                          /* 字段个数 */
-        size_t arrsize;                         /* 存放字段结构体的数组大小 */
-        char remark[DH_REMARK_MAX];               /* 备注 */
+        uint colnum;                            /* 字段个数 */
+        uint arrsize;                           /* 存放字段结构体的数组大小 */
+        size_t size;                            /* 数据大小 */
+        size_t blocksize;                       /* 数据块大小 */
+        char remark[DH_REMARK_MAX];             /* 备注 */
+        datafile_t *datafile;                   /* 数据文件 */
+        struct aat *aat;                        /* 区域分配表 */
         struct column *columns;                 /* 结构体数组 */
-        u8 size;                     /* 数据大小 */
 };
 
 /** 初始化表 */

@@ -24,13 +24,14 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
-#define uc unsigned char
-#define u4 unsigned int
-#define u8 unsigned long
+#define uchar unsigned char
+#define uint unsigned int
+#define int8 long
+#define uint8 unsigned long
 #define __int64_t long long
 #define uint64 unsigned __int64_t
 
-#define bool uc
+#define bool uchar
 #define true  1
 #define false 0
 

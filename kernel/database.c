@@ -52,10 +52,10 @@ extern bool create_database(struct database *base, char *name)
         return true;
 }
 
-void destroy_database(struct database *database)
+void database_destroy(struct database *database)
 {
         size_t i;
         for (i = 0; i < database->tabnum; i++)
-                destroy_table((database->tables + i));
+                table_destroy((database->tables + i));
         kfree(database->tables);
 }

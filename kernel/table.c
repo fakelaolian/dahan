@@ -30,6 +30,7 @@ void create_table(struct table *table, char *name)
         strncpy(table->name, name, DH_NAME_MAX);
         table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
         table->size = 0;
+        table->blocksize = 16000; /* 16kb */
 
         memset(table->remark, 0, DH_REMARK_MAX);
 }
@@ -63,7 +64,8 @@ struct column *table_get_column(struct table *table, const char *name)
         return NULL;
 }
 
-void destroy_table(struct table *table)
+void table_destroy(struct table *table)
 {
         kfree(table->columns);
+        datafile_destroy(table->datafile);
 }
