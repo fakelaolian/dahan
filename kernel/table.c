@@ -53,7 +53,7 @@ void table_add_column(struct table *table, struct column *column)
         ++table->colnum;
 }
 
-struct column *table_get_column(struct table *table, const char *name)
+struct column *get_column(struct table *table, const char *name)
 {
         struct column *col;
 

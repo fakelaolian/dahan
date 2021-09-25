@@ -24,16 +24,16 @@
 #include "kernel/options.h"
 #include "serialize/serialize.c"
 
-#define CHK_TABLE_NOT_FOUND(__ptr, name)           \
-if(__ptr == NULL) {                                \
-        kerror("【%s】表不存在\n", name);             \
-        return;                                    \
+#define CHK_TABLE_NOT_FOUND(__ptr, name)\
+if(__ptr == NULL) {\
+        kerror("【%s】表不存在\n", name);\
+        return;\
 }
 
-#define CHK_COLUMN_NOT_FOUND(__ptr, name)          \
-if(__ptr == NULL) {                                \
-        kerror("【%s】字段不存在\n", name);           \
-        return;                                    \
+#define CHK_COLUMN_NOT_FOUND(__ptr, name)\
+if(__ptr == NULL) {\
+        kerror("【%s】字段不存在\n", name);\
+        return;\
 }
 
 __always_inline__
@@ -111,7 +111,7 @@ void modify_column(struct database *base, const char *name, const char *newname,
         CHK_TABLE_NOT_FOUND(table, tabname)
 
         // 获取字段结构体
-        column = table_get_column(table, colname);
+        column = get_column(table, colname);
         CHK_COLUMN_NOT_FOUND(column, colname)
 
         getcoldir1(coldir, base->pathname, table->name);
@@ -244,7 +244,26 @@ void remove_column(const char *path)
         char tabname[DH_CUT_NAME_SIZE];        /* 表名 */
         char colname[DH_CUT_NAME_SIZE];        /* 字段名 */
 
+        struct column *col;
+        struct table *table;
+        struct database *database;
         get_name_in_path(path, dbname, tabname, colname);
 
+        database = get_opened_database(dbname);
+        if (database == NULL) {
+                ERROR("没有查找到【%s】数据库\n", dbname);
+                return;
+        }
 
+        table = get_table(database, tabname);
+        if (table == NULL) {
+                ERROR("没有查找到【%s】表\n", tabname);
+                return;
+        }
+
+        col = get_column(table, colname);
+        if (col == NULL) {
+                ERROR("字段不存在 -【%s】\n", colname);
+                return;
+        }
 }

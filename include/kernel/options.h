@@ -38,8 +38,6 @@ struct table* get_table(struct database *base, const char *name);
 /** ----------------------------------------------- ------------------------------------- */
 
 
-
-
 /*! --------------------------------- 和数据库有关的操作 ------------------------------------- */
 /*! 加载数据库 */
 void load_database(struct database *base, const char *name);
@@ -48,8 +46,6 @@ void insert(struct database *base, const char *tabname);
 /** 修改数据库名 */
 void modify_database_name(struct database *base, const char *oldname, const char *newname);
 /** ----------------------------------------------- ------------------------------------------ */
-
-
 
 
 /*! --------------------------------- 和字段有关的操作 ------------------------------------- */

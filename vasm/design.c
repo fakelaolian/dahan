@@ -32,7 +32,7 @@ void vasm_load_impl_v0()
         VASM_ADD_TABLE = (f_vasm_add_table) add_table;
         VASM_LVAP_TABLE = (f_vasm_lvap_table) get_table;
         VASM_LVAP_DATABASE = (f_vasm_lvap_database) load_database;
-        VASM_LVAP_COLUMN = (f_vasm_lvap_column) table_get_column;
+        VASM_LVAP_COLUMN = (f_vasm_lvap_column) get_column;
         VASM_LVAP_DATABASE = (f_vasm_lvap_database) load_database;
         VASM_FVAP_DATABASE = (f_vasm_fvap_database) database_destroy;
         VASM_MOD_DATABASE_NAME = (f_vasm_mod_database_name) modify_database_name;
