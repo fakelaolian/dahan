@@ -32,10 +32,13 @@ void deserialize_column(struct table *table, char *colpath)
         char colname[DH_NAME_MAX];
         char colremark[DH_REMARK_MAX];
         char colvdef[DH_VDEF_MAX];
-        unsigned char coltype;
+
+        uint id;
         uint collen;
+        unsigned char coltype;
 
         FILE *fp = fopen(colpath, "rb");
+        fread(&id, sizeof(uint), 1, fp);
         fread(colname, DH_NAME_MAX, 1, fp);
         fread(colremark, DH_REMARK_MAX, 1, fp);
         fread(colvdef, DH_VDEF_MAX, 1, fp);
@@ -43,10 +46,11 @@ void deserialize_column(struct table *table, char *colpath)
         fread(&collen, sizeof(uint), 1, fp);
         fclose(fp);
 
+        col.id = id;
         create_column(&col, colname, coltype, collen, colremark, colvdef);
 
-        printf("col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
-             col.name, col.type, col.len, col.vdef, col.remark);
+        printf("id(%d), col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
+               col.id, col.name, col.type, col.len, col.vdef, col.remark);
 
         table_add_column(table, &col);
 }
@@ -71,6 +75,28 @@ void load_columns(struct table *table, const char *fcolsdir)
 }
 
 /**
+ * 加载数据区域分配文件
+ */
+struct aat *load_aat(const char *tabledir)
+{
+        size_t arrsize;
+        struct aat *aat;
+        char aatpath[DH_NAME_MAX];
+
+        xsnprintf(aatpath, DH_NAME_MAX, "%s/%s", tabledir, _AAT_NAME);
+
+        FILE *fp = fopen(aatpath, "rb");
+        fread(&arrsize, sizeof(size_t), 1, fp);
+        aat = aat_load_init(arrsize);
+
+        fread(aat->idle, sizeof(uint), arrsize, fp);
+        fread(aat->areas, sizeof(struct aatarea), arrsize, fp);
+        fclose(fp);
+
+        return aat;
+}
+
+/**
  * 反序列化表
  *
  * @param base      数据库结构体指针
@@ -79,23 +105,30 @@ void load_columns(struct table *table, const char *fcolsdir)
  */
 void deserialize_table(struct database *base, const char *tabledir, char *name)
 {
-        uint8 size;
+        size_t size, blocksize;
         char remark[DH_REMARK_MAX];
 
+        struct aat *aat;
         struct table table;
         create_table(&table, name);
 
-        // boot文件路径
-        char bootpath[DH_PATH_MAX];
-        xsnprintf(bootpath, DH_PATH_MAX, "%s/%s", tabledir, _TABLE_NAME);
+        // 表信息文件路径
+        char descfile[DH_PATH_MAX];
+        xsnprintf(descfile, DH_PATH_MAX, "%s/%s", tabledir, _TABLE_NAME);
 
-        FILE *fp = fopen(bootpath, "rb");
-        fread(&size, sizeof(uint8), 1, fp);
+        FILE *fp = fopen(descfile, "rb");
         fread(remark, DH_REMARK_MAX, 1, fp);
+        fread(&size, sizeof(size_t), 1, fp);
+        fread(&blocksize, sizeof(size_t), 1, fp);
         fclose(fp);
 
         table.size = size;
+        table.blocksize = blocksize;
         strncpy(table.remark, remark, DH_REMARK_MAX);
+
+        // 加载区域分配表
+        aat = load_aat(tabledir);
+        table.aat = aat;
 
         char fcolsdir[DH_PATH_MAX];
         xsnprintf(fcolsdir, DH_PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);

@@ -55,7 +55,7 @@ struct table {
 /** 初始化表 */
 inline void create_table(struct table *table, char *name);
 /** 释放表数据 */
-inline void destroy_table(struct table *table);
+inline void table_destroy(struct table *table);
 /** 添加字段 */
 void table_add_column(struct table *table, struct column *column);
 /** 根据名称获取表中的字段指针 */

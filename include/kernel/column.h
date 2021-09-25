@@ -30,6 +30,7 @@
 #include "eng/datafile.h"
 
 struct column {
+        uint id;
         char name[DH_NAME_MAX];
         unsigned char type;               /* 字段类型 */
         uint len;                         /* 字段长度（仅限于可变长度的字段） */

@@ -24,7 +24,8 @@
 #ifndef _F_NAME_H
 #define _F_NAME_H
 
-#define _TABLE_NAME       "descfile"
+#define _TABLE_NAME       "desc"
+#define _AAT_NAME         "aat"
 #define _DATA_FILE        ".data"
 #define _FCOLS_DIR_NAME   "fcols"
 

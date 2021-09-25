@@ -27,25 +27,28 @@
 
 #include "column.h"
 
-struct aatcol {
+struct aatarea {
         size_t areaid;
-        const char *colname;
+        uint colid;
 };
 
 /* 数据区域分配表 */
 struct aat {
         uint *idle;
         size_t arrsize;
-        struct aatcol *areas;
+        struct aatarea *areas;
 };
 
 /* 创建一个区域分配表 */
+__always_inline__
 struct aat *aat_init();
+/* 创建一个区域分配表 */
+struct aat *aat_load_init(size_t arrsize);
 /* 销毁一个区域分配表 */
 void aat_destroy(struct aat *aat);
 /* 添加一个字段所对应的区域 */
-void aat_bound(struct aat *aat, const char *colname);
+void aat_bound(struct aat *aat, uint colname);
 /* 获取字段对应的区域id */
-size_t aat_get(struct aat *aat, const char *colname);
+size_t aat_get(struct aat *aat, uint colname);
 
 #endif /* _AAT_H */

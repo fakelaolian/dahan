@@ -25,18 +25,35 @@
  */
 #include "_serial.h"
 
-#define write_table_remark(remark, fp) fwrite(remark, DH_REMARK_MAX, 1, fp)
-#define write_table_size(size, fp) fwrite(size, sizeof(uint8), 1, fp)
+__always_inline__
+static void write_aat(const char *pathname, struct aat *aat)
+{
+        char aatpath[DH_PATH_MAX];
+        xsnprintf(aatpath, DH_PATH_MAX, "%s/%s", pathname, _AAT_NAME);
+        FILE *fp = fopen(aatpath, "wb");
 
-inline static void write_table(const char *pathname, struct table *table)
+        fwrite(&aat->arrsize, sizeof(size_t), 1, fp);
+        fwrite(aat->idle, sizeof(uint), aat->arrsize, fp);
+        fwrite(aat->areas, sizeof(struct aatarea), aat->arrsize, fp);
+
+        fclose(fp);
+}
+
+__always_inline__
+static void write_table(const char *pathname, struct table *table)
 {
         char tablepath[DH_PATH_MAX];
         xsnprintf(tablepath, DH_PATH_MAX, "%s/%s", pathname, _TABLE_NAME);
-        // 写入数据
+
+        // 写入表数据
         FILE *fp = fopen(tablepath, "wb");
-        write_table_remark(table->remark, fp);
-        write_table_size(&table->size, fp);
+        fwrite(table->remark, DH_REMARK_MAX, 1, fp);
+        fwrite(&table->size, sizeof(size_t), 1, fp);
+        fwrite(&table->blocksize, sizeof(size_t), 1, fp);
         fclose(fp);
+
+        // 写入区域分配表数据
+        write_aat(pathname, table->aat);
 }
 
 /**
@@ -45,12 +62,14 @@ inline static void write_table(const char *pathname, struct table *table)
  * @param [i] coldir    字段所存放的文件夹
  * @param [i] col       字段数组
  */
-__always_inline__ static void write_single_column(const char *coldir, struct column *col)
+__always_inline__
+static void write_single_column(const char *coldir, struct column *col)
 {
         char fcolpath[DH_PATH_MAX];
         xsnprintf(fcolpath, DH_PATH_MAX, "%s/%s", coldir, col->name);
 
         FILE *fp = fopen(fcolpath, "wb");
+        fwrite(&col->id, sizeof(uint), 1, fp);
         fwrite(col->name, DH_NAME_MAX, 1, fp);
         fwrite(col->remark, DH_REMARK_MAX, 1, fp);
         fwrite(col->vdef, DH_VDEF_MAX, 1, fp);
@@ -66,7 +85,8 @@ __always_inline__ static void write_single_column(const char *coldir, struct col
  * @param cols          字段数组指针
  * @param size          数组大小
  */
-inline static void write_columns(const char *tablepath, struct column *cols, size_t size)
+__always_inline__
+static void write_columns(const char *tablepath, struct column *cols, size_t size)
 {
         char coldir[DH_PATH_MAX];
         getcoldir0(coldir, tablepath);

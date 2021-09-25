@@ -47,7 +47,8 @@ void table_add_column(struct table *table, struct column *column)
                 return;
         }
 
-        aat_bound(table->aat, column->name);
+        column->id = table->colnum;
+        aat_bound(table->aat, column->id);
         table->columns[table->colnum] = (*column);
         ++table->colnum;
 }
@@ -69,5 +70,6 @@ struct column *table_get_column(struct table *table, const char *name)
 void table_destroy(struct table *table)
 {
         kfree(table->columns);
-        datafile_destroy(table->datafile);
+        aat_destroy(table->aat);
+        // TODO datafile_destroy(table->datafile);
 }
