@@ -69,18 +69,34 @@ void aat_bound(struct aat *aat, uint colid)
                         return;
                 }
         }
+
+        // 如果能走到这，代表文件分配表已经满了。所以需要扩容
+        aat->arrsize += 16;
+
+        aat->areas = kmalloc(sizeof(struct aatarea) * aat->arrsize);
+        uint *idletmp = kmalloc(sizeof(uint) * aat->arrsize);
+        memset(idletmp, 0, sizeof(uint) * aat->arrsize);
+
+        memmove(idletmp, aat->idle, sizeof(uint) * aat->arrsize);
+        kfree(aat->idle);
+        aat->idle = idletmp;
 }
 
 size_t aat_get(struct aat *aat, uint colid)
 {
+        size_t ret = 0;
         struct aatarea *aatarea;
 
         for (int i = 0; i < aat->arrsize; i++) {
                 if (aat->idle[i] != 0) {
                         aatarea = &aat->areas[i];
                         if (aatarea->colid == colid) {
-                                return aatarea->areaid;
+                                ret = aatarea->areaid;
+                                goto aat_get_out;
                         }
                 }
         }
+
+aat_get_out:
+        return ret;
 }
