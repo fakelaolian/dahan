@@ -31,11 +31,11 @@
 #define DH_VDEF_MAX               200          /* 默认值最大长度 */
 /* 路径最大长度 */
 #ifdef WIN32
-#       define DH_PATH_MAX        256
+#    define DH_PATH_MAX        256
 #elif linux
-#       define DH_PATH_MAX        600
+#    define DH_PATH_MAX        600
 #else
-#       define DH_PATH_MAX        300
+#    define DH_PATH_MAX        300
 #endif /* WIN32 */
 
 #endif /* _F_LIMITS_H */

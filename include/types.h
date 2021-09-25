@@ -35,9 +35,9 @@
 #define false 0
 
 #ifdef WIN32
-#       define __always_inline__ inline
+#    define __always_inline__ inline
 #elif linux
-#       define __always_inline__ __always_inline
+#    define __always_inline__ __always_inline
 #endif
 
 #endif /* _TYPES_H */
