@@ -31,6 +31,7 @@ void create_table(struct table *table, char *name)
         table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
         table->size = 0;
         table->blocksize = 16000; /* 16kb */
+        table->aat = aat_init();
 
         memset(table->remark, 0, DH_REMARK_MAX);
 }
@@ -46,6 +47,7 @@ void table_add_column(struct table *table, struct column *column)
                 return;
         }
 
+        aat_bound(table->aat, column->name);
         table->columns[table->colnum] = (*column);
         ++table->colnum;
 }

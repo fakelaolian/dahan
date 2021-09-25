@@ -25,20 +25,57 @@
 
 struct aat *aat_init()
 {
+        struct aat *aat;
+        struct aatcol *areas;
+        uint *idlearea;
 
+        aat = kmalloc(sizeof(struct aat));
+        areas = kmalloc(sizeof(struct aatcol) * 16);
+        idlearea = kmalloc(sizeof(uint) * 16);
+
+        for (int i = 0; i < 16; i++)
+                idlearea[i] = i;
+
+        aat->arrsize = 16;
+        aat->areas = areas;
+
+        return aat;
 }
 
 void aat_destroy(struct aat *aat)
 {
-
+        kfree(aat->idle);
+        kfree(aat->areas);
+        kfree(aat);
 }
 
-void aat_add(struct column *col)
+void aat_bound(struct aat *aat, const char *colname)
 {
+        struct aatcol *aatcol;
 
+        for (int i = 0; i < aat->arrsize; i++) {
+                if(aat->idle[i] != 0) {
+                        aat->idle[i] = 1;
+
+                        aatcol = &aat->areas[i];
+                        aatcol->areaid = i;
+                        aatcol->colname = colname;
+
+                        return;
+                }
+        }
 }
 
-size_t aat_get(const char *colname)
+size_t aat_get(struct aat *aat, const char *colname)
 {
+        struct aatcol *aatcol;
 
+        for (int i = 0; i < aat->arrsize; i++) {
+                if (aat->idle[i] != 0) {
+                        aatcol = &aat->areas[i];
+                        if (strcmp(aatcol->colname, colname) == 0) {
+                                return aatcol->areaid;
+                        }
+                }
+        }
 }

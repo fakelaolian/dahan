@@ -34,6 +34,7 @@ struct aatcol {
 
 /* 数据区域分配表 */
 struct aat {
+        uint *idle;
         size_t arrsize;
         struct aatcol *areas;
 };
@@ -43,8 +44,8 @@ struct aat *aat_init();
 /* 销毁一个区域分配表 */
 void aat_destroy(struct aat *aat);
 /* 添加一个字段所对应的区域 */
-void aat_add(struct column *col);
+void aat_bound(struct aat *aat, const char *colname);
 /* 获取字段对应的区域id */
-size_t aat_get(const char *colname);
+size_t aat_get(struct aat *aat, const char *colname);
 
 #endif /* _AAT_H */
