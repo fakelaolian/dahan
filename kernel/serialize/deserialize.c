@@ -131,7 +131,7 @@ void load_tables(struct database *base, const char *basedir)
  * @param basedir   数据库所在目录
  * @param name      数据库名称
  */
-bool load_database(struct database *base, const char *name)
+void load_database(struct database *base, const char *name)
 {
         bool ret = false;
         char target[DH_PATH_MAX];
@@ -140,7 +140,7 @@ bool load_database(struct database *base, const char *name)
 
         if (!file_exist(target)) {
                 ERROR("没有找到“%s”数据库", name);
-                goto load_database_out;
+                return;
         }
 
         // 初始化结构体
@@ -148,11 +148,8 @@ bool load_database(struct database *base, const char *name)
 
         // 如果文件夹为空的话不做任何加载
         if(is_empty_dir(target))
-                goto load_database_out;
+                return;
 
         // 加载表文件
         load_tables(base, target);
-
-load_database_out:
-        return ret;
 }

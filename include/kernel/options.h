@@ -50,7 +50,7 @@ void modify_database_name(struct database *base, const char *oldname, const char
 /** 获取一张表 */
 struct table* dahan_get_table(struct database *base, const char *name);
 /** 加载数据库 */
-bool load_database(struct database *base, const char *name);
+void load_database(struct database *base, const char *name);
 /** 添加一条数据 */
 void dahan_insert(struct database *base, const char *tabname);
 
