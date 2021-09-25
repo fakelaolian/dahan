@@ -33,30 +33,31 @@ void test_options()
 
         vasm_load_impl_v0();
 
-        vasm_dcvap_database(mydb);
-        vasm_mkvap_database(&mydb, "mydb");
+        struct database mydb;
+        create_database(&mydb, "mydb");
 
-        vasm_dcvap_table(usertab);
-        vasm_mkvap_table(&usertab, "t_user");
+        struct table usertab;
+        create_table(&usertab, "t_user");
 
-        vasm_dcvap_column(username);
-        vasm_dcvap_column(password);
+        struct column username;
+        struct column password;
 
-        vasm_mkvap_column(&username, "username", BLOCK_TYPE_VARCHAR, 255, NULL, NULL);
-        vasm_mkvap_column(&password, "password", BLOCK_TYPE_VARCHAR, 256, "没有默认值", NULL);
+        create_column(&username, "username", BLOCK_TYPE_VARCHAR, 255, NULL, NULL);
+        create_column(&password, "password", BLOCK_TYPE_VARCHAR, 256, "没有默认值", NULL);
 
-        vasm_add_column(&usertab, &username);
-        vasm_add_column(&usertab, &password);
+        table_add_column(&usertab, &username);
+        table_add_column(&usertab, &password);
 
-        vasm_add_table(&mydb, &usertab);
+        add_table(&mydb, &usertab);
 
-        modify_column_info(&mydb, "t_user/username", "name_bak", 0, 0, NULL, NULL);
+        modify_column(&mydb, "t_user/username", "name_bak", 0, 0, NULL, NULL);
+        remove_column("mydb/t_user/name_bak");
 
-        vasm_dcvap_database(lmydb);
-        vasm_lvap_database(&lmydb, "mydb");
+        struct database lmydb;
+        load_database(&lmydb, "mydb");
 
-        vasm_fvap_database(&mydb);
-        vasm_fvap_database(&lmydb);
+        database_destroy(&mydb);
+        database_destroy(&lmydb);
 }
 
 int main(void)

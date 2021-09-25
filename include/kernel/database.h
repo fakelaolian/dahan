@@ -36,11 +36,24 @@ struct database {
         struct table *tables;           /* 表结构体列表 */
 };
 
+/* 已打开的数据库 */
+struct opened_database {
+        struct database *p;
+        struct opened_database *next;
+};
+
 /** 初始化数据库 */
 inline void database_init(struct database *base, const char *pathname, const char *name);
 /** 创建数据库, 并序列化到文件中 */
 bool create_database(struct database *base, char *name);
 /** 销毁数据库结构体所占用的内存 */
 inline void database_destroy(struct database *database);
+/** 添加一个打开的数据库 */
+void add_opened_database(struct database *database);
+/** 获取已打开的数据库 */
+struct database *get_opened_database(const char *name);
+
+/** 加载数据库 */
+extern void load_database(struct database *base, const char *name);
 
 #endif // _DATABASE_H

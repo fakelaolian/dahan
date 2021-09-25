@@ -26,6 +26,7 @@
 
 #include <limits.h>
 
+#define DH_CUT_NAME_SIZE          60           /* 名称截取建议大小 */
 #define DH_NAME_MAX               200          /* 表名或函数名最大长度 */
 #define DH_REMARK_MAX             300          /* 备注最大长度 */
 #define DH_VDEF_MAX               200          /* 默认值最大长度 */

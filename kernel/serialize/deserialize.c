@@ -135,7 +135,7 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
 
         // 加载字段列表
         load_columns(&table, fcolsdir);
-        dahan_ladd_table(base, &table);
+        ladd_table(base, &table);
 }
 
 /**
@@ -164,7 +164,7 @@ void load_tables(struct database *base, const char *basedir)
  * @param basedir   数据库所在目录
  * @param name      数据库名称
  */
-void load_database(struct database *base, const char *name)
+extern void load_database(struct database *base, const char *name)
 {
         bool ret = false;
         char target[DH_PATH_MAX];
@@ -185,4 +185,5 @@ void load_database(struct database *base, const char *name)
 
         // 加载表文件
         load_tables(base, target);
+        add_opened_database(base);
 }
