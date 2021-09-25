@@ -33,7 +33,7 @@
 #ifdef WIN32
 #       define DH_PATH_MAX        256
 #elif linux
-#       define DH_PATH_MAX        500
+#       define DH_PATH_MAX        600
 #else
 #       define DH_PATH_MAX        300
 #endif /* WIN32 */

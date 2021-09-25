@@ -26,11 +26,11 @@
 #include "kernel/options.h"
 
 //#define __bytebuf__0
-//#define __options__0
+#define __options__0
 
 void test_options()
 {
-        kconf_init("/home/dahansql");
+        kconf_init("/dahansql");
 
         vasm_load_impl_v0();
 
