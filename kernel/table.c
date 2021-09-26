@@ -43,9 +43,25 @@ void table_linked_remove(struct linked *root, const char *name)
         }
 }
 
-/* // TODO 销毁链表 */
+/* 销毁链表 */
 void table_linked_destroy(struct linked *root)
 {
+        if(root->next == NULL)
+                goto table_linked_destroy;
+
+        struct linked *fnode;
+        struct linked *node = root->next;
+
+        if (node->next != NULL) {
+                fnode = node;
+                node = node->next;
+                kfree(fnode);
+        }
+
+        kfree(node);
+        
+        table_linked_destroy:
+        kfree(root);
 }
 
 

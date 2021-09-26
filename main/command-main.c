@@ -51,7 +51,7 @@ void test_options()
         add_table(&mydb, &usertab);
 
         modify_column(&mydb, "t_user/username", "name_bak", 0, 0, NULL, NULL);
-        remove_column("mydb/t_user/name_bak");
+        // remove_column("mydb/t_user/name_bak");
 
         struct database lmydb;
         load_database(&lmydb, "mydb");
