@@ -37,9 +37,9 @@ struct aat *aat_load_init(size_t arrsize)
 
         aat = kmalloc(sizeof(struct aat));
         areas = kmalloc(sizeof(struct aatarea) * arrsize);
-        aat->idle = kmalloc(sizeof(uint) * arrsize);
+        aat->spac_state = kmalloc(sizeof(uint) * arrsize);
 
-        memset(aat->idle, 0, sizeof(uint) * arrsize);
+        memset(aat->spac_state, 0, sizeof(uint) * arrsize);
 
         aat->arrsize = arrsize;
         aat->areas = areas;
@@ -49,7 +49,7 @@ struct aat *aat_load_init(size_t arrsize)
 
 void aat_destroy(struct aat *aat)
 {
-        kfree(aat->idle);
+        kfree(aat->spac_state);
         kfree(aat->areas);
         kfree(aat);
 }
@@ -59,8 +59,8 @@ void aat_bound(struct aat *aat, uint colid)
         struct aatarea *aatarea;
 
         for (int i = 0; i < aat->arrsize; i++) {
-                if(aat->idle[i] != 1) {
-                        aat->idle[i] = 1;
+                if(aat->spac_state[i] != 1) {
+                        aat->spac_state[i] = 1;
 
                         aatarea = &aat->areas[i];
                         aatarea->areaid = i;
@@ -74,12 +74,12 @@ void aat_bound(struct aat *aat, uint colid)
         aat->arrsize += 16;
 
         aat->areas = kmalloc(sizeof(struct aatarea) * aat->arrsize);
-        uint *idletmp = kmalloc(sizeof(uint) * aat->arrsize);
-        memset(idletmp, 0, sizeof(uint) * aat->arrsize);
+        uint *spac_statetmp = kmalloc(sizeof(uint) * aat->arrsize);
+        memset(spac_statetmp, 0, sizeof(uint) * aat->arrsize);
 
-        memmove(idletmp, aat->idle, sizeof(uint) * aat->arrsize);
-        kfree(aat->idle);
-        aat->idle = idletmp;
+        memmove(spac_statetmp, aat->spac_state, sizeof(uint) * aat->arrsize);
+        kfree(aat->spac_state);
+        aat->spac_state = spac_statetmp;
 }
 
 size_t aat_get(struct aat *aat, uint colid)
@@ -88,7 +88,7 @@ size_t aat_get(struct aat *aat, uint colid)
         struct aatarea *aatarea;
 
         for (int i = 0; i < aat->arrsize; i++) {
-                if (aat->idle[i] != 0) {
+                if (aat->spac_state[i] != 0) {
                         aatarea = &aat->areas[i];
                         if (aatarea->colid == colid) {
                                 ret = aatarea->areaid;
@@ -99,4 +99,10 @@ size_t aat_get(struct aat *aat, uint colid)
 
 aat_get_out:
         return ret;
+}
+
+void aat_remove(struct aat *aat, uint colid)
+{
+        size_t i = aat_get(aat, colid);
+        aat->spac_state[i] = 0;
 }

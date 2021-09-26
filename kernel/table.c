@@ -73,3 +73,8 @@ void table_destroy(struct table *table)
         aat_destroy(table->aat);
         // TODO datafile_destroy(table->datafile);
 }
+
+void table_remove_column(struct table *table, const char *name)
+{
+
+}

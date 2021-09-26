@@ -33,7 +33,7 @@ static void write_aat(const char *pathname, struct aat *aat)
         FILE *fp = fopen(aatpath, "wb");
 
         fwrite(&aat->arrsize, sizeof(size_t), 1, fp);
-        fwrite(aat->idle, sizeof(uint), aat->arrsize, fp);
+        fwrite(aat->spac_state, sizeof(uint), aat->arrsize, fp);
         fwrite(aat->areas, sizeof(struct aatarea), aat->arrsize, fp);
 
         fclose(fp);

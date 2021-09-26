@@ -28,18 +28,6 @@
 
 #define COLUMN_ARRAY_SIZE 16
 
-/*
-
- z
-
- 0 -> name
- s
- 2 -> hight
- 3 -> width
- 4 -> x
- 5 -> y
-
- */
 struct table {
         char name[DH_NAME_MAX];
         uint colnum;                            /* 字段个数 */
@@ -60,5 +48,7 @@ inline void table_destroy(struct table *table);
 void table_add_column(struct table *table, struct column *column);
 /** 根据名称获取表中的字段指针 */
 struct column *get_column(struct table *table, const char *name);
+/** 删除字段 */
+void table_remove_column(struct table *table, const char *name);
 
 #endif // _TABLE_H

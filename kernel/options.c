@@ -24,15 +24,21 @@
 #include "kernel/options.h"
 #include "serialize/serialize.c"
 
-#define CHK_TABLE_NOT_FOUND(__ptr, name)\
+#define CHK_DATABASE_NOT_FOUND(__ptr)\
 if(__ptr == NULL) {\
-        kerror("【%s】表不存在\n", name);\
+        kerror("没有查找到【%s】数据库\n", __ptr->name);\
         return;\
 }
 
-#define CHK_COLUMN_NOT_FOUND(__ptr, name)\
+#define CHK_TABLE_NOT_FOUND(__ptr)\
 if(__ptr == NULL) {\
-        kerror("【%s】字段不存在\n", name);\
+        kerror("【%s】表不存在\n", __ptr->name);\
+        return;\
+}
+
+#define CHK_COLUMN_NOT_FOUND(__ptr)\
+if(__ptr == NULL) {\
+        kerror("【%s】字段不存在\n", __ptr->name);\
         return;\
 }
 
@@ -108,11 +114,11 @@ void modify_column(struct database *base, const char *name, const char *newname,
 
         // 获取表结构体
         table = get_table(base, tabname);
-        CHK_TABLE_NOT_FOUND(table, tabname)
+        CHK_TABLE_NOT_FOUND(table)
 
         // 获取字段结构体
         column = get_column(table, colname);
-        CHK_COLUMN_NOT_FOUND(column, colname)
+        CHK_COLUMN_NOT_FOUND(column)
 
         getcoldir1(coldir, base->pathname, table->name);
 
@@ -162,7 +168,7 @@ void modify_table_name(struct database *base, const char *oldname, const char *n
         struct table *table;
         table = get_table(base, oldname);
 
-        CHK_TABLE_NOT_FOUND(table, oldname)
+        CHK_TABLE_NOT_FOUND(table)
 
         char oldpath[DH_PATH_MAX];
         char newpath[DH_PATH_MAX];
@@ -240,6 +246,7 @@ void insert(struct database *base, const char *tabname)
 
 void remove_column(const char *path)
 {
+        char filepath[DH_PATH_MAX];            /* 表文件路径 */
         char dbname[DH_CUT_NAME_SIZE];         /* 数据库名 */
         char tabname[DH_CUT_NAME_SIZE];        /* 表名 */
         char colname[DH_CUT_NAME_SIZE];        /* 字段名 */
@@ -250,20 +257,19 @@ void remove_column(const char *path)
         get_name_in_path(path, dbname, tabname, colname);
 
         database = get_opened_database(dbname);
-        if (database == NULL) {
-                ERROR("没有查找到【%s】数据库\n", dbname);
-                return;
-        }
+        CHK_DATABASE_NOT_FOUND(database)
 
         table = get_table(database, tabname);
-        if (table == NULL) {
-                ERROR("没有查找到【%s】表\n", tabname);
-                return;
-        }
+        CHK_TABLE_NOT_FOUND(table);
 
         col = get_column(table, colname);
-        if (col == NULL) {
-                ERROR("字段不存在 -【%s】\n", colname);
-                return;
-        }
+        CHK_COLUMN_NOT_FOUND(col)
+
+        // 1. 构建字段文件路径
+        xsnprintf(filepath, DH_PATH_MAX, "%s/%s/%s/%s/%s", kconf_data_dir(), database->name,
+                  table->name, _FCOLS_DIR_NAME, col->name);
+
+        // 2. 删除表结构中的字段
+        table_remove_column(table, colname);
+
 }

@@ -34,7 +34,7 @@ struct aatarea {
 
 /* 数据区域分配表 */
 struct aat {
-        uint *idle;
+        uint *spac_state;
         size_t arrsize;
         struct aatarea *areas;
 };
@@ -50,5 +50,8 @@ void aat_destroy(struct aat *aat);
 void aat_bound(struct aat *aat, uint colname);
 /* 获取字段对应的区域id */
 size_t aat_get(struct aat *aat, uint colname);
+/* 删除一个区域 */
+__always_inline__
+void aat_remove(struct aat *aat, uint colid);
 
 #endif /* _AAT_H */

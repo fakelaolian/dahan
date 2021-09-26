@@ -89,7 +89,7 @@ struct aat *load_aat(const char *tabledir)
         fread(&arrsize, sizeof(size_t), 1, fp);
         aat = aat_load_init(arrsize);
 
-        fread(aat->idle, sizeof(uint), arrsize, fp);
+        fread(aat->spac_state, sizeof(uint), arrsize, fp);
         fread(aat->areas, sizeof(struct aatarea), arrsize, fp);
         fclose(fp);
 
