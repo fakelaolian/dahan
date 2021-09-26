@@ -86,7 +86,7 @@ static void write_single_column(const char *coldir, struct column *col)
  * @param size          数组大小
  */
 __always_inline__
-static void write_columns(const char *tablepath, struct column *cols, size_t size)
+static void write_columns(const char *tablepath, struct linked *cols, size_t size)
 {
         char coldir[DH_PATH_MAX];
         getcoldir0(coldir, tablepath);
@@ -96,6 +96,5 @@ static void write_columns(const char *tablepath, struct column *cols, size_t siz
                 dahan_mkdirs(coldir);
 
         // 循环序列化所有字段
-        for (size_t i = 0; i < size; i++)
-                write_single_column(coldir, &cols[i]);
+        linked_iter(cols, iter, write_single_column(coldir, COLVALUE(iter->value)))
 }

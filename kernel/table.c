@@ -23,45 +23,57 @@
  */
 #include "kernel/table.h"
 
+/* 获取一个节点 */
+struct linked *table_linked_get(struct linked *root, const char *name)
+{
+        linked_iter(root, iter, {
+                if (strcmp(COLVALUE(iter->value)->name, name) == 0)
+                        return iter;
+        })
+
+        return NULL;
+}
+
+/* 删除一个节点，相当于从表中删除了一个字段 */
+void table_linked_remove(struct linked *root, const char *name)
+{
+        struct linked *node = table_linked_get(root, name);
+        if (node != NULL) {
+                LINKED_DELETE(node)
+        }
+}
+
+/* // TODO 销毁链表 */
+void table_linked_destroy(struct linked *root)
+{
+}
+
+
 void create_table(struct table *table, char *name)
 {
         table->colnum = 0;
-        table->arrsize = COLUMN_ARRAY_SIZE;
         strncpy(table->name, name, DH_NAME_MAX);
-        table->columns = kmalloc(sizeof(struct column) * COLUMN_ARRAY_SIZE);
         table->size = 0;
         table->blocksize = 16000; /* 16kb */
         table->aat = aat_init();
+        table->columns = linked_init();
 
         memset(table->remark, 0, DH_REMARK_MAX);
 }
 
 void table_add_column(struct table *table, struct column *column)
 {
-        if (table->colnum == (table->arrsize - 1))
-                _ARRAY_RESIZE(table, COLUMN_ARRAY_SIZE,
-                              columns, sizeof(struct column));
-
-        if(kcheck_column_name_dup(table->columns, table->colnum, column->name)) {
-                puts("字段名重复");
-                return;
-        }
-
         column->id = table->colnum;
         aat_bound(table->aat, column->id);
-        table->columns[table->colnum] = (*column);
+        linked_add(table->columns, column);
         ++table->colnum;
 }
 
 struct column *get_column(struct table *table, const char *name)
 {
-        struct column *col;
-
-        size_t i;
-        for(i = 0; i < table->colnum; i++) {
-                col = (table->columns + i);
-                if (strcmp(col->name, name) == 0)
-                        return col;
+        struct linked *node = table_linked_get(table->columns, name);
+        if (node != NULL) {
+                return COLVALUE(node->value);
         }
 
         return NULL;
@@ -69,12 +81,12 @@ struct column *get_column(struct table *table, const char *name)
 
 void table_destroy(struct table *table)
 {
-        kfree(table->columns);
         aat_destroy(table->aat);
+        table_linked_destroy(table->columns);
         // TODO datafile_destroy(table->datafile);
 }
 
 void table_remove_column(struct table *table, const char *name)
 {
-
+        table_linked_remove(table->columns, name);
 }
