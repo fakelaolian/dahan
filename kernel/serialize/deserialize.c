@@ -75,28 +75,6 @@ void load_columns(struct table *table, const char *fcolsdir)
 }
 
 /**
- * 加载数据区域分配文件
- */
-struct aat *load_aat(const char *tabledir)
-{
-        size_t arrsize;
-        struct aat *aat;
-        char aatpath[DH_NAME_MAX];
-
-        xsnprintf(aatpath, DH_NAME_MAX, "%s/%s", tabledir, _AAT_NAME);
-
-        FILE *fp = fopen(aatpath, "rb");
-        fread(&arrsize, sizeof(size_t), 1, fp);
-        aat = aat_load_init(arrsize);
-
-        fread(aat->spac_state, sizeof(uint), arrsize, fp);
-        fread(aat->areas, sizeof(struct aatarea), arrsize, fp);
-        fclose(fp);
-
-        return aat;
-}
-
-/**
  * 反序列化表
  *
  * @param base      数据库结构体指针
@@ -125,10 +103,6 @@ void deserialize_table(struct database *base, const char *tabledir, char *name)
         table.size = size;
         table.blocksize = blocksize;
         strncpy(table.remark, remark, DH_REMARK_MAX);
-
-        // 加载区域分配表
-        aat = load_aat(tabledir);
-        table.aat = aat;
 
         char fcolsdir[DH_PATH_MAX];
         xsnprintf(fcolsdir, DH_PATH_MAX, "%s/%s", tabledir, _FCOLS_DIR_NAME);

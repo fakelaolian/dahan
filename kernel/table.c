@@ -35,12 +35,17 @@ struct linked *table_linked_get(struct linked *root, const char *name)
 }
 
 /* 删除一个节点，相当于从表中删除了一个字段 */
-void table_linked_remove(struct linked *root, const char *name)
+void table_linked_remove(struct table *table, const char *name)
 {
-        struct linked *node = table_linked_get(root, name);
-        if (node != NULL) {
-                LINKED_DELETE(node)
-        }
+        struct linked *node = table_linked_get(table->columns, name);
+        if (node == NULL)
+                return;
+
+        /* 删除区域分配表 */
+        struct column *col = COLVALUE(node->value);
+
+        /* 删除节点 */
+        LINKED_DELETE(node);
 }
 
 /* 销毁链表 */
@@ -59,7 +64,7 @@ void table_linked_destroy(struct linked *root)
         }
 
         kfree(node);
-        
+
         table_linked_destroy:
         kfree(root);
 }
@@ -71,7 +76,6 @@ void create_table(struct table *table, char *name)
         strncpy(table->name, name, DH_NAME_MAX);
         table->size = 0;
         table->blocksize = 16000; /* 16kb */
-        table->aat = aat_init();
         table->columns = linked_init();
 
         memset(table->remark, 0, DH_REMARK_MAX);
@@ -80,7 +84,6 @@ void create_table(struct table *table, char *name)
 void table_add_column(struct table *table, struct column *column)
 {
         column->id = table->colnum;
-        aat_bound(table->aat, column->id);
         linked_add(table->columns, column);
         ++table->colnum;
 }
@@ -97,12 +100,6 @@ struct column *get_column(struct table *table, const char *name)
 
 void table_destroy(struct table *table)
 {
-        aat_destroy(table->aat);
         table_linked_destroy(table->columns);
         // TODO datafile_destroy(table->datafile);
-}
-
-void table_remove_column(struct table *table, const char *name)
-{
-        table_linked_remove(table->columns, name);
 }

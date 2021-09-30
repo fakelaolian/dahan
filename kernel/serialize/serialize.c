@@ -26,20 +26,6 @@
 #include "_serial.h"
 
 __always_inline__
-static void write_aat(const char *pathname, struct aat *aat)
-{
-        char aatpath[DH_PATH_MAX];
-        xsnprintf(aatpath, DH_PATH_MAX, "%s/%s", pathname, _AAT_NAME);
-        FILE *fp = fopen(aatpath, "wb");
-
-        fwrite(&aat->arrsize, sizeof(size_t), 1, fp);
-        fwrite(aat->spac_state, sizeof(uint), aat->arrsize, fp);
-        fwrite(aat->areas, sizeof(struct aatarea), aat->arrsize, fp);
-
-        fclose(fp);
-}
-
-__always_inline__
 static void write_table(const char *pathname, struct table *table)
 {
         char tablepath[DH_PATH_MAX];
@@ -51,9 +37,6 @@ static void write_table(const char *pathname, struct table *table)
         fwrite(&table->size, sizeof(size_t), 1, fp);
         fwrite(&table->blocksize, sizeof(size_t), 1, fp);
         fclose(fp);
-
-        // 写入区域分配表数据
-        write_aat(pathname, table->aat);
 }
 
 /**

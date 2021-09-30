@@ -25,7 +25,6 @@
 #define _TABLE_H
 
 #include "aat.h"
-#include <linked.h>
 
 struct table {
         char name[DH_NAME_MAX];
@@ -49,8 +48,8 @@ void table_add_column(struct table *table, struct column *column);
 /** 根据名称获取表中的字段指针 */
 __always_inline__
 struct column *get_column(struct table *table, const char *name);
-/** 删除字段 */
-__always_inline__
-void table_remove_column(struct table *table, const char *name);
+/* 删除链表内容 */
+void table_linked_remove(struct table *table, const char *name);
+#define table_remove_column(__table, __name) table_linked_remove(__table, __name)
 
 #endif // _TABLE_H
