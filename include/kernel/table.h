@@ -24,7 +24,8 @@
 #ifndef _TABLE_H
 #define _TABLE_H
 
-#include "aat.h"
+#include "column.h"
+#include "eng/fat.h"
 
 struct table {
         char name[DH_NAME_MAX];
@@ -32,8 +33,7 @@ struct table {
         size_t size;                            /* 数据大小 */
         size_t blocksize;                       /* 数据块大小 */
         char remark[DH_REMARK_MAX];             /* 备注 */
-        datafile_t *datafile;                   /* 数据文件 */
-        struct aat *aat;                        /* 区域分配表 */
+        FAT *fat;                               /* 文件分配表 */
         struct linked *columns;                 /* 字段链表 */
 };
 

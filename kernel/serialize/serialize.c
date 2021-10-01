@@ -52,7 +52,6 @@ static void write_single_column(const char *coldir, struct column *col)
         xsnprintf(fcolpath, DH_PATH_MAX, "%s/%s", coldir, col->name);
 
         FILE *fp = fopen(fcolpath, "wb");
-        fwrite(&col->id, sizeof(uint), 1, fp);
         fwrite(col->name, DH_NAME_MAX, 1, fp);
         fwrite(col->remark, DH_REMARK_MAX, 1, fp);
         fwrite(col->vdef, DH_VDEF_MAX, 1, fp);

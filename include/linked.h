@@ -47,7 +47,7 @@ while ((__name = __name->next) != NULL) {               \
 }
 
 /* 初始化一个链表 */
-struct linked *linked_init();
+struct linked *linked_create();
 /* 往node下新增一个节点（注意：这个节点可以是任何节点。
  * 不是非必须根节点。*/
 void linked_add(struct linked *root, void *value);

@@ -27,15 +27,14 @@
 #include "kconfig.h"
 #include "a/kcheck.h"
 #include "a/comm.h"
-#include "eng/datafile.h"
+#include <linked.h>
 
 struct column {
-        uint id;
-        char name[DH_NAME_MAX];
-        unsigned char type;               /* 字段类型 */
         uint len;                         /* 字段长度（仅限于可变长度的字段） */
-        char remark[DH_REMARK_MAX];       /* 备注 */
+        uchar type;                       /* 字段类型 */
+        char name[DH_NAME_MAX];
         char vdef[DH_VDEF_MAX];           /* 默认值 */
+        char remark[DH_REMARK_MAX];       /* 备注 */
 };
 
 /**
@@ -47,10 +46,10 @@ struct column {
  * @param len       字段长度
  */
 inline void create_column(struct column *column,
-                        char *name,
-                        unsigned char type,
-                        size_t len,
-                        char *remark,
-                        char *vdef);
+                          char *name,
+                          unsigned char type,
+                          size_t len,
+                          char *remark,
+                          char *vdef);
 
 #endif // _COLUMN_H

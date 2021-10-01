@@ -76,14 +76,13 @@ void create_table(struct table *table, char *name)
         strncpy(table->name, name, DH_NAME_MAX);
         table->size = 0;
         table->blocksize = 16000; /* 16kb */
-        table->columns = linked_init();
+        table->columns = linked_create();
 
         memset(table->remark, 0, DH_REMARK_MAX);
 }
 
 void table_add_column(struct table *table, struct column *column)
 {
-        column->id = table->colnum;
         linked_add(table->columns, column);
         ++table->colnum;
 }

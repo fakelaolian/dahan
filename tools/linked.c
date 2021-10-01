@@ -23,7 +23,7 @@
  */
 #include <linked.h>
 
-struct linked *linked_init()
+struct linked *linked_create()
 {
         struct linked *linked = kmalloc(sizeof(struct linked));
         linked->value = NULL;

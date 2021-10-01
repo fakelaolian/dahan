@@ -46,11 +46,10 @@ void deserialize_column(struct table *table, char *colpath)
         fread(&collen, sizeof(uint), 1, fp);
         fclose(fp);
 
-        col.id = id;
         create_column(&col, colname, coltype, collen, colremark, colvdef);
 
-        printf("id(%d), col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
-               col.id, col.name, col.type, col.len, col.vdef, col.remark);
+        printf("col(%s), type(%d), len(%d), vdef(%s), remark(%s)\n",
+               col.name, col.type, col.len, col.vdef, col.remark);
 
         table_add_column(table, &col);
 }
